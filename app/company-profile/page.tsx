@@ -113,7 +113,7 @@ export default function CompanyProfilePage() {
                                     {language === 'ja' ? '取引先銀行' : 'Bank'}
                                 </h3>
                                 <p className="text-lg text-gray-900 font-medium">
-                                    {language === 'ja' ? '千葉銀行、京葉銀' : 'Chiba Bank, Keiyo Bank'}
+                                    {language === 'ja' ? '千葉銀行、京葉銀行' : 'Chiba Bank, Keiyo Bank'}
                                 </p>
                             </div>
 
