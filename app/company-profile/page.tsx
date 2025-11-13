@@ -110,10 +110,10 @@ export default function CompanyProfilePage() {
                             <div className="group">
                                 <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
                                     <Building2 className="w-4 h-4 text-teal-500" />
-                                    {language === 'ja' ? '取引銀行先' : 'Bank'}
+                                    {language === 'ja' ? '取引先銀行' : 'Bank'}
                                 </h3>
                                 <p className="text-lg text-gray-900 font-medium">
-                                    {language === 'ja' ? '千葉銀行、京葉銀行' : 'Chiba Bank, Keiyo Bank'}
+                                    {language === 'ja' ? '千葉銀行、京葉銀' : 'Chiba Bank, Keiyo Bank'}
                                 </p>
                             </div>
 
