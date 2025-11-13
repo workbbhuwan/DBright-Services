@@ -36,6 +36,31 @@ export function Footer({ className, containerClassName }: FooterProps) {
                                 ? '清掃、人材派遣、留学サポート、不動産など、幅広いサービスを提供し、日本と世界をつなぎます。'
                                 : 'Providing diverse services including cleaning, staffing, study abroad support, and real estate—connecting Japan and the world.'}
                         </p>
+
+                        {/* Akaru Cleaning */}
+                        <div className="mt-4 pt-4 border-t border-gray-700 w-full">
+                            <Link
+                                href="https://akarucleaning.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center justify-center md:justify-start gap-3 hover:opacity-80 transition-opacity"
+                            >
+                                <Image
+                                    src="/akaru_logo.png"
+                                    alt="Akaru Cleaning"
+                                    width={40}
+                                    height={40}
+                                    className="rounded-lg"
+                                />
+                                <div className="text-left">
+                                    <p className="text-white font-semibold text-sm">
+                                        {language === 'ja' ? 'AKARU クリーニング' : 'Akaru Cleaning'}
+                                    </p>
+                                    <p className="text-gray-400 text-xs">akarucleaning.com</p>
+                                </div>
+                            </Link>
+                        </div>
+
                         <div className="flex items-center justify-center md:justify-start gap-2 sm:gap-3">
                             <Link
                                 href="https://facebook.com"
