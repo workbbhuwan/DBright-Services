@@ -103,7 +103,7 @@ theme: {
 
 ---
 
-## 📧 Email Configuration Guides
+## Email Configuration Guides
 
 ### Gmail Setup (Development)
 
@@ -160,7 +160,7 @@ npm run dev
 
 ---
 
-## 🐛 Troubleshooting Guide
+## Troubleshooting Guide
 
 ### Contact Form Issues
 
@@ -225,7 +225,7 @@ npm run build
 
 ---
 
-## ⚡ Performance Optimization
+## Performance Optimization
 
 ### Image Optimization
 
@@ -275,7 +275,7 @@ Fonts are already optimized with Google Fonts!
 
 ---
 
-## 🔒 Security Best Practices
+## Security Best Practices
 
 ### Environment Variables
 
@@ -285,7 +285,7 @@ Fonts are already optimized with Google Fonts!
 - Store secrets in environment variables
 - Use different credentials for dev/prod
 
-❌ **DON'T:**
+**DON'T:**
 - Commit `.env.local` to Git
 - Share credentials publicly
 - Hardcode passwords in code
@@ -310,7 +310,7 @@ Already implemented:
 
 ---
 
-## 📊 Analytics Setup (Optional)
+## Analytics Setup (Optional)
 
 ### Google Analytics 4
 
@@ -390,7 +390,7 @@ Already implemented:
 
 ---
 
-## 🚀 Deployment Tips
+## Deployment Tips
 
 ### Before Deploying
 
@@ -416,7 +416,7 @@ Already implemented:
 
 ---
 
-## 📝 Content Writing Tips
+## Content Writing Tips
 
 ### Homepage Hero
 
@@ -446,7 +446,7 @@ Already implemented:
 
 ---
 
-## 🎨 Design Consistency
+## Design Consistency
 
 ### Color Usage
 
@@ -516,7 +516,7 @@ git merge feature/add-blog
 
 ---
 
-## 🆘 Getting Help
+## Getting Help
 
 ### Documentation Order
 

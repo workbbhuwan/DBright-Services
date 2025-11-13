@@ -1,6 +1,6 @@
-# Dbright Services - Bilingual Cleaning Company Website
+# D.BRIGHT Services - Bilingual Multi-Service Company Website
 
-A modern, responsive, bilingual (Japanese/English) website for Dbright Services, a professional cleaning company based in Japan. Built with Next.js 14, TypeScript, Tailwind CSS, and shadcn/ui components.
+A modern, responsive, bilingual (Japanese/English) website for D.BRIGHT Services, a comprehensive service company based in Japan offering cleaning, staffing, study abroad support, halal business support, and consulting services. Built with Next.js 14, TypeScript, Tailwind CSS, Framer Motion, and shadcn/ui components.
 
 ![Dbright Services](https://img.shields.io/badge/Next.js-14-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
@@ -10,9 +10,11 @@ A modern, responsive, bilingual (Japanese/English) website for Dbright Services,
 
 - **Bilingual Support**: Seamless switching between Japanese (default) and English
 - **Responsive Design**: Mobile-first, works perfectly on all devices
-- **Modern UI**: Clean, minimalist Japanese aesthetic with Tailwind CSS
-- **Smooth Animations**: Framer Motion for elegant transitions
-- **Contact Form**: Email integration with Nodemailer
+- **Modern UI**: Clean, professional design with gradient backgrounds and decorative elements
+- **Smooth Animations**: Framer Motion for elegant page transitions and interactions
+- **Interactive Carousel**: Service showcase with shadcn/ui carousel component
+- **Contact Form**: Email integration with Nodemailer and user confirmation emails
+- **Partner Integration**: Featured partner section (Akaru Cleaning) in footer
 - **SEO Friendly**: Optimized metadata and structure
 - **Easy Deployment**: Ready for cPanel, Vercel, or Netlify
 
@@ -37,10 +39,18 @@ dbright/
 │   ├── ui/
 │   │   ├── button.tsx             # Button component
 │   │   ├── card.tsx               # Card component
+│   │   ├── carousel.tsx           # Carousel component
 │   │   ├── input.tsx              # Input component
 │   │   ├── textarea.tsx           # Textarea component
 │   │   └── label.tsx              # Label component
-│   ├── Footer.tsx                 # Footer component
+│   ├── home/
+│   │   ├── animations.ts          # Framer Motion animation variants
+│   │   ├── CTA.tsx                # Call-to-action section
+│   │   ├── Hero.tsx               # Hero section with stats
+│   │   ├── Intro.tsx              # Company introduction
+│   │   ├── Services.tsx           # Services carousel
+│   │   └── WhyChooseUs.tsx        # Benefits section
+│   ├── Footer.tsx                 # Footer with partner links
 │   ├── LanguageSwitcher.tsx       # Language toggle button
 │   └── Navbar.tsx                 # Navigation bar
 ├── lib/
@@ -105,23 +115,33 @@ dbright/
 ## 📄 Pages Overview
 
 ### 1. Home Page (`/`)
-- Hero section with company branding
-- Introduction to Dbright Services
-- "Why Choose Us" section with 4 key benefits
-- CTA buttons to Services and Contact pages
+- **Hero Section**: Full-screen background with company tagline, statistics, and CTAs
+- **Intro Section**: Company overview and mission statement
+- **Services Carousel**: Interactive carousel showcasing 5 main services:
+  - Hotel Cleaning
+  - Staffing Services
+  - Halal Business Support
+  - Study Abroad Support
+  - Consulting for Foreigners
+- **Why Choose Us**: 4 key benefits with icons and descriptions
+- **CTA Section**: Final call-to-action encouraging contact
 
 ### 2. Services Page (`/services`)
-- Grid layout showcasing 6 cleaning services:
-  - Home Cleaning
-  - Office Cleaning
-  - Hotel Cleaning
-  - Airbnb Cleaning
-  - Deep Cleaning
-  - Regular Cleaning
+- Comprehensive service listings across multiple categories
+- Detailed service descriptions with images
+- Call-to-action buttons for inquiries
 
 ### 3. Company Profile (`/company-profile`)
-- Company description and mission
+- Detailed company information:
+  - Company Name: 株式会社 D.BRIGHT
+  - Representative Director: OJHA KESHAV RAJ
+  - Capital: ¥5,000,000
+  - Banks: 千葉銀行、京葉銀
+  - Main Business: Cleaning, staffing, accommodation management, translation
+  - Address: Chiba Prefecture, Ichikawa City
+  - Contact: Phone, Fax, Email
 - Core values: Quality, Trust, Cleanliness, Professionalism
+- Mission and vision statements
 
 ### 4. Contact Page (`/contact`)
 - Contact form with validation
@@ -186,8 +206,10 @@ import { Noto_Sans_JP, Inter } from "next/font/google";
 
 ### Content
 - **Company Info**: Edit `lib/translations/ja.json` and `en.json`
-- **Services**: Modify `app/services/page.tsx`
+- **Services**: Modify `components/home/Services.tsx` and `app/services/page.tsx`
 - **Contact Info**: Update footer data in translation files
+- **Partner Links**: Edit `components/Footer.tsx` to add/modify partner logos and links
+- **Hero Statistics**: Update stats in `components/home/Hero.tsx`
 
 ## 🛠️ Build & Deploy
 
@@ -252,6 +274,11 @@ vercel
 ### Images not displaying
 - Ensure images are in `public/` folder
 - Use proper paths: `/image.jpg` (not `./image.jpg`)
+- Check that required images exist: `heroine.png`, `logo.png`, `akaru_logo.png`, service images
+
+### Carousel not working
+- Ensure embla-carousel dependencies are installed
+- Check that carousel component is properly imported from `@/components/ui/carousel`
 
 ### TypeScript errors
 - Run `npm run build` to see detailed errors
@@ -270,10 +297,11 @@ This project is proprietary software for Dbright Services.
 
 ## 🤝 Support
 
-For support or questions, contact your development team.
+For support or questions, contact our development team.
 
 ---
 
 **Built with ❤️ for Dbright Services**
 
 # DBright-Services
+
