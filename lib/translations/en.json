@@ -1,0 +1,120 @@
+{
+    "nav": {
+        "home": "Home",
+        "services": "Services",
+        "companyProfile": "Company Profile",
+        "contact": "Contact Us"
+    },
+    "home": {
+        "hero": {
+            "title": "Dbright Services",
+            "tagline": "Professional Cleaning Services That Make Your Space Shine",
+            "ctaServices": "View Services",
+            "ctaContact": "Contact Us"
+        },
+        "intro": {
+            "title": "About Us",
+            "description": "Dbright Services provides professional cleaning services throughout Japan. We are committed to transforming homes, offices, hotels, Airbnb properties, and all types of spaces into clean and comfortable environments. With experienced staff and the latest cleaning technology, we deliver the highest quality services tailored to your needs."
+        },
+        "whyChooseUs": {
+            "title": "Why Choose Dbright",
+            "reasons": {
+                "quality": {
+                    "title": "High Quality",
+                    "description": "We use professional techniques and premium cleaning products to achieve thorough cleaning results."
+                },
+                "trust": {
+                    "title": "Reliability",
+                    "description": "Our experienced staff provides safe and secure services with a proven track record."
+                },
+                "speed": {
+                    "title": "Quick Response",
+                    "description": "We work efficiently and quickly to accommodate your schedule."
+                },
+                "cleanliness": {
+                    "title": "Thorough Cleanliness",
+                    "description": "We deliver spotless spaces that exceed expectations through meticulous attention to detail."
+                }
+            }
+        }
+    },
+    "services": {
+        "title": "Our Services",
+        "subtitle": "We offer a wide range of cleaning services tailored to your needs",
+        "list": {
+            "home": {
+                "title": "Home Cleaning",
+                "description": "Keep your living room, kitchen, bathroom, bedroom, and all areas of your home spotlessly clean."
+            },
+            "office": {
+                "title": "Office Cleaning",
+                "description": "From regular cleaning to special deep cleaning, we maintain a comfortable workplace environment."
+            },
+            "hotel": {
+                "title": "Hotel Cleaning",
+                "description": "We provide comfortable spaces for guests by cleaning guest rooms, lobbies, and common areas."
+            },
+            "airbnb": {
+                "title": "Airbnb Cleaning",
+                "description": "Quick cleaning and maintenance of short-term rental properties to prepare for your next guests."
+            },
+            "deep": {
+                "title": "Deep Cleaning",
+                "description": "Thorough cleaning that reaches areas regular cleaning can't, creating a hygienic environment."
+            },
+            "regular": {
+                "title": "Regular Cleaning",
+                "description": "We offer weekly, monthly, or custom regular cleaning plans to fit your schedule."
+            }
+        }
+    },
+    "companyProfile": {
+        "title": "Company Profile",
+        "subtitle": "Our Mission and Vision",
+        "description": "Dbright Services was founded to provide innovative cleaning services in the Japanese cleaning industry. Our mission is to provide clean and comfortable spaces to all our customers. We use professional staff, the latest cleaning technology, and environmentally friendly cleaning products to consistently pursue the highest quality service. We prioritize customer satisfaction and trust, and strive daily to improve our services.",
+        "mission": {
+            "title": "Our Mission",
+            "description": "Dbright Services is committed to improving the quality of people's lives and work through clean and comfortable spaces. We provide value that exceeds customer expectations through professional techniques and heartfelt service."
+        },
+        "values": {
+            "title": "Our Values",
+            "quality": {
+                "title": "Commitment to Quality",
+                "description": "We constantly strive for technical improvement and quality control to provide the highest quality service."
+            },
+            "trust": {
+                "title": "Building Trust",
+                "description": "We value long-term relationships with our customers and provide honest and transparent services."
+            },
+            "cleanliness": {
+                "title": "Pursuit of Cleanliness",
+                "description": "We create healthy and comfortable environments through meticulous cleaning down to the smallest details."
+            },
+            "professionalism": {
+                "title": "Professionalism",
+                "description": "Our staff with extensive experience and expertise provide services with responsibility."
+            }
+        }
+    },
+    "contact": {
+        "title": "Contact Us",
+        "subtitle": "If you have any questions or inquiries, please feel free to contact us",
+        "form": {
+            "name": "Name",
+            "email": "Email",
+            "phone": "Phone",
+            "message": "Message",
+            "submit": "Send Message",
+            "sending": "Sending..."
+        },
+        "success": "Message sent successfully. Thank you for contacting us.",
+        "error": "Failed to send message. Please try again."
+    },
+    "footer": {
+        "company": "Dbright Services",
+        "address": "1-2-3 Shibuya, Shibuya-ku, Tokyo, Japan",
+        "phone": "03-1234-5678",
+        "email": "info@dbright-services.jp",
+        "copyright": "© 2025 Dbright Services. All rights reserved."
+    }
+}

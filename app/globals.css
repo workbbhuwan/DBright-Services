@@ -1,0 +1,103 @@
+/**
+ * Global Styles for Dbright Services
+ * Modern, clean design with Japanese aesthetic
+ */
+
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+}
+
+/* The overly aggressive universal selector that was resetting all margins and paddings has been removed.
+   Tailwind's own 'preflight' base styles will handle browser normalization. */
+
+/* Prevent layout shifts on zoom */
+@media screen {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-width: 320px;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  width: 100%;
+  max-width: 100vw;
+  min-width: 320px;
+  overflow-x: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure all sections stay contained */
+section {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* Site-wide fixed content container (prevents scattering on zoom) */
+.site-container {
+  width: 100%;
+  max-width: 1270px;
+  /* Adjust this value if you want narrower or wider */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: .5rem;
+  padding-right: .5rem;
+
+}
+
+@media (min-width: 1536px) {
+
+  /* Keep content centered and do not expand beyond max-width */
+  .site-container {
+    max-width: 1350px;
+  }
+}
+
+/* Smooth scrolling for anchor links */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom decorative background pattern for hero sections */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Focus visible styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Remove spinner from number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
