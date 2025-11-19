@@ -117,6 +117,28 @@ export default function CompanyProfilePage() {
                                 </p>
                             </div>
 
+                            {/* Major Clients */}
+                            <div className="group">
+                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                    <Briefcase className="w-4 h-4 text-orange-500" />
+                                    {language === 'ja' ? '主要取引先' : 'Major Clients'}
+                                </h3>
+                                <ul className="space-y-1">
+                                    <li className="flex items-start">
+                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
+                                        <span className="text-gray-700">{language === 'ja' ? '株式会社ハウゼスタッフ' : 'Hauze Staff Corporation'}</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
+                                        <span className="text-gray-700">{language === 'ja' ? '株式会社ベストクリエイト' : 'Best Create Corporation'}</span>
+                                    </li>
+                                    <li className="flex items-start">
+                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
+                                        <span className="text-gray-700">{language === 'ja' ? '株式会社クライト' : 'Krait Corporation'}</span>
+                                    </li>
+                                </ul>
+                            </div>
+
                             {/* Main Business */}
                             <div className="group md:row-span-2">
                                 <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
@@ -125,7 +147,7 @@ export default function CompanyProfilePage() {
                                 </h3>
                                 <ul className="space-y-2">
                                     <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
                                         <span className="text-gray-700">{language === 'ja' ? '清掃業' : 'Cleaning services'}</span>
                                     </li>
                                     <li className="flex items-start">
