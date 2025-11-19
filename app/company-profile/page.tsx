@@ -151,15 +151,15 @@ export default function CompanyProfilePage() {
                                         <span className="text-gray-700">{language === 'ja' ? '清掃業' : 'Cleaning services'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
                                         <span className="text-gray-700">{language === 'ja' ? '労働者派遣業' : 'Worker dispatch services'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
                                         <span className="text-gray-700">{language === 'ja' ? '寮、ホテル、その他宿泊施設の経営・コンサルティング' : 'Dormitory, hotel, and other accommodation management/consulting'}</span>
                                     </li>
                                     <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
                                         <span className="text-gray-700">{language === 'ja' ? '通訳・翻訳サービス' : 'Interpretation and translation services'}</span>
                                     </li>
                                 </ul>
@@ -220,7 +220,7 @@ export default function CompanyProfilePage() {
             </section>
 
             {/* Values Section */}
-            <section className="py-12 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+            <section className="py-12 bg-linear-to-b from-gray-50 to-white relative overflow-hidden">
                 {/* Decorative Background */}
                 <div className="absolute inset-0 opacity-30 pointer-events-none">
                     <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full filter blur-3xl"></div>
@@ -262,7 +262,7 @@ export default function CompanyProfilePage() {
                             return (
                                 <motion.div key={index} variants={fadeInUp}>
                                     <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white group overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
 
                                         <CardHeader className="relative z-10">
                                             <div className={`w-16 h-16 ${value.color} rounded-xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}>
@@ -278,7 +278,7 @@ export default function CompanyProfilePage() {
                                             </CardDescription>
                                         </CardContent>
 
-                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                                     </Card>
                                 </motion.div>
                             );
