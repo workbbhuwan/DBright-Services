@@ -73,7 +73,7 @@ export default function Error({
                         transition={{ delay: 0.7 }}
                         className="mb-8 p-4 bg-gray-100 rounded-lg text-left max-w-xl mx-auto"
                     >
-                        <p className="text-sm text-gray-700 font-mono wrap-break-word">
+                        <p className="text-sm text-gray-700 font-mono wrap-break-words">
                             {error.message}
                         </p>
                     </motion.div>
