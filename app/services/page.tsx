@@ -75,7 +75,7 @@ export default function ServicesPage() {
 
     return (
         <div className="flex flex-col">
-            <section className="py-8 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+            <section className="py-8 bg-linear-to-b from-gray-50 to-white relative overflow-hidden">
                 <div className="site-container px-4 sm:px-6 lg:px-8">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
