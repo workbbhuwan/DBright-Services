@@ -134,7 +134,7 @@ export default function CompanyProfilePage() {
                                     </li>
                                     <li className="flex items-start">
                                         <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
-                                        <span className="text-gray-700">{language === 'ja' ? '株式会社クライト' : 'Krait Corporation'}</span>
+                                        <span className="text-gray-700">{language === 'ja' ? '株式会社ユニバーサル企業' : 'Universal Corporation'}</span>
                                     </li>
                                 </ul>
                             </div>
