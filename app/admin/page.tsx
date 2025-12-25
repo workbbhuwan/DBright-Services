@@ -211,17 +211,17 @@ export default function AdminDashboard() {
   // Login Screen
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-        <Card className="w-full max-w-md p-8 shadow-2xl">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-4">
-              <Mail className="w-8 h-8 text-white" />
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-3 sm:p-4">
+        <Card className="w-full max-w-md p-6 sm:p-8 shadow-2xl">
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 rounded-full mb-3 sm:mb-4">
+              <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-            <p className="text-gray-600 mt-2">D.BRIGHT Services</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+            <p className="text-sm sm:text-base text-gray-600 mt-2">D.BRIGHT Services</p>
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-4 sm:space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Username
@@ -233,7 +233,7 @@ export default function AdminDashboard() {
                 placeholder="Enter username"
                 required
                 disabled={isLoading}
-                className="w-full"
+                className="w-full h-11 sm:h-10"
               />
             </div>
 
@@ -248,12 +248,12 @@ export default function AdminDashboard() {
                 placeholder="Enter password"
                 required
                 disabled={isLoading}
-                className="w-full"
+                className="w-full h-11 sm:h-10"
               />
             </div>
 
             {loginError && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
+              <div className="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded text-sm">
                 {loginError}
               </div>
             )}
@@ -261,7 +261,7 @@ export default function AdminDashboard() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 h-11 sm:h-10"
             >
               {isLoading ? 'Logging in...' : 'Login'}
             </Button>
@@ -275,110 +275,111 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="text-sm text-gray-600">D.BRIGHT Services Management</p>
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">Admin Dashboard</h1>
+              <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">D.BRIGHT Services Management</p>
             </div>
             <Button
               onClick={handleLogout}
               variant="outline"
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm px-3 sm:px-4 h-9 sm:h-10"
             >
-              <LogOut className="w-4 h-4" />
-              Logout
+              <LogOut className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Logout</span>
+              <span className="sm:hidden">Out</span>
             </Button>
           </div>
         </div>
       </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-4 sm:mb-6 lg:mb-8">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-100 text-sm font-medium">Total Messages</p>
-                <p className="text-3xl font-bold mt-2">{stats.total}</p>
+                <p className="text-blue-100 text-xs sm:text-sm font-medium">Total</p>
+                <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{stats.total}</p>
               </div>
-              <MessageSquare className="w-12 h-12 opacity-80" />
+              <MessageSquare className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
             </div>
           </Card>
 
-          <Card className="p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-orange-100 text-sm font-medium">Unread</p>
-                <p className="text-3xl font-bold mt-2">{stats.unread}</p>
+                <p className="text-orange-100 text-xs sm:text-sm font-medium">Unread</p>
+                <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{stats.unread}</p>
               </div>
-              <Mail className="w-12 h-12 opacity-80" />
+              <Mail className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
             </div>
           </Card>
 
-          <Card className="p-6 bg-gradient-to-br from-green-500 to-green-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-green-500 to-green-600 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-100 text-sm font-medium">Today</p>
-                <p className="text-3xl font-bold mt-2">{stats.today}</p>
+                <p className="text-green-100 text-xs sm:text-sm font-medium">Today</p>
+                <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{stats.today}</p>
               </div>
-              <Calendar className="w-12 h-12 opacity-80" />
+              <Calendar className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
             </div>
           </Card>
 
-          <Card className="p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-100 text-sm font-medium">This Week</p>
-                <p className="text-3xl font-bold mt-2">{stats.week}</p>
+                <p className="text-purple-100 text-xs sm:text-sm font-medium">This Week</p>
+                <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{stats.week}</p>
               </div>
-              <TrendingUp className="w-12 h-12 opacity-80" />
+              <TrendingUp className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
             </div>
           </Card>
         </div>
 
         {/* Filters and Search */}
-        <Card className="p-6 mb-6">
-          <div className="flex flex-col md:flex-row gap-4">
+        <Card className="p-3 sm:p-4 lg:p-6 mb-4 sm:mb-6">
+          <div className="flex flex-col gap-3 sm:gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
                 <Input
                   type="text"
                   placeholder="Search messages..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
+                  className="pl-9 sm:pl-10 h-10 sm:h-10 text-sm"
                 />
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
               <Button
                 variant={filter === 'all' ? 'default' : 'outline'}
                 onClick={() => setFilter('all')}
-                className="flex-1 md:flex-none"
+                className="flex-shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
               >
                 All
               </Button>
               <Button
                 variant={filter === 'unread' ? 'default' : 'outline'}
                 onClick={() => setFilter('unread')}
-                className="flex-1 md:flex-none"
+                className="flex-shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
               >
                 Unread
               </Button>
               <Button
                 variant={filter === 'read' ? 'default' : 'outline'}
                 onClick={() => setFilter('read')}
-                className="flex-1 md:flex-none"
+                className="flex-shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
               >
                 Read
               </Button>
               <Button
                 variant={filter === 'archived' ? 'default' : 'outline'}
                 onClick={() => setFilter('archived')}
-                className="flex-1 md:flex-none"
+                className="flex-shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
               >
                 Archived
               </Button>
@@ -387,56 +388,56 @@ export default function AdminDashboard() {
         </Card>
 
         {/* Messages List */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           <div className="lg:col-span-2">
-            <Card className="p-6">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Mail className="w-5 h-5" />
+            <Card className="p-3 sm:p-4 lg:p-6">
+              <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-3 sm:mb-4 flex items-center gap-2">
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
                 Messages ({filteredMessages.length})
               </h2>
               
-              <div className="space-y-4 max-h-[600px] overflow-y-auto">
+              <div className="space-y-2 sm:space-y-3 lg:space-y-4 max-h-[calc(100vh-24rem)] sm:max-h-[600px] overflow-y-auto">
                 {filteredMessages.length === 0 ? (
-                  <div className="text-center py-12 text-gray-500">
-                    <Mail className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                    <p>No messages found</p>
+                  <div className="text-center py-8 sm:py-12 text-gray-500">
+                    <Mail className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 opacity-50" />
+                    <p className="text-sm sm:text-base">No messages found</p>
                   </div>
                 ) : (
                   filteredMessages.map((message) => (
                     <div
                       key={message.id}
-                      className={`border rounded-lg p-4 cursor-pointer transition-all hover:shadow-md ${
+                      className={`border rounded-lg p-3 sm:p-4 cursor-pointer transition-all hover:shadow-md active:scale-[0.98] ${
                         message.status === 'unread' ? 'bg-blue-50 border-blue-200' : 'bg-white'
                       } ${selectedMessage?.id === message.id ? 'ring-2 ring-blue-500' : ''}`}
                       onClick={() => setSelectedMessage(message)}
                     >
                       <div className="flex items-start justify-between mb-2">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900">{message.name}</h3>
-                          <p className="text-sm text-gray-600">{message.email}</p>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">{message.name}</h3>
+                          <p className="text-xs sm:text-sm text-gray-600 truncate">{message.email}</p>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 sm:gap-2 ml-2 flex-shrink-0">
                           {message.status === 'unread' && (
-                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
-                              <Clock className="w-3 h-3 mr-1" />
+                            <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800 whitespace-nowrap">
+                              <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
                               New
                             </span>
                           )}
                           {message.status === 'read' && (
-                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                              <CheckCircle className="w-3 h-3 mr-1" />
+                            <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 whitespace-nowrap">
+                              <CheckCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
                               Read
                             </span>
                           )}
                           {message.status === 'archived' && (
-                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-                              <Archive className="w-3 h-3 mr-1" />
-                              Archived
+                            <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 whitespace-nowrap">
+                              <Archive className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
+                              Arch
                             </span>
                           )}
                         </div>
                       </div>
-                      <p className="text-sm text-gray-700 line-clamp-2 mb-2">{message.message}</p>
+                      <p className="text-xs sm:text-sm text-gray-700 line-clamp-2 mb-1.5 sm:mb-2">{message.message}</p>
                       <p className="text-xs text-gray-500">{formatDate(message.created_at)}</p>
                     </div>
                   ))
@@ -447,7 +448,105 @@ export default function AdminDashboard() {
 
           {/* Message Detail */}
           <div className="lg:col-span-1">
-            <Card className="p-6 sticky top-24">
+            {selectedMessage && (
+              <>
+                {/* Mobile: Fixed bottom sheet */}
+                <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setSelectedMessage(null)}>
+                  <div 
+                    className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl max-h-[85vh] overflow-y-auto"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="sticky top-0 bg-white border-b px-4 py-3 flex items-center justify-between">
+                      <h2 className="text-lg font-bold flex items-center gap-2">
+                        <Eye className="w-5 h-5" />
+                        Message Details
+                      </h2>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSelectedMessage(null)}
+                        className="h-8 w-8 p-0"
+                      >
+                        ✕
+                      </Button>
+                    </div>
+                    <div className="p-4 space-y-4">
+                      <div>
+                        <label className="text-xs font-medium text-gray-600 uppercase tracking-wider">Name</label>
+                        <p className="font-semibold text-sm mt-1">{selectedMessage.name}</p>
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-medium text-gray-600 uppercase tracking-wider">Email</label>
+                        <p className="font-semibold text-sm mt-1 break-all">{selectedMessage.email}</p>
+                      </div>
+
+                      {selectedMessage.phone && (
+                        <div>
+                          <label className="text-xs font-medium text-gray-600 uppercase tracking-wider">Phone</label>
+                          <p className="font-semibold text-sm mt-1">{selectedMessage.phone}</p>
+                        </div>
+                      )}
+
+                      <div>
+                        <label className="text-xs font-medium text-gray-600 uppercase tracking-wider">Message</label>
+                        <p className="mt-1 text-sm text-gray-800 whitespace-pre-wrap">{selectedMessage.message}</p>
+                      </div>
+
+                      <div>
+                        <label className="text-xs font-medium text-gray-600 uppercase tracking-wider">Received</label>
+                        <p className="font-semibold text-sm mt-1">{formatDate(selectedMessage.created_at)}</p>
+                      </div>
+
+                      <div className="pt-2 space-y-2 sticky bottom-0 bg-white pb-safe">
+                        {selectedMessage.status === 'unread' && (
+                          <Button
+                            onClick={() => updateMessageStatus(selectedMessage.id, 'read')}
+                            className="w-full bg-green-600 hover:bg-green-700 h-11"
+                          >
+                            <CheckCircle className="w-4 h-4 mr-2" />
+                            Mark as Read
+                          </Button>
+                        )}
+
+                        {selectedMessage.status === 'read' && (
+                          <Button
+                            onClick={() => updateMessageStatus(selectedMessage.id, 'archived')}
+                            className="w-full bg-gray-600 hover:bg-gray-700 h-11"
+                          >
+                            <Archive className="w-4 h-4 mr-2" />
+                            Archive
+                          </Button>
+                        )}
+
+                        {selectedMessage.status !== 'unread' && (
+                          <Button
+                            onClick={() => updateMessageStatus(selectedMessage.id, 'unread')}
+                            variant="outline"
+                            className="w-full h-11"
+                          >
+                            <Clock className="w-4 h-4 mr-2" />
+                            Mark as Unread
+                          </Button>
+                        )}
+
+                        <Button
+                          onClick={() => deleteMessage(selectedMessage.id)}
+                          variant="outline"
+                          className="w-full text-red-600 border-red-600 hover:bg-red-50 h-11"
+                        >
+                          <Trash2 className="w-4 h-4 mr-2" />
+                          Delete Message
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {/* Desktop: Sticky sidebar */}
+            <Card className="p-4 lg:p-6 sticky top-24 hidden lg:block">
               {selectedMessage ? (
                 <div>
                   <div className="flex items-center justify-between mb-4">
@@ -465,7 +564,7 @@ export default function AdminDashboard() {
 
                     <div>
                       <label className="text-sm font-medium text-gray-600">Email</label>
-                      <p className="font-semibold">{selectedMessage.email}</p>
+                      <p className="font-semibold break-all">{selectedMessage.email}</p>
                     </div>
 
                     {selectedMessage.phone && (
