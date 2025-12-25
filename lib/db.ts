@@ -33,6 +33,38 @@ export async function initDatabase() {
       )
     `);
 
+    // Create analytics table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS page_views (
+        id SERIAL PRIMARY KEY,
+        page_path VARCHAR(500) NOT NULL,
+        page_title VARCHAR(500),
+        referrer TEXT,
+        ip_address VARCHAR(50),
+        user_agent TEXT,
+        country VARCHAR(100),
+        city VARCHAR(100),
+        device_type VARCHAR(50),
+        browser VARCHAR(100),
+        os VARCHAR(100),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create unique visitors table
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS unique_visitors (
+        id SERIAL PRIMARY KEY,
+        visitor_id VARCHAR(255) UNIQUE NOT NULL,
+        first_visit TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        last_visit TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        visit_count INTEGER DEFAULT 1,
+        ip_address VARCHAR(50),
+        country VARCHAR(100),
+        city VARCHAR(100)
+      )
+    `);
+
     // Create index on created_at for faster queries
     await pool.query(`
       CREATE INDEX IF NOT EXISTS idx_created_at ON contact_messages(created_at DESC)
@@ -41,6 +73,19 @@ export async function initDatabase() {
     // Create index on status for filtering
     await pool.query(`
       CREATE INDEX IF NOT EXISTS idx_status ON contact_messages(status)
+    `);
+
+    // Create indexes for analytics
+    await pool.query(`
+      CREATE INDEX IF NOT EXISTS idx_page_views_created_at ON page_views(created_at DESC)
+    `);
+    
+    await pool.query(`
+      CREATE INDEX IF NOT EXISTS idx_page_views_path ON page_views(page_path)
+    `);
+
+    await pool.query(`
+      CREATE INDEX IF NOT EXISTS idx_unique_visitors_id ON unique_visitors(visitor_id)
     `);
 
     return { success: true };
@@ -235,6 +280,246 @@ export async function getDailyMessageCounts() {
     return { success: true, data: result.rows };
   } catch (error) {
     console.error('Error fetching daily counts:', error);
+    return { success: false, error, data: [] };
+  }
+}
+
+/**
+ * Track page view
+ */
+export async function trackPageView(data: {
+  pagePath: string;
+  pageTitle?: string;
+  referrer?: string;
+  ipAddress?: string;
+  userAgent?: string;
+  country?: string;
+  city?: string;
+  deviceType?: string;
+  browser?: string;
+  os?: string;
+}) {
+  try {
+    await pool.query(
+      `INSERT INTO page_views (page_path, page_title, referrer, ip_address, user_agent, country, city, device_type, browser, os)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+      [
+        data.pagePath,
+        data.pageTitle || null,
+        data.referrer || null,
+        data.ipAddress || null,
+        data.userAgent || null,
+        data.country || null,
+        data.city || null,
+        data.deviceType || null,
+        data.browser || null,
+        data.os || null,
+      ]
+    );
+    return { success: true };
+  } catch (error) {
+    console.error('Error tracking page view:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Track or update unique visitor
+ */
+export async function trackVisitor(data: {
+  visitorId: string;
+  ipAddress?: string;
+  country?: string;
+  city?: string;
+}) {
+  try {
+    const result = await pool.query(
+      `INSERT INTO unique_visitors (visitor_id, ip_address, country, city, visit_count, last_visit)
+       VALUES ($1, $2, $3, $4, 1, NOW())
+       ON CONFLICT (visitor_id) 
+       DO UPDATE SET 
+         visit_count = unique_visitors.visit_count + 1,
+         last_visit = NOW(),
+         ip_address = COALESCE($2, unique_visitors.ip_address),
+         country = COALESCE($3, unique_visitors.country),
+         city = COALESCE($4, unique_visitors.city)
+       RETURNING visit_count`,
+      [data.visitorId, data.ipAddress || null, data.country || null, data.city || null]
+    );
+    return { success: true, data: result.rows[0] };
+  } catch (error) {
+    console.error('Error tracking visitor:', error);
+    return { success: false, error };
+  }
+}
+
+/**
+ * Get analytics statistics
+ */
+export async function getAnalyticsStats() {
+  try {
+    // Total page views
+    const totalViews = await pool.query(`SELECT COUNT(*) as total FROM page_views`);
+    
+    // Today's views
+    const todayViews = await pool.query(`
+      SELECT COUNT(*) as today FROM page_views 
+      WHERE created_at >= CURRENT_DATE
+    `);
+    
+    // This week's views
+    const weekViews = await pool.query(`
+      SELECT COUNT(*) as week FROM page_views 
+      WHERE created_at >= CURRENT_DATE - INTERVAL '7 days'
+    `);
+    
+    // Unique visitors
+    const uniqueVisitors = await pool.query(`SELECT COUNT(*) as total FROM unique_visitors`);
+    
+    // Today's unique visitors
+    const todayVisitors = await pool.query(`
+      SELECT COUNT(*) as today FROM unique_visitors 
+      WHERE last_visit >= CURRENT_DATE
+    `);
+
+    return {
+      success: true,
+      data: {
+        totalViews: parseInt(totalViews.rows[0].total),
+        todayViews: parseInt(todayViews.rows[0].today),
+        weekViews: parseInt(weekViews.rows[0].week),
+        uniqueVisitors: parseInt(uniqueVisitors.rows[0].total),
+        todayVisitors: parseInt(todayVisitors.rows[0].today),
+      }
+    };
+  } catch (error) {
+    console.error('Error fetching analytics stats:', error);
+    return {
+      success: false,
+      error,
+      data: {
+        totalViews: 0,
+        todayViews: 0,
+        weekViews: 0,
+        uniqueVisitors: 0,
+        todayVisitors: 0,
+      }
+    };
+  }
+}
+
+/**
+ * Get top pages by views
+ */
+export async function getTopPages(limit: number = 10) {
+  try {
+    const result = await pool.query(
+      `SELECT 
+        page_path,
+        page_title,
+        COUNT(*) as views,
+        COUNT(DISTINCT ip_address) as unique_visitors
+      FROM page_views
+      WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
+      GROUP BY page_path, page_title
+      ORDER BY views DESC
+      LIMIT $1`,
+      [limit]
+    );
+    return { success: true, data: result.rows };
+  } catch (error) {
+    console.error('Error fetching top pages:', error);
+    return { success: false, error, data: [] };
+  }
+}
+
+/**
+ * Get visitor locations
+ */
+export async function getVisitorLocations(limit: number = 10) {
+  try {
+    const result = await pool.query(
+      `SELECT 
+        country,
+        city,
+        COUNT(*) as visitors
+      FROM unique_visitors
+      WHERE country IS NOT NULL
+      GROUP BY country, city
+      ORDER BY visitors DESC
+      LIMIT $1`,
+      [limit]
+    );
+    return { success: true, data: result.rows };
+  } catch (error) {
+    console.error('Error fetching visitor locations:', error);
+    return { success: false, error, data: [] };
+  }
+}
+
+/**
+ * Get device statistics
+ */
+export async function getDeviceStats() {
+  try {
+    const deviceTypes = await pool.query(`
+      SELECT 
+        device_type,
+        COUNT(*) as count
+      FROM page_views
+      WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
+        AND device_type IS NOT NULL
+      GROUP BY device_type
+      ORDER BY count DESC
+    `);
+
+    const browsers = await pool.query(`
+      SELECT 
+        browser,
+        COUNT(*) as count
+      FROM page_views
+      WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
+        AND browser IS NOT NULL
+      GROUP BY browser
+      ORDER BY count DESC
+      LIMIT 5
+    `);
+
+    return {
+      success: true,
+      data: {
+        deviceTypes: deviceTypes.rows,
+        browsers: browsers.rows,
+      }
+    };
+  } catch (error) {
+    console.error('Error fetching device stats:', error);
+    return {
+      success: false,
+      error,
+      data: { deviceTypes: [], browsers: [] }
+    };
+  }
+}
+
+/**
+ * Get daily page views for the last 30 days
+ */
+export async function getDailyPageViews() {
+  try {
+    const result = await pool.query(`
+      SELECT 
+        DATE(created_at) as date,
+        COUNT(*) as views,
+        COUNT(DISTINCT ip_address) as unique_visitors
+      FROM page_views
+      WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
+      GROUP BY DATE(created_at)
+      ORDER BY date ASC
+    `);
+    return { success: true, data: result.rows };
+  } catch (error) {
+    console.error('Error fetching daily page views:', error);
     return { success: false, error, data: [] };
   }
 }

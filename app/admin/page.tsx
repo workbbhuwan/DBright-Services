@@ -20,6 +20,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { AnalyticsSection } from '@/components/admin/AnalyticsSection';
 
 interface Message {
   id: number;
@@ -54,6 +55,7 @@ export default function AdminDashboard() {
   const [filter, setFilter] = useState<'all' | 'unread' | 'read' | 'archived'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+  const [activeTab, setActiveTab] = useState<'messages' | 'analytics'>('messages');
 
   // Check authentication on mount
   useEffect(() => {
@@ -211,7 +213,7 @@ export default function AdminDashboard() {
   // Login Screen
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-3 sm:p-4">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 p-3 sm:p-4">
         <Card className="w-full max-w-md p-6 sm:p-8 shadow-2xl">
           <div className="text-center mb-6 sm:mb-8">
             <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 rounded-full mb-3 sm:mb-4">
@@ -296,9 +298,39 @@ export default function AdminDashboard() {
       </header>
 
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 lg:py-8">
+        {/* Tab Navigation */}
+        <div className="mb-4 sm:mb-6">
+          <div className="flex gap-2 border-b border-gray-200">
+            <button
+              onClick={() => setActiveTab('messages')}
+              className={`flex items-center gap-2 px-4 py-2 sm:py-3 font-medium text-sm sm:text-base border-b-2 transition-colors ${
+                activeTab === 'messages'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <Mail className="w-4 h-4" />
+              Messages
+            </button>
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`flex items-center gap-2 px-4 py-2 sm:py-3 font-medium text-sm sm:text-base border-b-2 transition-colors ${
+                activeTab === 'analytics'
+                  ? 'border-blue-600 text-blue-600'
+                  : 'border-transparent text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              <BarChart3 className="w-4 h-4" />
+              Analytics
+            </button>
+          </div>
+        </div>
+
+        {activeTab === 'messages' ? (
+          <>
         {/* Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-4 sm:mb-6 lg:mb-8">
-          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-100 text-xs sm:text-sm font-medium">Total</p>
@@ -308,7 +340,7 @@ export default function AdminDashboard() {
             </div>
           </Card>
 
-          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-br from-orange-500 to-orange-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-orange-100 text-xs sm:text-sm font-medium">Unread</p>
@@ -318,7 +350,7 @@ export default function AdminDashboard() {
             </div>
           </Card>
 
-          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-green-500 to-green-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-br from-green-500 to-green-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-100 text-xs sm:text-sm font-medium">Today</p>
@@ -636,6 +668,10 @@ export default function AdminDashboard() {
             </Card>
           </div>
         </div>
+        </>
+        ) : (
+          <AnalyticsSection />
+        )}
       </div>
     </div>
   );
