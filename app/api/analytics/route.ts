@@ -45,7 +45,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    console.error('Error tracking analytics:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error tracking analytics:', error);
+    }
     return NextResponse.json(
       { error: 'Failed to track analytics' },
       { status: 500 }

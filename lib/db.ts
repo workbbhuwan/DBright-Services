@@ -90,7 +90,9 @@ export async function initDatabase() {
 
     return { success: true };
   } catch (error) {
-    console.error('Database initialization error:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Database initialization error:', error);
+    }
     return { success: false, error };
   }
 }

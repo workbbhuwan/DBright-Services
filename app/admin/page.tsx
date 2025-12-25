@@ -77,7 +77,9 @@ export default function AdminDashboard() {
         setIsAuthenticated(true);
       }
     } catch (error) {
-      console.error('Auth check failed:', error);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Auth check failed:', error);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -116,7 +118,9 @@ export default function AdminDashboard() {
       setIsAuthenticated(false);
       router.push('/');
     } catch (error) {
-      console.error('Logout failed:', error);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Logout failed:', error);
+      }
     }
   };
 
@@ -130,7 +134,9 @@ export default function AdminDashboard() {
         setMessages(data.messages || []);
       }
     } catch (error) {
-      console.error('Failed to fetch messages:', error);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Failed to fetch messages:', error);
+      }
     }
   };
 
@@ -143,7 +149,9 @@ export default function AdminDashboard() {
         setStats(data.stats);
       }
     } catch (error) {
-      console.error('Failed to fetch stats:', error);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Failed to fetch stats:', error);
+      }
     }
   };
 
@@ -163,7 +171,9 @@ export default function AdminDashboard() {
         }
       }
     } catch (error) {
-      console.error('Failed to update message:', error);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Failed to update message:', error);
+      }
     }
   };
 
@@ -183,7 +193,9 @@ export default function AdminDashboard() {
         }
       }
     } catch (error) {
-      console.error('Failed to delete message:', error);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Failed to delete message:', error);
+      }
     }
   };
 

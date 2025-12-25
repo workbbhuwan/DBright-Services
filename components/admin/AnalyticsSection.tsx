@@ -61,13 +61,30 @@ export function AnalyticsSection() {
 
   const fetchAnalytics = async () => {
     try {
-      const response = await fetch('/api/admin/analytics');
+      const response = await fetch('/api/admin/stats');
       if (response.ok) {
         const data = await response.json();
-        setAnalytics(data);
+        
+        // Extract analytics from the stats response
+        if (data.analytics) {
+          setAnalytics(data.analytics);
+        } else {
+          if (process.env.NODE_ENV !== 'production') {
+            console.error('No analytics data in response');
+          }
+          setAnalytics(null);
+        }
+      } else {
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('Stats API error:', response.status, response.statusText);
+          const errorText = await response.text();
+          console.error('Error details:', errorText);
+        }
       }
     } catch (error) {
-      console.error('Failed to fetch analytics:', error);
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Failed to fetch analytics:', error);
+      }
     } finally {
       setIsLoading(false);
     }

@@ -54,7 +54,9 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error processing contact form:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error processing contact form:', error);
+    }
     return NextResponse.json(
       { error: 'Failed to process message' },
       { status: 500 }

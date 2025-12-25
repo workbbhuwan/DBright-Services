@@ -5,7 +5,16 @@
 
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { getMessageStats, getDailyMessageCounts, initDatabase } from '@/lib/db';
+import { 
+  getMessageStats, 
+  getDailyMessageCounts, 
+  getAnalyticsStats,
+  getTopPages,
+  getVisitorLocations,
+  getDeviceStats,
+  getDailyPageViews,
+  initDatabase 
+} from '@/lib/db';
 
 // Helper to check authentication
 async function isAuthenticated() {
@@ -28,9 +37,16 @@ export async function GET() {
     // Initialize database if needed
     await initDatabase();
 
-    // Get message statistics
-    const statsResult = await getMessageStats();
-    const dailyCountsResult = await getDailyMessageCounts();
+    // Get message statistics and analytics in parallel
+    const [statsResult, dailyCountsResult, analyticsStats, topPages, locations, deviceStats, dailyViews] = await Promise.all([
+      getMessageStats(),
+      getDailyMessageCounts(),
+      getAnalyticsStats(),
+      getTopPages(10),
+      getVisitorLocations(10),
+      getDeviceStats(),
+      getDailyPageViews(),
+    ]);
 
     // Return default values if database isn't ready
     return NextResponse.json(
@@ -38,11 +54,27 @@ export async function GET() {
         success: true,
         stats: statsResult.success ? statsResult.data : { total: 0, unread: 0, today: 0, week: 0 },
         dailyCounts: dailyCountsResult.data || [],
+        analytics: {
+          stats: analyticsStats.data || { totalViews: 0, todayViews: 0, weekViews: 0, uniqueVisitors: 0, todayVisitors: 0 },
+          topPages: topPages.data || [],
+        analytics: {
+          stats: { totalViews: 0, todayViews: 0, weekViews: 0, uniqueVisitors: 0, todayVisitors: 0 },
+          topPages: [],
+          locations: [],
+          deviceStats: { deviceTypes: [], browsers: [] },
+          dailyViews: [],
+        },
+          locations: locations.data || [],
+          deviceStats: deviceStats.data || { deviceTypes: [], browsers: [] },
+          dailyViews: dailyViews.data || [],
+        }
       },
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error fetching statistics:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error fetching statistics:', error);
+    }
     return NextResponse.json(
       { 
         success: true,

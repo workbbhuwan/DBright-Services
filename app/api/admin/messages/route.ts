@@ -64,7 +64,9 @@ export async function GET(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error fetching messages:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error fetching messages:', error);
+    }
     return NextResponse.json(
       { error: 'Failed to fetch messages', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
@@ -111,7 +113,9 @@ export async function PATCH(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error updating message:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error updating message:', error);
+    }
     return NextResponse.json(
       { error: 'Failed to update message' },
       { status: 500 }
@@ -151,7 +155,9 @@ export async function DELETE(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error deleting message:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Error deleting message:', error);
+    }
     return NextResponse.json(
       { error: 'Failed to delete message' },
       { status: 500 }

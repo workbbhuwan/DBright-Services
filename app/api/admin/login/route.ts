@@ -63,7 +63,9 @@ export async function POST(request: Request) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Login error:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Login error:', error);
+    }
     return NextResponse.json(
       { error: 'Login failed' },
       { status: 500 }
@@ -82,7 +84,9 @@ export async function DELETE() {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Logout error:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Logout error:', error);
+    }
     return NextResponse.json(
       { error: 'Logout failed' },
       { status: 500 }
@@ -111,7 +115,9 @@ export async function GET() {
       { status: 200 }
     );
   } catch (error) {
-    console.error('Session check error:', error);
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Session check error:', error);
+    }
     return NextResponse.json(
       { authenticated: false },
       { status: 500 }
