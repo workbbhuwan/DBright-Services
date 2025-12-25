@@ -1,8 +1,28 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
+
+    // Protect admin routes
+    if (pathname.startsWith('/admin')) {
+        const session = request.cookies.get('admin_session');
+        
+        // Allow access to admin page without auth (it has its own login)
+        if (pathname === '/admin') {
+            return NextResponse.next();
+        }
+        
+        // Protect API routes under /api/admin (except login)
+        if (pathname.startsWith('/api/admin') && pathname !== '/api/admin/login') {
+            if (!session) {
+                return NextResponse.json(
+                    { error: 'Unauthorized' },
+                    { status: 401 }
+                );
+            }
+        }
+    }
 
     // List of valid routes
     const validRoutes = [
@@ -10,7 +30,11 @@ export function middleware(request: NextRequest) {
         '/services',
         '/company-profile',
         '/contact',
+        '/admin',
         '/api/contact',
+        '/api/admin/login',
+        '/api/admin/messages',
+        '/api/admin/stats',
     ];
 
     // Check if the pathname starts with any valid route

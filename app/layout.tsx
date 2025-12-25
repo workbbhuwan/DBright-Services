@@ -4,6 +4,7 @@ import "./globals.css";
 import { LanguageProvider } from "@/lib/translations/LanguageContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { Analytics } from "@vercel/analytics/react";
 
 // Noto Sans JP for Japanese text
 const notoSansJP = Noto_Sans_JP({
@@ -54,6 +55,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
