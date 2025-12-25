@@ -11,7 +11,7 @@ import { headers } from 'next/headers';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { pagePath, pageTitle, referrer, visitorId } = body;
+    const { pagePath, pageTitle, referrer, visitorId, country, city } = body;
 
     // Get headers
     const headersList = await headers();
@@ -23,23 +23,27 @@ export async function POST(request: Request) {
     const browser = getBrowser(userAgent);
     const os = getOS(userAgent);
 
-    // Track page view
+    // Track page view with location data
     await trackPageView({
       pagePath,
       pageTitle,
       referrer,
       ipAddress,
       userAgent,
+      country: country || null,
+      city: city || null,
       deviceType,
       browser,
       os,
     });
 
-    // Track unique visitor
+    // Track unique visitor with location
     if (visitorId) {
       await trackVisitor({
         visitorId,
         ipAddress,
+        country: country || null,
+        city: city || null,
       });
     }
 
@@ -64,10 +68,11 @@ function getDeviceType(userAgent: string): string {
 
 function getBrowser(userAgent: string): string {
   if (/edg/i.test(userAgent)) return 'Edge';
-  if (/chrome/i.test(userAgent)) return 'Chrome';
+  if (/opr|opera/i.test(userAgent)) return 'Opera';
+  if (/chrome/i.test(userAgent) && !/edg/i.test(userAgent)) return 'Chrome';
   if (/firefox/i.test(userAgent)) return 'Firefox';
-  if (/safari/i.test(userAgent)) return 'Safari';
-  if (/opera/i.test(userAgent)) return 'Opera';
+  if (/safari/i.test(userAgent) && !/chrome/i.test(userAgent)) return 'Safari';
+  if (/msie|trident/i.test(userAgent)) return 'IE';
   return 'Other';
 }
 

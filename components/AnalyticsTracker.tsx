@@ -14,9 +14,30 @@ export function AnalyticsTracker() {
       localStorage.setItem('visitor_id', visitorId);
     }
 
-    // Track page view
+    // Track page view with geolocation
     const trackView = async () => {
       try {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const devicePixelRatio = window.devicePixelRatio || 1;
+        
+        // Get geolocation from IP (using ipapi.co free API)
+        let country = '';
+        let city = '';
+        try {
+          const geoResponse = await fetch('https://ipapi.co/json/', { 
+            cache: 'force-cache',
+            next: { revalidate: 3600 } // Cache for 1 hour
+          });
+          if (geoResponse.ok) {
+            const geoData = await geoResponse.json();
+            country = geoData.country_name || '';
+            city = geoData.city || '';
+          }
+        } catch (geoError) {
+          // Silently fail - analytics will work without location
+        }
+        
         await fetch('/api/analytics', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -25,10 +46,17 @@ export function AnalyticsTracker() {
             pageTitle: document.title,
             referrer: document.referrer,
             visitorId,
+            screenWidth,
+            screenHeight,
+            devicePixelRatio,
+            country,
+            city,
           }),
         });
       } catch (error) {
-        console.error('Analytics tracking error:', error);
+        if (process.env.NODE_ENV !== 'production') {
+          console.error('Analytics tracking error:', error);
+        }
       }
     };
 

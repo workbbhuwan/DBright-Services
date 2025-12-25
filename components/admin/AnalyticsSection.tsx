@@ -54,9 +54,17 @@ interface AnalyticsData {
 export function AnalyticsSection() {
   const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
 
   useEffect(() => {
     fetchAnalytics();
+    
+    // Auto-refresh every 30 seconds for live data
+    const interval = setInterval(() => {
+      fetchAnalytics();
+    }, 30000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const fetchAnalytics = async () => {
@@ -68,6 +76,7 @@ export function AnalyticsSection() {
         // Extract analytics from the stats response
         if (data.analytics) {
           setAnalytics(data.analytics);
+          setLastUpdate(new Date());
         } else {
           if (process.env.NODE_ENV !== 'production') {
             console.error('No analytics data in response');
@@ -116,13 +125,26 @@ export function AnalyticsSection() {
 
   return (
     <div className="space-y-4 sm:space-y-6">
+      {/* Live Status Badge */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <span className="text-sm text-gray-600">Live Data • Updated {lastUpdate.toLocaleTimeString()}</span>
+        </div>
+        <button
+          onClick={() => fetchAnalytics()}
+          className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+        >
+          Refresh Now
+        </button>
+      </div>
       {/* Analytics Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
         <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-indigo-100 text-xs sm:text-sm font-medium">Total Views</p>
-              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.totalViews}</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.totalViews.toLocaleString()}</p>
             </div>
             <Eye className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
@@ -131,8 +153,8 @@ export function AnalyticsSection() {
         <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-teal-500 to-teal-600 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-teal-100 text-xs sm:text-sm font-medium">Visitors</p>
-              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.uniqueVisitors}</p>
+              <p className="text-teal-100 text-xs sm:text-sm font-medium">Unique Visitors</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.uniqueVisitors.toLocaleString()}</p>
             </div>
             <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
@@ -141,8 +163,8 @@ export function AnalyticsSection() {
         <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-pink-500 to-pink-600 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-pink-100 text-xs sm:text-sm font-medium">Today</p>
-              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.todayViews}</p>
+              <p className="text-pink-100 text-xs sm:text-sm font-medium">Today's Views</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.todayViews.toLocaleString()}</p>
             </div>
             <Calendar className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
@@ -152,7 +174,7 @@ export function AnalyticsSection() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-cyan-100 text-xs sm:text-sm font-medium">This Week</p>
-              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.weekViews}</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.weekViews.toLocaleString()}</p>
             </div>
             <TrendingUp className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
@@ -161,8 +183,8 @@ export function AnalyticsSection() {
         <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-amber-500 to-amber-600 text-white">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-amber-100 text-xs sm:text-sm font-medium">Today Visitors</p>
-              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.todayVisitors}</p>
+              <p className="text-amber-100 text-xs sm:text-sm font-medium">Today's Visitors</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{analytics.stats.todayVisitors.toLocaleString()}</p>
             </div>
             <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
