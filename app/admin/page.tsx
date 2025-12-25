@@ -13,7 +13,6 @@ import {
   Eye,
   Archive,
   TrendingUp,
-  Users,
   MessageSquare,
   Calendar
 } from 'lucide-react';
@@ -372,7 +371,7 @@ export default function AdminDashboard() {
             </div>
           </Card>
 
-          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-br from-purple-500 to-purple-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-100 text-xs sm:text-sm font-medium">This Week</p>
@@ -402,28 +401,28 @@ export default function AdminDashboard() {
               <Button
                 variant={filter === 'all' ? 'default' : 'outline'}
                 onClick={() => setFilter('all')}
-                className="flex-shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
+                className="shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
               >
                 All
               </Button>
               <Button
                 variant={filter === 'unread' ? 'default' : 'outline'}
                 onClick={() => setFilter('unread')}
-                className="flex-shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
+                className="shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
               >
                 Unread
               </Button>
               <Button
                 variant={filter === 'read' ? 'default' : 'outline'}
                 onClick={() => setFilter('read')}
-                className="flex-shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
+                className="shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
               >
                 Read
               </Button>
               <Button
                 variant={filter === 'archived' ? 'default' : 'outline'}
                 onClick={() => setFilter('archived')}
-                className="flex-shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
+                className="shrink-0 h-9 sm:h-10 text-xs sm:text-sm px-3 sm:px-4"
               >
                 Archived
               </Button>
@@ -460,7 +459,7 @@ export default function AdminDashboard() {
                           <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">{message.name}</h3>
                           <p className="text-xs sm:text-sm text-gray-600 truncate">{message.email}</p>
                         </div>
-                        <div className="flex items-center gap-1 sm:gap-2 ml-2 flex-shrink-0">
+                        <div className="flex items-center gap-1 sm:gap-2 ml-2 shrink-0">
                           {message.status === 'unread' && (
                             <span className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800 whitespace-nowrap">
                               <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3 mr-0.5 sm:mr-1" />
