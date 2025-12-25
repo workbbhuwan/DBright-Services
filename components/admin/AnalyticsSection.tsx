@@ -139,8 +139,8 @@ export function AnalyticsSection() {
         </button>
       </div>
       {/* Analytics Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-indigo-500 to-indigo-600 text-white">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-indigo-500 to-indigo-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-indigo-100 text-xs sm:text-sm font-medium">Total Views</p>
@@ -150,7 +150,7 @@ export function AnalyticsSection() {
           </div>
         </Card>
 
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-teal-500 to-teal-600 text-white">
+        {/* <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-teal-500 to-teal-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-teal-100 text-xs sm:text-sm font-medium">Unique Visitors</p>
@@ -158,9 +158,9 @@ export function AnalyticsSection() {
             </div>
             <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
-        </Card>
+        </Card> */}
 
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-pink-500 to-pink-600 text-white">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-pink-500 to-pink-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-pink-100 text-xs sm:text-sm font-medium">Today's Views</p>
@@ -170,7 +170,7 @@ export function AnalyticsSection() {
           </div>
         </Card>
 
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-cyan-500 to-cyan-600 text-white">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-cyan-500 to-cyan-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-cyan-100 text-xs sm:text-sm font-medium">This Week</p>
@@ -180,7 +180,7 @@ export function AnalyticsSection() {
           </div>
         </Card>
 
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-amber-500 to-amber-600 text-white">
+        {/* <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-amber-500 to-amber-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-amber-100 text-xs sm:text-sm font-medium">Today's Visitors</p>
@@ -188,7 +188,7 @@ export function AnalyticsSection() {
             </div>
             <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
-        </Card>
+        </Card> */}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
@@ -231,13 +231,13 @@ export function AnalyticsSection() {
               analytics.locations.map((location, index) => (
                 <div key={index} className="flex items-center justify-between p-2 sm:p-3 bg-gray-50 rounded-lg">
                   <div className="flex items-center gap-2 flex-1 min-w-0">
-                    <Globe className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                    <Globe className="w-4 h-4 text-gray-400 shrink-0" />
                     <div className="min-w-0">
                       <p className="font-medium text-sm sm:text-base truncate">{location.country || 'Unknown'}</p>
                       {location.city && <p className="text-xs text-gray-500 truncate">{location.city}</p>}
                     </div>
                   </div>
-                  <span className="ml-2 font-bold text-sm sm:text-base text-green-600 flex-shrink-0">
+                  <span className="ml-2 font-bold text-sm sm:text-base text-green-600 shrink-0">
                     {location.visitors}
                   </span>
                 </div>
