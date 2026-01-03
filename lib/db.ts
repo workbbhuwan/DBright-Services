@@ -295,8 +295,8 @@ export async function trackPageView(data: {
   referrer?: string;
   ipAddress?: string;
   userAgent?: string;
-  country?: string;
-  city?: string;
+  country?: string | null;
+  city?: string | null;
   deviceType?: string;
   browser?: string;
   os?: string;
@@ -320,7 +320,7 @@ export async function trackPageView(data: {
     );
     return { success: true };
   } catch (error) {
-    console.error('Error tracking page view:', error);
+    console.error('[DB] Error tracking page view:', error instanceof Error ? error.message : error);
     return { success: false, error };
   }
 }
@@ -331,8 +331,8 @@ export async function trackPageView(data: {
 export async function trackVisitor(data: {
   visitorId: string;
   ipAddress?: string;
-  country?: string;
-  city?: string;
+  country?: string | null;
+  city?: string | null;
 }) {
   try {
     const result = await pool.query(
@@ -350,7 +350,7 @@ export async function trackVisitor(data: {
     );
     return { success: true, data: result.rows[0] };
   } catch (error) {
-    console.error('Error tracking visitor:', error);
+    console.error('[DB] Error tracking visitor:', error instanceof Error ? error.message : error);
     return { success: false, error };
   }
 }

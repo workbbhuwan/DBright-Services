@@ -250,7 +250,7 @@ export default function AdminDashboard() {
   // Login Screen
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 p-3 sm:p-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-3 sm:p-4">
         <Card className="w-full max-w-md p-6 sm:p-8 shadow-2xl">
           <div className="text-center mb-6 sm:mb-8">
             <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 rounded-full mb-3 sm:mb-4" aria-hidden="true">
@@ -380,7 +380,7 @@ export default function AdminDashboard() {
           <>
         {/* Stats Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-4 sm:mb-6 lg:mb-8">
-          <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-br from-blue-500 to-blue-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-100 text-xs sm:text-sm font-medium">Total</p>
@@ -390,7 +390,7 @@ export default function AdminDashboard() {
             </div>
           </Card>
 
-          <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-br from-orange-500 to-orange-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-orange-100 text-xs sm:text-sm font-medium">Unread</p>
@@ -400,7 +400,7 @@ export default function AdminDashboard() {
             </div>
           </Card>
 
-          <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-br from-green-500 to-green-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-green-500 to-green-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-100 text-xs sm:text-sm font-medium">Today</p>
@@ -410,7 +410,7 @@ export default function AdminDashboard() {
             </div>
           </Card>
 
-          <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-br from-purple-500 to-purple-600 text-white">
+          <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-100 text-xs sm:text-sm font-medium">This Week</p>

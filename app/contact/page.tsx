@@ -52,7 +52,7 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="relative min-h-screen bg-linear-to-br from-blue-50 via-white to-blue-100">
+        <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100">
             {/* Subtle background shapes */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <motion.div
@@ -127,7 +127,7 @@ export default function ContactPage() {
                                         whileHover={{ scale: 1.03 }}
                                         className="backdrop-blur-xl bg-white/60 border border-blue-100 rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition"
                                     >
-                                        <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                                        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
                                             <Icon className="h-8 w-8 text-white" />
                                         </div>
                                         <h3 className="font-semibold text-gray-900 mb-2">{title}</h3>

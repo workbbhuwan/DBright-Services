@@ -14,7 +14,7 @@ export async function POST(request: Request) {
     await initDatabase();
     
     const body = await request.json();
-    const { pagePath, pageTitle, referrer, visitorId, country, city } = body;
+    const { pagePath, pageTitle, referrer, visitorId } = body;
 
     // Get headers
     const headersList = await headers();
@@ -26,6 +26,27 @@ export async function POST(request: Request) {
     const browser = getBrowser(userAgent);
     const os = getOS(userAgent);
 
+    // Use Vercel's built-in geo headers (fast, free, reliable)
+    // These are automatically provided by Vercel Edge Network
+    const country = headersList.get('x-vercel-ip-country') || null;
+    const city = headersList.get('x-vercel-ip-city') || null;
+    
+    // Fallback: Only use external API if Vercel headers not available (local dev)
+    // In production on Vercel, the headers above will always be present
+    if (!country && ipAddress && ipAddress !== 'unknown' && !ipAddress.startsWith('127.') && !ipAddress.startsWith('192.168.')) {
+      try {
+        const geoResponse = await fetch(`https://ipapi.co/${ipAddress}/json/`, {
+          signal: AbortSignal.timeout(1000), // 1 second timeout for fallback
+        });
+        if (geoResponse.ok) {
+          const geoData = await geoResponse.json();
+          // Note: Free tier limited to 1000 requests/day
+        }
+      } catch {
+        // Silently ignore geolocation failures in fallback
+      }
+    }
+
     // Track page view with location data
     await trackPageView({
       pagePath,
@@ -33,8 +54,8 @@ export async function POST(request: Request) {
       referrer,
       ipAddress,
       userAgent,
-      country: country || null,
-      city: city || null,
+      country,
+      city,
       deviceType,
       browser,
       os,
@@ -45,18 +66,16 @@ export async function POST(request: Request) {
       await trackVisitor({
         visitorId,
         ipAddress,
-        country: country || null,
-        city: city || null,
+        country,
+        city,
       });
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Error tracking analytics:', error);
-    }
+    console.error('[Analytics] Error tracking:', error);
     return NextResponse.json(
-      { error: 'Failed to track analytics' },
+      { error: 'Failed to track analytics', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

@@ -153,7 +153,7 @@ export default function WhyChooseUs({ className, gridClassName, headerClassName 
                                 >
                                     <CardHeader className="p-5 sm:p-6 md:p-8 pb-3 sm:pb-4">
                                         <div
-                                            className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-linear-to-br ${colors.gradient} rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}
+                                            className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br ${colors.gradient} rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}
                                         >
                                             <Icon className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-white" />
                                         </div>
@@ -169,7 +169,7 @@ export default function WhyChooseUs({ className, gridClassName, headerClassName 
 
                                     {/* Hover Overlay */}
                                     <div
-                                        className={`absolute inset-0 opacity-0 group-hover:opacity-5 bg-linear-to-br ${colors.gradient} rounded-2xl transition-opacity duration-500`}
+                                        className={`absolute inset-0 opacity-0 group-hover:opacity-5 bg-gradient-to-br ${colors.gradient} rounded-2xl transition-opacity duration-500`}
                                     />
                                 </Card>
                             </motion.div>

@@ -7,12 +7,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { 
   getMessageStats, 
-  getDailyMessageCounts, 
-  getAnalyticsStats,
-  getTopPages,
-  getVisitorLocations,
-  getDeviceStats,
-  getDailyPageViews,
+  getDailyMessageCounts,
   initDatabase 
 } from '@/lib/db';
 
@@ -37,43 +32,36 @@ export async function GET() {
     // Initialize database if needed
     await initDatabase();
 
-    // Get message statistics and analytics in parallel
-    const [statsResult, dailyCountsResult, analyticsStats, topPages, locations, deviceStats, dailyViews] = await Promise.all([
-      getMessageStats(),
-      getDailyMessageCounts(),
-      getAnalyticsStats(),
-      getTopPages(10),
-      getVisitorLocations(10),
-      getDeviceStats(),
-      getDailyPageViews(),
+    // Get only message statistics (analytics now handled by Vercel)
+    const [statsResult, dailyCountsResult] = await Promise.all([
+      getMessageStats().catch(err => {
+        console.error('getMessageStats error:', err);
+        return { success: false, data: { total: 0, unread: 0, today: 0, week: 0 } };
+      }),
+      getDailyMessageCounts().catch(err => {
+        console.error('getDailyMessageCounts error:', err);
+        return { success: false, data: [] };
+      }),
     ]);
 
-    // Return default values if database isn't ready
+    // Return message stats only
     return NextResponse.json(
       { 
         success: true,
-        stats: statsResult.success ? statsResult.data : { total: 0, unread: 0, today: 0, week: 0 },
+        stats: statsResult.data || { total: 0, unread: 0, today: 0, week: 0 },
         dailyCounts: dailyCountsResult.data || [],
-        analytics: {
-          stats: analyticsStats.data || { totalViews: 0, todayViews: 0, weekViews: 0, uniqueVisitors: 0, todayVisitors: 0 },
-          topPages: topPages.data || [],
-          locations: locations.data || [],
-          deviceStats: deviceStats.data || { deviceTypes: [], browsers: [] },
-          dailyViews: dailyViews.data || [],
-        }
       },
       { status: 200 }
     );
   } catch (error) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Error fetching statistics:', error);
-    }
+    console.error('Error fetching statistics:', error);
+    
     return NextResponse.json(
       { 
         success: true,
         stats: { total: 0, unread: 0, today: 0, week: 0 },
         dailyCounts: [],
-        error: 'Database may need initialization'
+        error: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 200 }
     );

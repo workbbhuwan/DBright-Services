@@ -4,8 +4,8 @@ import "./globals.css";
 import { LanguageProvider } from "@/lib/translations/LanguageContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Analytics } from "@vercel/analytics/react";
-import { AnalyticsTracker } from "@/components/AnalyticsTracker";
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 // Noto Sans JP for Japanese text
 const notoSansJP = Noto_Sans_JP({
@@ -45,7 +45,8 @@ export default function RootLayout({
     <html lang="ja" className="scroll-smooth">
       <body className={`${notoSansJP.variable} ${inter.variable} font-sans antialiased`}>
         <LanguageProvider>
-          <AnalyticsTracker />
+          <Analytics />
+          <SpeedInsights />
           <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
             <Navbar />
             <main className="grow w-full">

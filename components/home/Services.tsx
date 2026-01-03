@@ -136,7 +136,7 @@ export default function Services({ className }: ServicesProps) {
                                         </div>
 
                                         {/* Gradient Overlay */}
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
 
                                         <CardContent className="p-0">
                                             {/* Image */}

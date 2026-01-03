@@ -1,144 +1,140 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import {
   BarChart3,
-  Globe,
-  Monitor,
-  Eye,
-  Users,
+  ExternalLink,
   TrendingUp,
-  Calendar,
-  Smartphone,
-  Laptop,
-  Tablet,
+  Eye,
+  MousePointer,
+  Globe,
 } from 'lucide-react';
 
-interface AnalyticsData {
-  stats: {
-    totalViews: number;
-    todayViews: number;
-    weekViews: number;
-    uniqueVisitors: number;
-    todayVisitors: number;
-  };
-  topPages: Array<{
-    page_path: string;
-    page_title: string;
-    views: number;
-    unique_visitors: number;
-  }>;
-  locations: Array<{
-    country: string;
-    city: string;
-    visitors: number;
-  }>;
-  deviceStats: {
-    deviceTypes: Array<{
-      device_type: string;
-      count: number;
-    }>;
-    browsers: Array<{
-      browser: string;
-      count: number;
-    }>;
-  };
-  dailyViews: Array<{
-    date: string;
-    views: number;
-    unique_visitors: number;
-  }>;
-}
-
 export function AnalyticsSection() {
-  const [analytics, setAnalytics] = useState<AnalyticsData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
-
-  useEffect(() => {
-    fetchAnalytics();
-    
-    // Auto-refresh every 30 seconds for live data
-    const interval = setInterval(() => {
-      fetchAnalytics();
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchAnalytics = async () => {
-    try {
-      const response = await fetch('/api/admin/stats');
-      if (response.ok) {
-        const data = await response.json();
-        
-        // Extract analytics from the stats response
-        if (data.analytics) {
-          setAnalytics(data.analytics);
-          setLastUpdate(new Date());
-        } else {
-          if (process.env.NODE_ENV !== 'production') {
-            console.error('No analytics data in response');
-          }
-          setAnalytics(null);
-        }
-      } else {
-        if (process.env.NODE_ENV !== 'production') {
-          console.error('Stats API error:', response.status, response.statusText);
-          const errorText = await response.text();
-          console.error('Error details:', errorText);
-        }
-      }
-    } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Failed to fetch analytics:', error);
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="text-center py-12">
-        <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-        <p className="mt-4 text-gray-600">Loading analytics...</p>
-      </div>
-    );
-  }
-
-  if (!analytics) {
-    return (
-      <div className="text-center py-12 text-gray-500">
-        <BarChart3 className="w-16 h-16 mx-auto mb-4 opacity-50" />
-        <p>Failed to load analytics data</p>
-      </div>
-    );
-  }
-
-  const getDeviceIcon = (type: string) => {
-    if (type.toLowerCase() === 'mobile') return <Smartphone className="w-4 h-4" />;
-    if (type.toLowerCase() === 'tablet') return <Tablet className="w-4 h-4" />;
-    return <Laptop className="w-4 h-4" />;
-  };
-
   return (
-    <div className="space-y-4 sm:space-y-6">
-      {/* Live Status Badge */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          <span className="text-sm text-gray-600">Live Data • Updated {lastUpdate.toLocaleTimeString()}</span>
+    <div className="space-y-6">
+      {/* Vercel Analytics Info */}
+      <Card className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200">
+        <div className="flex items-start gap-4">
+          <div className="p-3 bg-blue-600 rounded-lg">
+            <BarChart3 className="w-6 h-6 text-white" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">
+              Professional Analytics Active
+            </h3>
+            <p className="text-gray-700 mb-4">
+              Your site is now tracked with <strong>Vercel Web Analytics</strong> - a privacy-friendly, 
+              zero-configuration analytics solution that's GDPR compliant and doesn't require cookie consent.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="https://vercel.com/analytics"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              >
+                <BarChart3 className="w-4 h-4" />
+                Open Vercel Analytics Dashboard
+                <ExternalLink className="w-4 h-4" />
+              </a>
+              <a
+                href="https://vercel.com/docs/analytics"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 transition-colors border border-gray-300"
+              >
+                Documentation
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
         </div>
-        <button
-          onClick={() => fetchAnalytics()}
-          className="text-sm text-blue-600 hover:text-blue-700 font-medium"
-        >
-          Refresh Now
-        </button>
+      </Card>
+
+      {/* Features Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Card className="p-5">
+          <div className="flex items-center gap-3 mb-3">
+            <Eye className="w-5 h-5 text-blue-600" />
+            <h4 className="font-semibold text-gray-900">Page Views</h4>
+          </div>
+          <p className="text-sm text-gray-600">
+            Track every page view with automatic path grouping and real-time updates.
+          </p>
+        </Card>
+
+        <Card className="p-5">
+          <div className="flex items-center gap-3 mb-3">
+            <TrendingUp className="w-5 h-5 text-green-600" />
+            <h4 className="font-semibold text-gray-900">Visitor Insights</h4>
+          </div>
+          <p className="text-sm text-gray-600">
+            See unique visitors, returning users, and traffic trends over time.
+          </p>
+        </Card>
+
+        <Card className="p-5">
+          <div className="flex items-center gap-3 mb-3">
+            <Globe className="w-5 h-5 text-purple-600" />
+            <h4 className="font-semibold text-gray-900">Geographic Data</h4>
+          </div>
+          <p className="text-sm text-gray-600">
+            View visitor locations by country and city without compromising privacy.
+          </p>
+        </Card>
+
+        <Card className="p-5">
+          <div className="flex items-center gap-3 mb-3">
+            <MousePointer className="w-5 h-5 text-orange-600" />
+            <h4 className="font-semibold text-gray-900">Referrer Tracking</h4>
+          </div>
+          <p className="text-sm text-gray-600">
+            Discover where your traffic comes from and which channels perform best.
+          </p>
+        </Card>
+
+        <Card className="p-5">
+          <div className="flex items-center gap-3 mb-3">
+            <BarChart3 className="w-5 h-5 text-cyan-600" />
+            <h4 className="font-semibold text-gray-900">Performance Metrics</h4>
+          </div>
+          <p className="text-sm text-gray-600">
+            Monitor Core Web Vitals and page load performance with Speed Insights.
+          </p>
+        </Card>
+
+        <Card className="p-5 bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+          <div className="flex items-center gap-3 mb-3">
+            <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            <h4 className="font-semibold text-gray-900">Privacy First</h4>
+          </div>
+          <p className="text-sm text-gray-700">
+            GDPR compliant, no cookies, no personal data collection. Privacy-friendly by design.
+          </p>
+        </Card>
       </div>
-      {/* Analytics Stats Cards */}
+
+      {/* Quick Access */}
+      <Card className="p-6 bg-gray-50">
+        <h4 className="font-semibold text-gray-900 mb-3">Quick Links</h4>
+        <div className="space-y-2 text-sm">
+          <p className="text-gray-600">
+            📊 <strong>Analytics Dashboard:</strong> Log in to Vercel and navigate to your project's Analytics tab
+          </p>
+          <p className="text-gray-600">
+            ⚡ <strong>Speed Insights:</strong> Monitor Core Web Vitals and performance scores in real-time
+          </p>
+          <p className="text-gray-600">
+            📈 <strong>Data Retention:</strong> Free tier includes 30 days of data, paid plans offer unlimited retention
+          </p>
+        </div>
+      </Card>
+    </div>
+  );
+}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
         <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white">
           <div className="flex items-center justify-between">
