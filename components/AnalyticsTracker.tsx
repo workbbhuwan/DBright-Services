@@ -51,7 +51,6 @@ export function AnalyticsTracker() {
     // Track immediately
     trackView();
   }, [pathname]);
-  }, [pathname]);
 
   return null;
 }
