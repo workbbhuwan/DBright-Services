@@ -54,31 +54,31 @@ export async function GET() {
     const [statsResult, dailyCountsResult, analyticsStats, topPages, locations, deviceStats, dailyViews] = await Promise.all([
       Promise.race([
         getMessageStats(),
-        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: { total: 0, unread: 0, today: 0, week: 0 } }), 5000))
+        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: { total: 0, unread: 0, today: 0, week: 0 } }), 5000))
       ]),
       Promise.race([
         getDailyMessageCounts(),
-        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
       ]),
       Promise.race([
         getAnalyticsStats(),
-        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: emptyAnalytics.stats }), 5000))
+        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: emptyAnalytics.stats }), 5000))
       ]),
       Promise.race([
         getTopPages(10),
-        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
       ]),
       Promise.race([
         getVisitorLocations(10),
-        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
       ]),
       Promise.race([
         getDeviceStats(),
-        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: emptyAnalytics.deviceStats }), 5000))
+        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: emptyAnalytics.deviceStats }), 5000))
       ]),
       Promise.race([
         getDailyPageViews(),
-        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
       ]),
     ]);
 
