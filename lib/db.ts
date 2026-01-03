@@ -1,16 +1,24 @@
 /**
  * Database Configuration and Utilities
- * Using Vercel Postgres to store contact form submissions
+ * Using Neon Serverless Postgres (optimized for Vercel)
  */
 
 import { Pool } from 'pg';
 
-// Create a connection pool
+// Create a connection pool optimized for Neon serverless
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
   ssl: {
     rejectUnauthorized: false
-  }
+  },
+  max: 10, // Lower for serverless (Neon auto-scales)
+  idleTimeoutMillis: 20000, // 20s for serverless
+  connectionTimeoutMillis: 5000, // 5s connection timeout
+});
+
+// Handle pool errors
+pool.on('error', (err) => {
+  console.error('[DB Pool] Unexpected error:', err);
 });
 
 /**
@@ -18,8 +26,12 @@ const pool = new Pool({
  * Creates the contact_messages table if it doesn't exist
  */
 export async function initDatabase() {
+  let client;
   try {
-    await pool.query(`
+    // Get a client from the pool with timeout
+    client = await pool.connect();
+    
+    await client.query(`
       CREATE TABLE IF NOT EXISTS contact_messages (
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
@@ -34,7 +46,7 @@ export async function initDatabase() {
     `);
 
     // Create analytics table
-    await pool.query(`
+    await client.query(`
       CREATE TABLE IF NOT EXISTS page_views (
         id SERIAL PRIMARY KEY,
         page_path VARCHAR(500) NOT NULL,
@@ -52,7 +64,7 @@ export async function initDatabase() {
     `);
 
     // Create unique visitors table
-    await pool.query(`
+    await client.query(`
       CREATE TABLE IF NOT EXISTS unique_visitors (
         id SERIAL PRIMARY KEY,
         visitor_id VARCHAR(255) UNIQUE NOT NULL,
@@ -65,35 +77,22 @@ export async function initDatabase() {
       )
     `);
 
-    // Create index on created_at for faster queries
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_created_at ON contact_messages(created_at DESC)
-    `);
-
-    // Create index on status for filtering
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_status ON contact_messages(status)
-    `);
-
-    // Create indexes for analytics
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_page_views_created_at ON page_views(created_at DESC)
-    `);
-    
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_page_views_path ON page_views(page_path)
-    `);
-
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_unique_visitors_id ON unique_visitors(visitor_id)
-    `);
+    // Create indexes (use IF NOT EXISTS for idempotency)
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_created_at ON contact_messages(created_at DESC)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_status ON contact_messages(status)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_page_views_created_at ON page_views(created_at DESC)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_page_views_path ON page_views(page_path)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_unique_visitors_id ON unique_visitors(visitor_id)`);
 
     return { success: true };
   } catch (error) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.error('Database initialization error:', error);
-    }
+    console.error('[DB] Database initialization error:', error instanceof Error ? error.message : error);
     return { success: false, error };
+  } finally {
+    // Always release the client back to the pool
+    if (client) {
+      client.release();
+    }
   }
 }
 

@@ -8,6 +8,11 @@ import { cookies } from 'next/headers';
 import { 
   getMessageStats, 
   getDailyMessageCounts,
+  getAnalyticsStats,
+  getTopPages,
+  getVisitorLocations,
+  getDeviceStats,
+  getDailyPageViews,
   initDatabase 
 } from '@/lib/db';
 
@@ -29,39 +34,84 @@ export async function GET() {
       );
     }
 
-    // Initialize database if needed
-    await initDatabase();
+    // Initialize database if needed (with timeout protection)
+    const initPromise = initDatabase();
+    const timeoutPromise = new Promise((resolve) => 
+      setTimeout(() => resolve({ success: false, timeout: true }), 8000)
+    );
+    
+    await Promise.race([initPromise, timeoutPromise]);
 
-    // Get only message statistics (analytics now handled by Vercel)
-    const [statsResult, dailyCountsResult] = await Promise.all([
-      getMessageStats().catch(err => {
-        console.error('getMessageStats error:', err);
-        return { success: false, data: { total: 0, unread: 0, today: 0, week: 0 } };
-      }),
-      getDailyMessageCounts().catch(err => {
-        console.error('getDailyMessageCounts error:', err);
-        return { success: false, data: [] };
-      }),
+    const emptyAnalytics = {
+      stats: { totalViews: 0, todayViews: 0, weekViews: 0, uniqueVisitors: 0, todayVisitors: 0 },
+      topPages: [],
+      locations: [],
+      deviceStats: { deviceTypes: [], browsers: [] },
+      dailyViews: [],
+    };
+
+    // Get message statistics and analytics with individual timeout protection
+    const [statsResult, dailyCountsResult, analyticsStats, topPages, locations, deviceStats, dailyViews] = await Promise.all([
+      Promise.race([
+        getMessageStats(),
+        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: { total: 0, unread: 0, today: 0, week: 0 } }), 5000))
+      ]),
+      Promise.race([
+        getDailyMessageCounts(),
+        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+      ]),
+      Promise.race([
+        getAnalyticsStats(),
+        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: emptyAnalytics.stats }), 5000))
+      ]),
+      Promise.race([
+        getTopPages(10),
+        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+      ]),
+      Promise.race([
+        getVisitorLocations(10),
+        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+      ]),
+      Promise.race([
+        getDeviceStats(),
+        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: emptyAnalytics.deviceStats }), 5000))
+      ]),
+      Promise.race([
+        getDailyPageViews(),
+        new Promise((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+      ]),
     ]);
 
-    // Return message stats only
     return NextResponse.json(
       { 
         success: true,
         stats: statsResult.data || { total: 0, unread: 0, today: 0, week: 0 },
         dailyCounts: dailyCountsResult.data || [],
+        analytics: {
+          stats: analyticsStats.data || emptyAnalytics.stats,
+          topPages: topPages.data || [],
+          locations: locations.data || [],
+          deviceStats: deviceStats.data || emptyAnalytics.deviceStats,
+          dailyViews: dailyViews.data || [],
+        }
       },
       { status: 200 }
     );
   } catch (error) {
-    console.error('Error fetching statistics:', error);
+    console.error('[Stats API] Error:', error);
     
     return NextResponse.json(
       { 
         success: true,
         stats: { total: 0, unread: 0, today: 0, week: 0 },
         dailyCounts: [],
-        error: error instanceof Error ? error.message : 'Unknown error'
+        analytics: {
+          stats: { totalViews: 0, todayViews: 0, weekViews: 0, uniqueVisitors: 0, todayVisitors: 0 },
+          topPages: [],
+          locations: [],
+          deviceStats: { deviceTypes: [], browsers: [] },
+          dailyViews: [],
+        }
       },
       { status: 200 }
     );
