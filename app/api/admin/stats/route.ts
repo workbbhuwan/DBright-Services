@@ -57,13 +57,6 @@ export async function GET() {
         analytics: {
           stats: analyticsStats.data || { totalViews: 0, todayViews: 0, weekViews: 0, uniqueVisitors: 0, todayVisitors: 0 },
           topPages: topPages.data || [],
-        analytics: {
-          stats: { totalViews: 0, todayViews: 0, weekViews: 0, uniqueVisitors: 0, todayVisitors: 0 },
-          topPages: [],
-          locations: [],
-          deviceStats: { deviceTypes: [], browsers: [] },
-          dailyViews: [],
-        },
           locations: locations.data || [],
           deviceStats: deviceStats.data || { deviceTypes: [], browsers: [] },
           dailyViews: dailyViews.data || [],

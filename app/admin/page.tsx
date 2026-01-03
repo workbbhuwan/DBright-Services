@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   Mail, 
@@ -14,7 +14,9 @@ import {
   Archive,
   TrendingUp,
   MessageSquare,
-  Calendar
+  Calendar,
+  FileJson,
+  FileSpreadsheet
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -55,6 +57,8 @@ export default function AdminDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [activeTab, setActiveTab] = useState<'messages' | 'analytics'>('messages');
+  const [isExporting, setIsExporting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   // Check authentication on mount
   useEffect(() => {
@@ -62,12 +66,43 @@ export default function AdminDashboard() {
   }, []);
 
   // Fetch data when authenticated
+  const fetchMessages = useCallback(async () => {
+    try {
+      const statusParam = filter === 'all' ? '' : `?status=${filter}`;
+      const response = await fetch(`/api/admin/messages${statusParam}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        setMessages(data.messages || []);
+      }
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Failed to fetch messages:', error);
+      }
+    }
+  }, [filter]);
+
+  const fetchStats = useCallback(async () => {
+    try {
+      const response = await fetch('/api/admin/stats');
+      
+      if (response.ok) {
+        const data = await response.json();
+        setStats(data.stats);
+      }
+    } catch (error) {
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Failed to fetch stats:', error);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (isAuthenticated) {
       fetchMessages();
       fetchStats();
     }
-  }, [isAuthenticated, filter]);
+  }, [isAuthenticated, filter, fetchMessages, fetchStats]);
 
   const checkAuth = async () => {
     try {
@@ -75,10 +110,8 @@ export default function AdminDashboard() {
       if (response.ok) {
         setIsAuthenticated(true);
       }
-    } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Auth check failed:', error);
-      }
+    } catch {
+      // Auth check failed silently
     } finally {
       setIsLoading(false);
     }
@@ -104,7 +137,7 @@ export default function AdminDashboard() {
         const data = await response.json();
         setLoginError(data.error || 'Invalid credentials');
       }
-    } catch (error) {
+    } catch {
       setLoginError('Login failed. Please try again.');
     } finally {
       setIsLoading(false);
@@ -116,41 +149,8 @@ export default function AdminDashboard() {
       await fetch('/api/admin/login', { method: 'DELETE' });
       setIsAuthenticated(false);
       router.push('/');
-    } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Logout failed:', error);
-      }
-    }
-  };
-
-  const fetchMessages = async () => {
-    try {
-      const statusParam = filter === 'all' ? '' : `?status=${filter}`;
-      const response = await fetch(`/api/admin/messages${statusParam}`);
-      
-      if (response.ok) {
-        const data = await response.json();
-        setMessages(data.messages || []);
-      }
-    } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Failed to fetch messages:', error);
-      }
-    }
-  };
-
-  const fetchStats = async () => {
-    try {
-      const response = await fetch('/api/admin/stats');
-      
-      if (response.ok) {
-        const data = await response.json();
-        setStats(data.stats);
-      }
-    } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Failed to fetch stats:', error);
-      }
+    } catch {
+      // Logout failed silently
     }
   };
 
@@ -169,10 +169,8 @@ export default function AdminDashboard() {
           setSelectedMessage(null);
         }
       }
-    } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Failed to update message:', error);
-      }
+    } catch {
+      // Update failed silently
     }
   };
 
@@ -191,10 +189,8 @@ export default function AdminDashboard() {
           setSelectedMessage(null);
         }
       }
-    } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Failed to delete message:', error);
-      }
+    } catch {
+      // Delete failed silently
     }
   };
 
@@ -209,6 +205,36 @@ export default function AdminDashboard() {
     }
     return true;
   });
+
+  const handleExport = async (format: 'json' | 'csv') => {
+    setIsExporting(true);
+    setError(null);
+    
+    try {
+      const statusParam = filter === 'all' ? '' : `&status=${filter}`;
+      const response = await fetch(`/api/admin/export?format=${format}${statusParam}`);
+      
+      if (!response.ok) {
+        throw new Error('Export failed');
+      }
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const timestamp = new Date().toISOString().split('T')[0];
+      a.download = `messages-export-${timestamp}.${format}`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      setError('Failed to export messages. Please try again.');
+      console.error('Export error:', err);
+    } finally {
+      setIsExporting(false);
+    }
+  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -227,7 +253,7 @@ export default function AdminDashboard() {
       <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 p-3 sm:p-4">
         <Card className="w-full max-w-md p-6 sm:p-8 shadow-2xl">
           <div className="text-center mb-6 sm:mb-8">
-            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 rounded-full mb-3 sm:mb-4">
+            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 rounded-full mb-3 sm:mb-4" aria-hidden="true">
               <Mail className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Admin Dashboard</h1>
@@ -236,37 +262,49 @@ export default function AdminDashboard() {
 
           <form onSubmit={handleLogin} className="space-y-4 sm:space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
                 Username
               </label>
               <Input
+                id="username"
+                name="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Enter username"
                 required
                 disabled={isLoading}
+                autoComplete="username"
                 className="w-full h-11 sm:h-10"
+                aria-describedby={loginError ? "login-error" : undefined}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 Password
               </label>
               <Input
+                id="password"
+                name="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
                 required
                 disabled={isLoading}
+                autoComplete="current-password"
                 className="w-full h-11 sm:h-10"
+                aria-describedby={loginError ? "login-error" : undefined}
               />
             </div>
 
             {loginError && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded text-sm">
+              <div 
+                id="login-error"
+                role="alert"
+                className="bg-red-50 border border-red-200 text-red-700 px-3 sm:px-4 py-2 sm:py-3 rounded text-sm"
+              >
                 {loginError}
               </div>
             )}
@@ -275,6 +313,7 @@ export default function AdminDashboard() {
               type="submit"
               disabled={isLoading}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 h-11 sm:h-10"
+              aria-label={isLoading ? 'Logging in...' : 'Login to admin dashboard'}
             >
               {isLoading ? 'Logging in...' : 'Login'}
             </Button>
@@ -384,17 +423,47 @@ export default function AdminDashboard() {
 
         {/* Filters and Search */}
         <Card className="p-3 sm:p-4 lg:p-6 mb-4 sm:mb-6">
+          {error && (
+            <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded flex items-center justify-between">
+              <span className="text-sm">{error}</span>
+              <button onClick={() => setError(null)} className="text-red-700 hover:text-red-900">✕</button>
+            </div>
+          )}
           <div className="flex flex-col gap-3 sm:gap-4">
-            <div className="flex-1">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
-                <Input
-                  type="text"
-                  placeholder="Search messages..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9 sm:pl-10 h-10 sm:h-10 text-sm"
-                />
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
+                  <Input
+                    type="text"
+                    placeholder="Search messages..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-9 sm:pl-10 h-10 sm:h-10 text-sm"
+                  />
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => handleExport('csv')}
+                  disabled={isExporting || filteredMessages.length === 0}
+                  variant="outline"
+                  className="shrink-0 h-10 text-xs sm:text-sm px-3 sm:px-4 flex items-center gap-2"
+                  title="Export as CSV"
+                >
+                  <FileSpreadsheet className="w-4 h-4" />
+                  <span className="hidden sm:inline">CSV</span>
+                </Button>
+                <Button
+                  onClick={() => handleExport('json')}
+                  disabled={isExporting || filteredMessages.length === 0}
+                  variant="outline"
+                  className="shrink-0 h-10 text-xs sm:text-sm px-3 sm:px-4 flex items-center gap-2"
+                  title="Export as JSON"
+                >
+                  <FileJson className="w-4 h-4" />
+                  <span className="hidden sm:inline">JSON</span>
+                </Button>
               </div>
             </div>
             <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">

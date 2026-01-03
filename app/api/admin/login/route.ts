@@ -4,8 +4,8 @@
  */
 
 import { NextResponse } from 'next/server';
-import bcrypt from 'bcryptjs';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
+import { checkRateLimit, resetRateLimit } from '@/lib/rate-limiter';
 
 // In production, use environment variables
 // Default credentials (CHANGE THESE in production via env vars)
@@ -15,15 +15,51 @@ const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
 // Session token (simple implementation - use JWT or better solution in production)
 const SESSION_SECRET = process.env.SESSION_SECRET || 'change-this-secret-key';
 
+// Helper to get client identifier for rate limiting
+function getClientIdentifier(ipAddress: string | null, userAgent: string | null): string {
+  return `${ipAddress || 'unknown'}_${userAgent || 'unknown'}`.substring(0, 100);
+}
+
 export async function POST(request: Request) {
   try {
+    const headersList = await headers();
+    const ipAddress = headersList.get('x-forwarded-for') || 
+                      headersList.get('x-real-ip') || 
+                      'unknown';
+    const userAgent = headersList.get('user-agent') || 'unknown';
+    const clientId = getClientIdentifier(ipAddress, userAgent);
+
+    // Check rate limit
+    const rateLimitResult = checkRateLimit(clientId);
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json(
+        { 
+          error: 'Too many login attempts. Please try again later.',
+          retryAfter: rateLimitResult.retryAfter,
+          lockoutUntil: rateLimitResult.lockoutUntil
+        },
+        { 
+          status: 429,
+          headers: {
+            'Retry-After': String(rateLimitResult.retryAfter || 60),
+            'X-RateLimit-Limit': '5',
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': String(rateLimitResult.lockoutUntil || Date.now() + 60000)
+          }
+        }
+      );
+    }
+
     const body = await request.json();
     const { username, password } = body;
 
     // Validate input
     if (!username || !password) {
       return NextResponse.json(
-        { error: 'Username and password are required' },
+        { 
+          error: 'Username and password are required',
+          remainingAttempts: rateLimitResult.remainingAttempts
+        },
         { status: 400 }
       );
     }
@@ -34,10 +70,16 @@ export async function POST(request: Request) {
 
     if (!isValidUsername || !isValidPassword) {
       return NextResponse.json(
-        { error: 'Invalid credentials' },
+        { 
+          error: 'Invalid credentials',
+          remainingAttempts: rateLimitResult.remainingAttempts
+        },
         { status: 401 }
       );
     }
+
+    // Successful login - reset rate limit
+    resetRateLimit(clientId);
 
     // Create session token
     const sessionToken = Buffer.from(
