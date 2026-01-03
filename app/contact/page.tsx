@@ -272,7 +272,7 @@ export default function ContactPage() {
 
                                         <Button
                                             type="submit"
-                                            className="w-full gap-2 bg-linear-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-semibold py-2"
+                                            className="w-full gap-2 bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-semibold py-2"
                                             disabled={status === 'loading'}
                                         >
                                             <Send className="h-4 w-4" />

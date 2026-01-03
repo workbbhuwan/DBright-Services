@@ -278,7 +278,7 @@ export default function CompanyProfilePage() {
                                             </CardDescription>
                                         </CardContent>
 
-                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                                     </Card>
                                 </motion.div>
                             );

@@ -140,7 +140,7 @@ export function AnalyticsSection() {
       </div>
       {/* Analytics Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-indigo-500 to-indigo-600 text-white">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-r from-indigo-500 to-indigo-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-indigo-100 text-xs sm:text-sm font-medium">Total Views</p>
@@ -170,7 +170,7 @@ export function AnalyticsSection() {
           </div>
         </Card>
 
-        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-cyan-500 to-cyan-600 text-white">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-r from-cyan-500 to-cyan-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-cyan-100 text-xs sm:text-sm font-medium">This Week</p>

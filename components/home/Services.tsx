@@ -178,7 +178,7 @@ export default function Services({ className }: ServicesProps) {
                                         </CardContent>
 
                                         {/* Bottom Accent Line */}
-                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-yellow-500 to-yellow-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                                     </Card>
                                 </CarouselItem>
                             ))}

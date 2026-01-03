@@ -4,12 +4,15 @@
  */
 
 import { NextResponse } from 'next/server';
-import { trackPageView, trackVisitor } from '@/lib/db';
+import { trackPageView, trackVisitor, initDatabase } from '@/lib/db';
 import { headers } from 'next/headers';
 
 // POST: Track page view
 export async function POST(request: Request) {
   try {
+    // Initialize database tables if they don't exist
+    await initDatabase();
+    
     const body = await request.json();
     const { pagePath, pageTitle, referrer, visitorId, country, city } = body;
 

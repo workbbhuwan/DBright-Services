@@ -360,6 +360,28 @@ export async function trackVisitor(data: {
  */
 export async function getAnalyticsStats() {
   try {
+    // Check if table exists first
+    const tableCheck = await pool.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = 'page_views'
+      )
+    `);
+    
+    if (!tableCheck.rows[0].exists) {
+      console.log('Table page_views does not exist yet');
+      return {
+        success: true,
+        data: {
+          totalViews: 0,
+          todayViews: 0,
+          weekViews: 0,
+          uniqueVisitors: 0,
+          todayVisitors: 0,
+        }
+      };
+    }
+
     // Total page views
     const totalViews = await pool.query(`SELECT COUNT(*) as total FROM page_views`);
     
@@ -415,6 +437,19 @@ export async function getAnalyticsStats() {
  */
 export async function getTopPages(limit: number = 10) {
   try {
+    // Check if table exists first
+    const tableCheck = await pool.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = 'page_views'
+      )
+    `);
+    
+    if (!tableCheck.rows[0].exists) {
+      console.log('Table page_views does not exist yet');
+      return { success: true, data: [] };
+    }
+
     const result = await pool.query(
       `SELECT 
         page_path,
@@ -440,6 +475,19 @@ export async function getTopPages(limit: number = 10) {
  */
 export async function getVisitorLocations(limit: number = 10) {
   try {
+    // Check if table exists first
+    const tableCheck = await pool.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = 'unique_visitors'
+      )
+    `);
+    
+    if (!tableCheck.rows[0].exists) {
+      console.log('Table unique_visitors does not exist yet');
+      return { success: true, data: [] };
+    }
+
     const result = await pool.query(
       `SELECT 
         country,
@@ -464,6 +512,22 @@ export async function getVisitorLocations(limit: number = 10) {
  */
 export async function getDeviceStats() {
   try {
+    // Check if table exists first
+    const tableCheck = await pool.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = 'page_views'
+      )
+    `);
+    
+    if (!tableCheck.rows[0].exists) {
+      console.log('Table page_views does not exist yet');
+      return {
+        success: true,
+        data: { deviceTypes: [], browsers: [] }
+      };
+    }
+
     const deviceTypes = await pool.query(`
       SELECT 
         device_type,
@@ -509,6 +573,19 @@ export async function getDeviceStats() {
  */
 export async function getDailyPageViews() {
   try {
+    // Check if table exists first
+    const tableCheck = await pool.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = 'page_views'
+      )
+    `);
+    
+    if (!tableCheck.rows[0].exists) {
+      console.log('Table page_views does not exist yet');
+      return { success: true, data: [] };
+    }
+
     const result = await pool.query(`
       SELECT 
         DATE(created_at) as date,
