@@ -7,9 +7,7 @@ import {
   ExternalLink,
   TrendingUp,
   Eye,
-  MousePointer,
   Globe,
-  Users,
   Calendar,
   Monitor,
   Smartphone,
@@ -129,7 +127,7 @@ export function AnalyticsSection() {
   return (
     <div className="space-y-6">
       {/* Vercel Analytics Link - Professional Grade */}
-      <Card className="p-4 bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
+      <Card className="p-4 bg-linear-to-r from-purple-50 to-blue-50 border-purple-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-purple-600 rounded-lg">
@@ -168,7 +166,7 @@ export function AnalyticsSection() {
 
       {/* Analytics Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <Card className="p-5 bg-gradient-to-br from-blue-500 to-blue-600 text-white">
+        <Card className="p-5 bg-linear-to-r from-blue-500 to-blue-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-blue-100 text-sm font-medium">Total Views</p>
@@ -178,7 +176,7 @@ export function AnalyticsSection() {
           </div>
         </Card>
 
-        <Card className="p-5 bg-gradient-to-br from-green-500 to-green-600 text-white">
+        <Card className="p-5 bg-linear-to-r from-green-500 to-green-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-green-100 text-sm font-medium">Today&apos;s Views</p>
@@ -188,7 +186,7 @@ export function AnalyticsSection() {
           </div>
         </Card>
 
-        <Card className="p-5 bg-gradient-to-br from-purple-500 to-purple-600 text-white">
+        <Card className="p-5 bg-linear-to-r from-purple-500 to-purple-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-purple-100 text-sm font-medium">This Week</p>
