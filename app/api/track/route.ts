@@ -4,7 +4,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { savePageAnalytics } from '@/lib/db';
+import { savePageAnalytics, initDatabase } from '@/lib/db';
 
 // Helper to detect device type
 function getDeviceType(userAgent: string): string {
@@ -74,6 +74,9 @@ function getCountryFromHeaders(request: NextRequest): string | undefined {
 // POST: Track page visit
 export async function POST(request: NextRequest) {
   try {
+    // Ensure database is initialized
+    await initDatabase();
+    
     const body = await request.json();
     const userAgent = request.headers.get('user-agent') || 'Unknown';
     
@@ -92,7 +95,21 @@ export async function POST(request: NextRequest) {
       sessionId: body.sessionId,
     };
 
-    await savePageAnalytics(analyticsData);
+    console.log('[Track API] Tracking page view:', {
+      path: analyticsData.pagePath,
+      device: analyticsData.deviceType,
+      browser: analyticsData.browser,
+      country: analyticsData.country,
+      ip: analyticsData.ipAddress
+    });
+
+    const result = await savePageAnalytics(analyticsData);
+    
+    if (result.success) {
+      console.log('[Track API] Successfully saved analytics');
+    } else {
+      console.error('[Track API] Failed to save analytics:', result.error);
+    }
 
     return NextResponse.json(
       { success: true },

@@ -31,18 +31,24 @@ async function trackPageView(path: string) {
       sessionId: getSessionId(),
     };
 
+    console.log('[Analytics] Tracking page view:', path);
+
     // Send tracking data (fire and forget)
-    await fetch('/api/track', {
+    const response = await fetch('/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
       keepalive: true, // Ensures request completes even if user navigates away
     });
+    
+    if (response.ok) {
+      console.log('[Analytics] Page view tracked successfully');
+    } else {
+      console.error('[Analytics] Failed to track page view:', response.status);
+    }
   } catch (error) {
     // Silently fail - analytics should never break the app
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('Analytics tracking failed:', error);
-    }
+    console.error('[Analytics] Tracking error:', error);
   }
 }
 
