@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: dbright-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dbright
+      POSTGRES_USER: dbright_user
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change_this_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - dbright-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dbright_user -d dbright"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Next.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dbright-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      
+      # Database connection
+      POSTGRES_URL: postgresql://dbright_user:${DB_PASSWORD:-change_this_password}@postgres:5432/dbright?sslmode=disable
+      
+      # Admin credentials
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-changeme123}
+      SESSION_SECRET: ${SESSION_SECRET:-change-this-to-random-32-char-string}
+      
+      # Email configuration
+      SMTP_HOST: ${SMTP_HOST:-smtp.gmail.com}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      CONTACT_EMAIL: ${CONTACT_EMAIL:-info@dbrightservices.com}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - dbright-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  dbright-network:
+    driver: bridge
