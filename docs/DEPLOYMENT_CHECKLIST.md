@@ -50,7 +50,6 @@ Use this checklist to ensure a smooth and secure deployment.
 - [ ] Test message deletion
 - [ ] Test CSV export
 - [ ] Test JSON export
-- [ ] Test analytics dashboard
 - [ ] Test logout functionality
 
 ## Deployment Steps
@@ -115,16 +114,7 @@ Use this checklist to ensure a smooth and secure deployment.
 - [ ] Archive test message
 - [ ] Delete test message
 
-### 3. Analytics Tests
-- [ ] Click Analytics tab
-- [ ] Verify analytics data loads
-- [ ] Check stats cards display correctly
-- [ ] Verify auto-refresh works (30s interval)
-- [ ] Check top pages section
-- [ ] Check visitor locations
-- [ ] Check device stats
-
-### 4. Export Tests
+### 3. Export Tests
 - [ ] Click CSV export button
 - [ ] Verify CSV file downloads
 - [ ] Open CSV in Excel/Google Sheets
@@ -243,8 +233,6 @@ All items below should be ✅:
 - [ ] Messages can be deleted
 - [ ] CSV export works correctly
 - [ ] JSON export works correctly
-- [ ] Analytics dashboard displays data
-- [ ] Auto-refresh works (30s)
 - [ ] Rate limiting prevents brute force
 - [ ] Mobile responsive design works
 - [ ] No console errors in browser
@@ -262,8 +250,7 @@ If all items are checked, your admin dashboard is **production-ready** and secur
 1. ✅ Monitor first few days for issues
 2. ✅ Train team on admin usage
 3. ✅ Set up regular backup schedule
-4. ✅ Review analytics weekly
-5. ✅ Export messages regularly
+4. ✅ Export messages regularly
 
 ### Resources:
 - 📖 [Production Guide](./ADMIN_PRODUCTION.md)

@@ -1,108 +1,131 @@
 /**
  * Analytics API Route
- * Tracks page views and visitor data
+ * Provides visitor analytics for the admin dashboard
  */
 
-import { NextResponse } from 'next/server';
-import { trackPageView, trackVisitor, initDatabase } from '@/lib/db';
-import { headers } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { 
+  getAnalyticsStats,
+  getAnalyticsByCountry,
+  getAnalyticsByDevice,
+  getAnalyticsByBrowser,
+  getDailyVisitCounts,
+  getTopPages,
+  initDatabase 
+} from '@/lib/db';
 
-// POST: Track page view
-export async function POST(request: Request) {
+// Helper to check authentication
+async function isAuthenticated() {
+  const cookieStore = await cookies();
+  const session = cookieStore.get('admin_session');
+  return !!session;
+}
+
+// GET: Fetch analytics data
+export async function GET(request: NextRequest) {
   try {
-    // Initialize database tables if they don't exist
-    await initDatabase();
-    
-    const body = await request.json();
-    const { pagePath, pageTitle, referrer, visitorId } = body;
-
-    // Get headers
-    const headersList = await headers();
-    const ipAddress = headersList.get('x-forwarded-for') || headersList.get('x-real-ip') || 'unknown';
-    const userAgent = headersList.get('user-agent') || '';
-    
-    // Parse user agent for device info
-    const deviceType = getDeviceType(userAgent);
-    const browser = getBrowser(userAgent);
-    const os = getOS(userAgent);
-
-    // Use Vercel's built-in geo headers (fast, free, reliable)
-    // These are automatically provided by Vercel Edge Network
-    const country = headersList.get('x-vercel-ip-country') || null;
-    const city = headersList.get('x-vercel-ip-city') || null;
-    
-    // Fallback: Only use external API if Vercel headers not available (local dev)
-    // In production on Vercel, the headers above will always be present
-    if (!country && ipAddress && ipAddress !== 'unknown' && !ipAddress.startsWith('127.') && !ipAddress.startsWith('192.168.')) {
-      try {
-        const geoResponse = await fetch(`https://ipapi.co/${ipAddress}/json/`, {
-          signal: AbortSignal.timeout(1000), // 1 second timeout for fallback
-        });
-        if (geoResponse.ok) {
-          const geoData = await geoResponse.json();
-          // Note: Free tier limited to 1000 requests/day
-        }
-      } catch {
-        // Silently ignore geolocation failures in fallback
-      }
+    // Check authentication
+    if (!await isAuthenticated()) {
+      console.log('[Analytics API] Unauthorized access attempt');
+      return NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
+      );
     }
 
-    // Track page view with location data
-    await trackPageView({
-      pagePath,
-      pageTitle,
-      referrer,
-      ipAddress,
-      userAgent,
-      country,
-      city,
-      deviceType,
-      browser,
-      os,
-    });
+    // Get days parameter from query string
+    const searchParams = request.nextUrl.searchParams;
+    const days = parseInt(searchParams.get('days') || '30');
+    
+    console.log(`[Analytics API] Fetching analytics for ${days} days`);
 
-    // Track unique visitor with location
-    if (visitorId) {
-      await trackVisitor({
-        visitorId,
-        ipAddress,
-        country,
-        city,
-      });
-    }
+    // Initialize database if needed
+    const initPromise = initDatabase();
+    const timeoutPromise = new Promise((resolve) => 
+      setTimeout(() => resolve({ success: false, timeout: true }), 8000)
+    );
+    
+    const initResult = await Promise.race([initPromise, timeoutPromise]);
+    console.log('[Analytics API] Database init result:', initResult);
 
-    return NextResponse.json({ success: true }, { status: 200 });
-  } catch (error) {
-    console.error('[Analytics] Error tracking:', error);
+    // Fetch all analytics data in parallel with timeout protection
+    const [
+      statsResult,
+      countryResult,
+      deviceResult,
+      browserResult,
+      dailyVisitsResult,
+      topPagesResult
+    ] = await Promise.all([
+      Promise.race([
+        getAnalyticsStats(days),
+        new Promise<{ success: boolean; data: Record<string, number> }>((resolve) => setTimeout(() => resolve({ success: false, data: {} }), 5000))
+      ]),
+      Promise.race([
+        getAnalyticsByCountry(days),
+        new Promise<{ success: boolean; data: never[] }>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+      ]),
+      Promise.race([
+        getAnalyticsByDevice(days),
+        new Promise<{ success: boolean; data: never[] }>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+      ]),
+      Promise.race([
+        getAnalyticsByBrowser(days),
+        new Promise<{ success: boolean; data: never[] }>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+      ]),
+      Promise.race([
+        getDailyVisitCounts(days),
+        new Promise<{ success: boolean; data: never[] }>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+      ]),
+      Promise.race([
+        getTopPages(days),
+        new Promise<{ success: boolean; data: never[] }>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+      ])
+    ]);
+
+    console.log('[Analytics API] Data fetched successfully');
+    console.log('[Analytics API] Stats:', statsResult.data);
+
     return NextResponse.json(
-      { error: 'Failed to track analytics', details: error instanceof Error ? error.message : 'Unknown error' },
-      { status: 500 }
+      { 
+        success: true,
+        stats: statsResult.data || {
+          totalVisits: 0,
+          uniqueVisitors: 0,
+          totalPages: 0,
+          avgSessionDuration: 0,
+          bounceRate: 0,
+        },
+        byCountry: countryResult.data || [],
+        byDevice: deviceResult.data || [],
+        byBrowser: browserResult.data || [],
+        dailyVisits: dailyVisitsResult.data || [],
+        topPages: topPagesResult.data || [],
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error('[Analytics API] Error:', error);
+    
+    // Return empty data with success=true so dashboard can still display
+    return NextResponse.json(
+      { 
+        success: true,
+        stats: {
+          totalVisits: 0,
+          uniqueVisitors: 0,
+          totalPages: 0,
+          avgSessionDuration: 0,
+          bounceRate: 0,
+        },
+        byCountry: [],
+        byDevice: [],
+        byBrowser: [],
+        dailyVisits: [],
+        topPages: [],
+      },
+      { status: 200 }
     );
   }
-}
-
-// Helper functions to parse user agent
-function getDeviceType(userAgent: string): string {
-  if (/mobile/i.test(userAgent)) return 'Mobile';
-  if (/tablet|ipad/i.test(userAgent)) return 'Tablet';
-  return 'Desktop';
-}
-
-function getBrowser(userAgent: string): string {
-  if (/edg/i.test(userAgent)) return 'Edge';
-  if (/opr|opera/i.test(userAgent)) return 'Opera';
-  if (/chrome/i.test(userAgent) && !/edg/i.test(userAgent)) return 'Chrome';
-  if (/firefox/i.test(userAgent)) return 'Firefox';
-  if (/safari/i.test(userAgent) && !/chrome/i.test(userAgent)) return 'Safari';
-  if (/msie|trident/i.test(userAgent)) return 'IE';
-  return 'Other';
-}
-
-function getOS(userAgent: string): string {
-  if (/windows/i.test(userAgent)) return 'Windows';
-  if (/mac/i.test(userAgent)) return 'macOS';
-  if (/linux/i.test(userAgent)) return 'Linux';
-  if (/android/i.test(userAgent)) return 'Android';
-  if (/ios|iphone|ipad/i.test(userAgent)) return 'iOS';
-  return 'Other';
 }

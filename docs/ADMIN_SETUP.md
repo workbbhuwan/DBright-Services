@@ -7,8 +7,7 @@ A complete admin dashboard system with:
 - 📊 **Real-time statistics**: Total messages, unread, today, this week
 - 📧 **Message management**: View, search, filter, and manage all contact form submissions
 - 💾 **Database storage**: All messages saved to Vercel Postgres (FREE tier)
-- 📈 **Vercel Analytics**: Free website traffic tracking (up to 100k views/month)
-- 🗑️ **Message actions**: Mark as read/unread, archive, delete
+- ️ **Message actions**: Mark as read/unread, archive, delete
 - 🔍 **Search & filter**: Find messages by name, email, or content
 
 ## 🚀 Deployment Steps
@@ -63,7 +62,7 @@ vercel --prod
 
 # Or push to your connected GitHub repository
 git add .
-git commit -m "Add admin dashboard with analytics"
+git commit -m "Add admin dashboard"
 git push
 ```
 
@@ -100,14 +99,6 @@ Visit: `https://your-domain.com/admin`
 - Archive messages
 - Delete messages permanently
 
-**Analytics:**
-- Vercel Analytics automatically tracks:
-  - Page views
-  - Unique visitors
-  - Top pages
-  - Traffic sources
-- View full analytics in Vercel Dashboard
-
 ## 🔒 Security Notes
 
 ### Change Default Password
@@ -130,22 +121,6 @@ ADMIN_PASSWORD_HASH=$2a$10$your_generated_hash_here
 - Secure cookies in production (HTTPS)
 - Protected API routes require authentication
 
-## 📊 Vercel Analytics (FREE Features)
-
-Your site now has **Vercel Web Analytics** integrated:
-
-**What You Get (FREE):**
-- ✅ 100,000 page views per month
-- ✅ Real-time visitor tracking
-- ✅ Page performance metrics
-- ✅ Traffic sources
-- ✅ No cookies, GDPR compliant
-
-**View Analytics:**
-1. Go to Vercel Dashboard
-2. Select your project
-3. Click **Analytics** tab
-4. See detailed traffic reports
 
 ## 🗄️ Database Information
 
@@ -170,11 +145,6 @@ Your site now has **Vercel Web Analytics** integrated:
 1. Verify Vercel Postgres is created and connected
 2. Check Vercel logs: Dashboard > Deployments > [Latest] > View Function Logs
 3. Database tables are created automatically on first contact form submission
-
-### Analytics Not Showing
-1. Analytics data appears within 1 hour of deployment
-2. View in Vercel Dashboard > Analytics
-3. Ensure @vercel/analytics is installed (already done)
 
 ## 💰 Cost Summary
 

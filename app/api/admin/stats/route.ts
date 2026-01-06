@@ -1,6 +1,6 @@
 /**
  * Admin Statistics API Route
- * Provides analytics data for the admin dashboard
+ * Provides message statistics for the admin dashboard
  */
 
 import { NextResponse } from 'next/server';
@@ -8,11 +8,6 @@ import { cookies } from 'next/headers';
 import { 
   getMessageStats, 
   getDailyMessageCounts,
-  getAnalyticsStats,
-  getTopPages,
-  getVisitorLocations,
-  getDeviceStats,
-  getDailyPageViews,
   initDatabase 
 } from '@/lib/db';
 
@@ -42,43 +37,15 @@ export async function GET() {
     
     await Promise.race([initPromise, timeoutPromise]);
 
-    const emptyAnalytics = {
-      stats: { totalViews: 0, todayViews: 0, weekViews: 0, uniqueVisitors: 0, todayVisitors: 0 },
-      topPages: [],
-      locations: [],
-      deviceStats: { deviceTypes: [], browsers: [] },
-      dailyViews: [],
-    };
-
-    // Get message statistics and analytics with individual timeout protection
-    const [statsResult, dailyCountsResult, analyticsStats, topPages, locations, deviceStats, dailyViews] = await Promise.all([
+    // Get message statistics with individual timeout protection
+    const [statsResult, dailyCountsResult] = await Promise.all([
       Promise.race([
         getMessageStats(),
-        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: { total: 0, unread: 0, today: 0, week: 0 } }), 5000))
+        new Promise<{ success: boolean; data: { total: number; unread: number; today: number; week: number } }>((resolve) => setTimeout(() => resolve({ success: false, data: { total: 0, unread: 0, today: 0, week: 0 } }), 5000))
       ]),
       Promise.race([
         getDailyMessageCounts(),
-        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
-      ]),
-      Promise.race([
-        getAnalyticsStats(),
-        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: emptyAnalytics.stats }), 5000))
-      ]),
-      Promise.race([
-        getTopPages(10),
-        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
-      ]),
-      Promise.race([
-        getVisitorLocations(10),
-        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
-      ]),
-      Promise.race([
-        getDeviceStats(),
-        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: emptyAnalytics.deviceStats }), 5000))
-      ]),
-      Promise.race([
-        getDailyPageViews(),
-        new Promise<any>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
+        new Promise<{ success: boolean; data: never[] }>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
       ]),
     ]);
 
@@ -87,13 +54,6 @@ export async function GET() {
         success: true,
         stats: statsResult.data || { total: 0, unread: 0, today: 0, week: 0 },
         dailyCounts: dailyCountsResult.data || [],
-        analytics: {
-          stats: analyticsStats.data || emptyAnalytics.stats,
-          topPages: topPages.data || [],
-          locations: locations.data || [],
-          deviceStats: deviceStats.data || emptyAnalytics.deviceStats,
-          dailyViews: dailyViews.data || [],
-        }
       },
       { status: 200 }
     );
@@ -105,13 +65,6 @@ export async function GET() {
         success: true,
         stats: { total: 0, unread: 0, today: 0, week: 0 },
         dailyCounts: [],
-        analytics: {
-          stats: { totalViews: 0, todayViews: 0, weekViews: 0, uniqueVisitors: 0, todayVisitors: 0 },
-          topPages: [],
-          locations: [],
-          deviceStats: { deviceTypes: [], browsers: [] },
-          dailyViews: [],
-        }
       },
       { status: 200 }
     );

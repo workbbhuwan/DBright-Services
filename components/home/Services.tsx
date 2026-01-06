@@ -136,7 +136,7 @@ export default function Services({ className }: ServicesProps) {
                                         </div>
 
                                         {/* Gradient Overlay */}
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-r from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
 
                                         <CardContent className="p-0">
                                             {/* Image */}
@@ -178,7 +178,7 @@ export default function Services({ className }: ServicesProps) {
                                         </CardContent>
 
                                         {/* Bottom Accent Line */}
-                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-500 to-yellow-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-yellow-500 to-yellow-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                                     </Card>
                                 </CarouselItem>
                             ))}

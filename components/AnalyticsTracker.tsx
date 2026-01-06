@@ -1,56 +1,61 @@
-'use client';
+/**
+ * Analytics Tracker Component
+ * Tracks page views and sends analytics data to the server
+ */
+
+"use client";
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-export function AnalyticsTracker() {
+// Generate a simple session ID
+function getSessionId(): string {
+  if (typeof window === 'undefined') return '';
+  
+  let sessionId = sessionStorage.getItem('analytics_session_id');
+  if (!sessionId) {
+    sessionId = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
+    sessionStorage.setItem('analytics_session_id', sessionId);
+  }
+  return sessionId;
+}
+
+// Track page view
+async function trackPageView(path: string) {
+  try {
+    const data = {
+      path,
+      referrer: document.referrer || undefined,
+      screenResolution: `${window.screen.width}x${window.screen.height}`,
+      language: navigator.language,
+      sessionId: getSessionId(),
+    };
+
+    // Send tracking data (fire and forget)
+    await fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+      keepalive: true, // Ensures request completes even if user navigates away
+    });
+  } catch (error) {
+    // Silently fail - analytics should never break the app
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('Analytics tracking failed:', error);
+    }
+  }
+}
+
+export default function AnalyticsTracker() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // TODO (Senior Dev Recommendation): Use cookies instead of localStorage
-    // Cookies persist better and can have proper expiry (30 days)
-    // localStorage gets cleared too easily by users
-    
-    // Generate or get visitor ID
-    let visitorId = localStorage.getItem('visitor_id');
-    if (!visitorId) {
-      visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      localStorage.setItem('visitor_id', visitorId);
-    }
+    // Don't track admin pages
+    if (pathname?.startsWith('/admin')) return;
 
-    // Track page view immediately without waiting for geolocation
-    const trackView = async () => {
-      try {
-        // Send analytics immediately with basic data
-        const response = await fetch('/api/analytics', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            pagePath: pathname,
-            pageTitle: document.title,
-            referrer: document.referrer,
-            visitorId,
-            screenWidth: window.innerWidth,
-            screenHeight: window.innerHeight,
-            devicePixelRatio: window.devicePixelRatio || 1,
-          }),
-          // Don't wait for response - fire and forget for performance
-          keepalive: true,
-        });
-
-        // Log errors even in production for debugging
-        if (!response.ok) {
-          console.error('[Analytics] Tracking failed:', response.status, await response.text());
-        }
-      } catch (error) {
-        // Log all errors for debugging
-        console.error('[Analytics] Track error:', error);
-      }
-    };
-
-    // Track immediately
-    trackView();
+    // Track the page view
+    trackPageView(pathname || '/');
   }, [pathname]);
 
-  return null;
+  return null; // This component doesn't render anything
 }

@@ -81,8 +81,6 @@ The database tables are created automatically on first use. No manual migration 
 
 Tables created:
 - `contact_messages` - Stores contact form submissions
-- `page_views` - Stores analytics data
-- `unique_visitors` - Tracks unique visitors
 
 ## 🛡️ Security Features
 
@@ -115,15 +113,6 @@ Tables created:
 - Mark as read/unread/archived
 - Delete messages
 - Export to CSV or JSON
-
-### Analytics Dashboard
-- Total page views
-- Unique visitors
-- Daily/weekly statistics
-- Top pages
-- Visitor locations
-- Device types and browsers
-- Real-time data (auto-refresh every 30s)
 
 ### Data Export
 - Export messages as CSV for Excel
@@ -184,7 +173,6 @@ Monitor your database:
 ### Missing Analytics Data
 1. Ensure analytics tracker is installed on pages
 2. Check database tables exist
-3. Verify page views are being tracked
 
 ## 🔐 Security Recommendations
 

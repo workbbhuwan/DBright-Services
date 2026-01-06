@@ -262,7 +262,7 @@ export default function CompanyProfilePage() {
                             return (
                                 <motion.div key={index} variants={fadeInUp}>
                                     <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white group overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-r from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
 
                                         <CardHeader className="relative z-10">
                                             <div className={`w-16 h-16 ${value.color} rounded-xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}>
@@ -278,7 +278,7 @@ export default function CompanyProfilePage() {
                                             </CardDescription>
                                         </CardContent>
 
-                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                                     </Card>
                                 </motion.div>
                             );

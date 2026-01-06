@@ -45,44 +45,33 @@ export async function initDatabase() {
       )
     `);
 
-    // Create analytics table
+    // Create analytics table for visitor tracking
     await client.query(`
-      CREATE TABLE IF NOT EXISTS page_views (
+      CREATE TABLE IF NOT EXISTS page_analytics (
         id SERIAL PRIMARY KEY,
         page_path VARCHAR(500) NOT NULL,
-        page_title VARCHAR(500),
-        referrer TEXT,
+        referrer VARCHAR(500),
         ip_address VARCHAR(50),
-        user_agent TEXT,
         country VARCHAR(100),
         city VARCHAR(100),
         device_type VARCHAR(50),
         browser VARCHAR(100),
         os VARCHAR(100),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    // Create unique visitors table
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS unique_visitors (
-        id SERIAL PRIMARY KEY,
-        visitor_id VARCHAR(255) UNIQUE NOT NULL,
-        first_visit TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        last_visit TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        visit_count INTEGER DEFAULT 1,
-        ip_address VARCHAR(50),
-        country VARCHAR(100),
-        city VARCHAR(100)
+        screen_resolution VARCHAR(50),
+        language VARCHAR(20),
+        user_agent TEXT,
+        session_id VARCHAR(100),
+        visited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
 
     // Create indexes (use IF NOT EXISTS for idempotency)
     await client.query(`CREATE INDEX IF NOT EXISTS idx_created_at ON contact_messages(created_at DESC)`);
     await client.query(`CREATE INDEX IF NOT EXISTS idx_status ON contact_messages(status)`);
-    await client.query(`CREATE INDEX IF NOT EXISTS idx_page_views_created_at ON page_views(created_at DESC)`);
-    await client.query(`CREATE INDEX IF NOT EXISTS idx_page_views_path ON page_views(page_path)`);
-    await client.query(`CREATE INDEX IF NOT EXISTS idx_unique_visitors_id ON unique_visitors(visitor_id)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_analytics_visited_at ON page_analytics(visited_at DESC)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_analytics_page_path ON page_analytics(page_path)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_analytics_country ON page_analytics(country)`);
+    await client.query(`CREATE INDEX IF NOT EXISTS idx_analytics_device ON page_analytics(device_type)`);
 
     return { success: true };
   } catch (error) {
@@ -286,70 +275,45 @@ export async function getDailyMessageCounts() {
 }
 
 /**
- * Track page view
+ * Save page analytics
  */
-export async function trackPageView(data: {
+export async function savePageAnalytics(data: {
   pagePath: string;
-  pageTitle?: string;
   referrer?: string;
   ipAddress?: string;
-  userAgent?: string;
-  country?: string | null;
-  city?: string | null;
+  country?: string;
+  city?: string;
   deviceType?: string;
   browser?: string;
   os?: string;
+  screenResolution?: string;
+  language?: string;
+  userAgent?: string;
+  sessionId?: string;
 }) {
   try {
     await pool.query(
-      `INSERT INTO page_views (page_path, page_title, referrer, ip_address, user_agent, country, city, device_type, browser, os)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+      `INSERT INTO page_analytics 
+       (page_path, referrer, ip_address, country, city, device_type, browser, os, screen_resolution, language, user_agent, session_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
       [
         data.pagePath,
-        data.pageTitle || null,
         data.referrer || null,
         data.ipAddress || null,
-        data.userAgent || null,
         data.country || null,
         data.city || null,
         data.deviceType || null,
         data.browser || null,
         data.os || null,
+        data.screenResolution || null,
+        data.language || null,
+        data.userAgent || null,
+        data.sessionId || null
       ]
     );
     return { success: true };
   } catch (error) {
-    console.error('[DB] Error tracking page view:', error instanceof Error ? error.message : error);
-    return { success: false, error };
-  }
-}
-
-/**
- * Track or update unique visitor
- */
-export async function trackVisitor(data: {
-  visitorId: string;
-  ipAddress?: string;
-  country?: string | null;
-  city?: string | null;
-}) {
-  try {
-    const result = await pool.query(
-      `INSERT INTO unique_visitors (visitor_id, ip_address, country, city, visit_count, last_visit)
-       VALUES ($1, $2, $3, $4, 1, NOW())
-       ON CONFLICT (visitor_id) 
-       DO UPDATE SET 
-         visit_count = unique_visitors.visit_count + 1,
-         last_visit = NOW(),
-         ip_address = COALESCE($2, unique_visitors.ip_address),
-         country = COALESCE($3, unique_visitors.country),
-         city = COALESCE($4, unique_visitors.city)
-       RETURNING visit_count`,
-      [data.visitorId, data.ipAddress || null, data.country || null, data.city || null]
-    );
-    return { success: true, data: result.rows[0] };
-  } catch (error) {
-    console.error('[DB] Error tracking visitor:', error instanceof Error ? error.message : error);
+    console.error('Error saving page analytics:', error);
     return { success: false, error };
   }
 }
@@ -357,247 +321,240 @@ export async function trackVisitor(data: {
 /**
  * Get analytics statistics
  */
-export async function getAnalyticsStats() {
+export async function getAnalyticsStats(days: number = 30) {
   try {
     // Check if table exists first
     const tableCheck = await pool.query(`
       SELECT EXISTS (
         SELECT FROM information_schema.tables 
-        WHERE table_name = 'page_views'
+        WHERE table_name = 'page_analytics'
       )
     `);
     
     if (!tableCheck.rows[0].exists) {
-      console.log('Table page_views does not exist yet');
       return {
         success: true,
         data: {
-          totalViews: 0,
-          todayViews: 0,
-          weekViews: 0,
+          totalVisits: 0,
           uniqueVisitors: 0,
-          todayVisitors: 0,
+          totalPages: 0,
+          avgSessionDuration: 0,
+          bounceRate: 0,
         }
       };
     }
 
-    // Total page views
-    const totalViews = await pool.query(`SELECT COUNT(*) as total FROM page_views`);
-    
-    // Today's views
-    const todayViews = await pool.query(`
-      SELECT COUNT(*) as today FROM page_views 
-      WHERE created_at >= CURRENT_DATE
-    `);
-    
-    // This week's views
-    const weekViews = await pool.query(`
-      SELECT COUNT(*) as week FROM page_views 
-      WHERE created_at >= CURRENT_DATE - INTERVAL '7 days'
-    `);
-    
-    // Unique visitors
-    const uniqueVisitors = await pool.query(`SELECT COUNT(*) as total FROM unique_visitors`);
-    
-    // Today's unique visitors
-    const todayVisitors = await pool.query(`
-      SELECT COUNT(*) as today FROM unique_visitors 
-      WHERE last_visit >= CURRENT_DATE
-    `);
+    const dateFilter = `visited_at >= CURRENT_DATE - INTERVAL '${days} days'`;
+
+    // Total visits
+    const totalVisitsResult = await pool.query(
+      `SELECT COUNT(*) as count FROM page_analytics WHERE ${dateFilter}`
+    );
+
+    // Unique visitors (by IP)
+    const uniqueVisitorsResult = await pool.query(
+      `SELECT COUNT(DISTINCT ip_address) as count FROM page_analytics WHERE ${dateFilter}`
+    );
+
+    // Total unique pages visited
+    const totalPagesResult = await pool.query(
+      `SELECT COUNT(DISTINCT page_path) as count FROM page_analytics WHERE ${dateFilter}`
+    );
 
     return {
       success: true,
       data: {
-        totalViews: parseInt(totalViews.rows[0].total),
-        todayViews: parseInt(todayViews.rows[0].today),
-        weekViews: parseInt(weekViews.rows[0].week),
-        uniqueVisitors: parseInt(uniqueVisitors.rows[0].total),
-        todayVisitors: parseInt(todayVisitors.rows[0].today),
+        totalVisits: parseInt(totalVisitsResult.rows[0].count),
+        uniqueVisitors: parseInt(uniqueVisitorsResult.rows[0].count),
+        totalPages: parseInt(totalPagesResult.rows[0].count),
+        avgSessionDuration: 0,
+        bounceRate: 0,
       }
     };
   } catch (error) {
     console.error('Error fetching analytics stats:', error);
-    return {
-      success: false,
+    return { 
+      success: false, 
       error,
       data: {
-        totalViews: 0,
-        todayViews: 0,
-        weekViews: 0,
+        totalVisits: 0,
         uniqueVisitors: 0,
-        todayVisitors: 0,
+        totalPages: 0,
+        avgSessionDuration: 0,
+        bounceRate: 0,
       }
     };
   }
 }
 
 /**
- * Get top pages by views
+ * Get visitor analytics by country
  */
-export async function getTopPages(limit: number = 10) {
+export async function getAnalyticsByCountry(days: number = 30) {
   try {
-    // Check if table exists first
     const tableCheck = await pool.query(`
       SELECT EXISTS (
         SELECT FROM information_schema.tables 
-        WHERE table_name = 'page_views'
+        WHERE table_name = 'page_analytics'
       )
     `);
     
     if (!tableCheck.rows[0].exists) {
-      console.log('Table page_views does not exist yet');
-      return { success: true, data: [] };
-    }
-
-    const result = await pool.query(
-      `SELECT 
-        page_path,
-        page_title,
-        COUNT(*) as views,
-        COUNT(DISTINCT ip_address) as unique_visitors
-      FROM page_views
-      WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
-      GROUP BY page_path, page_title
-      ORDER BY views DESC
-      LIMIT $1`,
-      [limit]
-    );
-    return { success: true, data: result.rows };
-  } catch (error) {
-    console.error('Error fetching top pages:', error);
-    return { success: false, error, data: [] };
-  }
-}
-
-/**
- * Get visitor locations
- */
-export async function getVisitorLocations(limit: number = 10) {
-  try {
-    // Check if table exists first
-    const tableCheck = await pool.query(`
-      SELECT EXISTS (
-        SELECT FROM information_schema.tables 
-        WHERE table_name = 'unique_visitors'
-      )
-    `);
-    
-    if (!tableCheck.rows[0].exists) {
-      console.log('Table unique_visitors does not exist yet');
-      return { success: true, data: [] };
-    }
-
-    const result = await pool.query(
-      `SELECT 
-        country,
-        city,
-        COUNT(*) as visitors
-      FROM unique_visitors
-      WHERE country IS NOT NULL
-      GROUP BY country, city
-      ORDER BY visitors DESC
-      LIMIT $1`,
-      [limit]
-    );
-    return { success: true, data: result.rows };
-  } catch (error) {
-    console.error('Error fetching visitor locations:', error);
-    return { success: false, error, data: [] };
-  }
-}
-
-/**
- * Get device statistics
- */
-export async function getDeviceStats() {
-  try {
-    // Check if table exists first
-    const tableCheck = await pool.query(`
-      SELECT EXISTS (
-        SELECT FROM information_schema.tables 
-        WHERE table_name = 'page_views'
-      )
-    `);
-    
-    if (!tableCheck.rows[0].exists) {
-      console.log('Table page_views does not exist yet');
-      return {
-        success: true,
-        data: { deviceTypes: [], browsers: [] }
-      };
-    }
-
-    const deviceTypes = await pool.query(`
-      SELECT 
-        device_type,
-        COUNT(*) as count
-      FROM page_views
-      WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
-        AND device_type IS NOT NULL
-      GROUP BY device_type
-      ORDER BY count DESC
-    `);
-
-    const browsers = await pool.query(`
-      SELECT 
-        browser,
-        COUNT(*) as count
-      FROM page_views
-      WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
-        AND browser IS NOT NULL
-      GROUP BY browser
-      ORDER BY count DESC
-      LIMIT 5
-    `);
-
-    return {
-      success: true,
-      data: {
-        deviceTypes: deviceTypes.rows,
-        browsers: browsers.rows,
-      }
-    };
-  } catch (error) {
-    console.error('Error fetching device stats:', error);
-    return {
-      success: false,
-      error,
-      data: { deviceTypes: [], browsers: [] }
-    };
-  }
-}
-
-/**
- * Get daily page views for the last 30 days
- */
-export async function getDailyPageViews() {
-  try {
-    // Check if table exists first
-    const tableCheck = await pool.query(`
-      SELECT EXISTS (
-        SELECT FROM information_schema.tables 
-        WHERE table_name = 'page_views'
-      )
-    `);
-    
-    if (!tableCheck.rows[0].exists) {
-      console.log('Table page_views does not exist yet');
       return { success: true, data: [] };
     }
 
     const result = await pool.query(`
       SELECT 
-        DATE(created_at) as date,
-        COUNT(*) as views,
+        COALESCE(country, 'Unknown') as country,
+        COUNT(*) as visits,
         COUNT(DISTINCT ip_address) as unique_visitors
-      FROM page_views
-      WHERE created_at >= CURRENT_DATE - INTERVAL '30 days'
-      GROUP BY DATE(created_at)
-      ORDER BY date ASC
+      FROM page_analytics
+      WHERE visited_at >= CURRENT_DATE - INTERVAL '${days} days'
+      GROUP BY country
+      ORDER BY visits DESC
+      LIMIT 10
     `);
+    
     return { success: true, data: result.rows };
   } catch (error) {
-    console.error('Error fetching daily page views:', error);
+    console.error('Error fetching analytics by country:', error);
+    return { success: false, error, data: [] };
+  }
+}
+
+/**
+ * Get visitor analytics by device
+ */
+export async function getAnalyticsByDevice(days: number = 30) {
+  try {
+    const tableCheck = await pool.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = 'page_analytics'
+      )
+    `);
+    
+    if (!tableCheck.rows[0].exists) {
+      return { success: true, data: [] };
+    }
+
+    const result = await pool.query(`
+      SELECT 
+        COALESCE(device_type, 'Unknown') as device_type,
+        COUNT(*) as visits,
+        COUNT(DISTINCT ip_address) as unique_visitors
+      FROM page_analytics
+      WHERE visited_at >= CURRENT_DATE - INTERVAL '${days} days'
+      GROUP BY device_type
+      ORDER BY visits DESC
+    `);
+    
+    return { success: true, data: result.rows };
+  } catch (error) {
+    console.error('Error fetching analytics by device:', error);
+    return { success: false, error, data: [] };
+  }
+}
+
+/**
+ * Get visitor analytics by browser
+ */
+export async function getAnalyticsByBrowser(days: number = 30) {
+  try {
+    const tableCheck = await pool.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = 'page_analytics'
+      )
+    `);
+    
+    if (!tableCheck.rows[0].exists) {
+      return { success: true, data: [] };
+    }
+
+    const result = await pool.query(`
+      SELECT 
+        COALESCE(browser, 'Unknown') as browser,
+        COUNT(*) as visits
+      FROM page_analytics
+      WHERE visited_at >= CURRENT_DATE - INTERVAL '${days} days'
+      GROUP BY browser
+      ORDER BY visits DESC
+      LIMIT 10
+    `);
+    
+    return { success: true, data: result.rows };
+  } catch (error) {
+    console.error('Error fetching analytics by browser:', error);
+    return { success: false, error, data: [] };
+  }
+}
+
+/**
+ * Get daily visit counts
+ */
+export async function getDailyVisitCounts(days: number = 30) {
+  try {
+    const tableCheck = await pool.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = 'page_analytics'
+      )
+    `);
+    
+    if (!tableCheck.rows[0].exists) {
+      return { success: true, data: [] };
+    }
+
+    const result = await pool.query(`
+      SELECT 
+        DATE(visited_at) as date,
+        COUNT(*) as visits,
+        COUNT(DISTINCT ip_address) as unique_visitors
+      FROM page_analytics
+      WHERE visited_at >= CURRENT_DATE - INTERVAL '${days} days'
+      GROUP BY DATE(visited_at)
+      ORDER BY date ASC
+    `);
+    
+    return { success: true, data: result.rows };
+  } catch (error) {
+    console.error('Error fetching daily visit counts:', error);
+    return { success: false, error, data: [] };
+  }
+}
+
+/**
+ * Get top pages by visits
+ */
+export async function getTopPages(days: number = 30, limit: number = 10) {
+  try {
+    const tableCheck = await pool.query(`
+      SELECT EXISTS (
+        SELECT FROM information_schema.tables 
+        WHERE table_name = 'page_analytics'
+      )
+    `);
+    
+    if (!tableCheck.rows[0].exists) {
+      return { success: true, data: [] };
+    }
+
+    const result = await pool.query(`
+      SELECT 
+        page_path,
+        COUNT(*) as visits,
+        COUNT(DISTINCT ip_address) as unique_visitors
+      FROM page_analytics
+      WHERE visited_at >= CURRENT_DATE - INTERVAL '${days} days'
+      GROUP BY page_path
+      ORDER BY visits DESC
+      LIMIT ${limit}
+    `);
+    
+    return { success: true, data: result.rows };
+  } catch (error) {
+    console.error('Error fetching top pages:', error);
     return { success: false, error, data: [] };
   }
 }

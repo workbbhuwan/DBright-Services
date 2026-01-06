@@ -74,7 +74,6 @@ CONTACT_EMAIL=info@dbrightservices.com
 1. **Local:** Restart your dev server (`npm run dev`)
 2. **Production:** Redeploy to Vercel
 3. Visit admin dashboard - tables will auto-create on first load
-4. Check analytics - data should start populating
 
 ## 6. Monitor Usage
 
