@@ -5,15 +5,15 @@
 
 import { Pool } from 'pg';
 
-// Create a connection pool optimized for Neon serverless
+// Create a connection pool optimized for self-hosted PostgreSQL
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
-  ssl: {
-    rejectUnauthorized: false
-  },
-  max: 10, // Lower for serverless (Neon auto-scales)
-  idleTimeoutMillis: 20000, // 20s for serverless
-  connectionTimeoutMillis: 5000, // 5s connection timeout
+  ssl: process.env.POSTGRES_URL?.includes('sslmode=require') 
+    ? { rejectUnauthorized: false }
+    : false, // Disable SSL for self-hosted databases
+  max: 10,
+  idleTimeoutMillis: 20000,
+  connectionTimeoutMillis: 5000,
 });
 
 // Handle pool errors
