@@ -392,15 +392,6 @@ export default function AnalyticsDashboard() {
             <span className="hidden sm:inline">Analytics Dashboard</span>
             <span className="sm:hidden">Analytics</span>
           </h2>
-          <div className="flex items-center gap-2 sm:gap-3 mt-1.5 sm:mt-2">
-            <p className="text-xs sm:text-sm text-gray-600">Real-time insights</p>
-            {lastUpdated && (
-              <div className="flex items-center gap-1.5 text-xs text-gray-500">
-                <div className={`w-2 h-2 rounded-full ${autoRefresh ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`}></div>
-                <span>Updated {new Date(lastUpdated).toLocaleTimeString()}</span>
-              </div>
-            )}
-          </div>
         </div>
         
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
@@ -465,87 +456,87 @@ export default function AnalyticsDashboard() {
       </div>
 
       {/* Key Performance Indicators */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
         {/* Total Visits */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-2 sm:mb-3">
-            <div className="min-w-0">
-              <p className="text-blue-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Visits</p>
-              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.totalVisits.toLocaleString()}</p>
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-blue-500 to-blue-600 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-blue-100 text-xs sm:text-sm font-medium">Visits</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{stats.totalVisits.toLocaleString()}</p>
+              {trends && (
+                <div className="mt-2">
+                  <TrendIndicator trend={trends.visits.trend} change={trends.visits.change} />
+                </div>
+              )}
             </div>
-            <Eye className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
+            <Eye className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
-          {trends && (
-            <div className="bg-blue-700/30 rounded-lg px-2 py-1 inline-block">
-              <TrendIndicator trend={trends.visits.trend} change={trends.visits.change} />
-            </div>
-          )}
         </Card>
 
         {/* Unique Visitors */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-green-500 to-green-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-2 sm:mb-3">
-            <div className="min-w-0">
-              <p className="text-green-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Visitors</p>
-              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.uniqueVisitors.toLocaleString()}</p>
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-green-500 to-green-600 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-green-100 text-xs sm:text-sm font-medium">Visitors</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{stats.uniqueVisitors.toLocaleString()}</p>
+              {trends && (
+                <div className="mt-2">
+                  <TrendIndicator trend={trends.visitors.trend} change={trends.visitors.change} />
+                </div>
+              )}
             </div>
-            <Users className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
+            <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
-          {trends && (
-            <div className="bg-green-700/30 rounded-lg px-2 py-1 inline-block">
-              <TrendIndicator trend={trends.visitors.trend} change={trends.visitors.change} />
-            </div>
-          )}
         </Card>
 
         {/* Page Views */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-2 sm:mb-3">
-            <div className="min-w-0">
-              <p className="text-purple-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Pages</p>
-              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.totalPages.toLocaleString()}</p>
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-purple-500 to-purple-600 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-purple-100 text-xs sm:text-sm font-medium">Pages</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{stats.totalPages.toLocaleString()}</p>
+              {trends && (
+                <div className="mt-2">
+                  <TrendIndicator trend={trends.pages.trend} change={trends.pages.change} />
+                </div>
+              )}
             </div>
-            <MousePointer className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
+            <MousePointer className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
-          {trends && (
-            <div className="bg-purple-700/30 rounded-lg px-2 py-1 inline-block">
-              <TrendIndicator trend={trends.pages.trend} change={trends.pages.change} />
-            </div>
-          )}
         </Card>
 
         {/* Pages per Visit */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-2 sm:mb-3">
-            <div className="min-w-0">
-              <p className="text-orange-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Pg/Visit</p>
-              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-orange-500 to-orange-600 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-orange-100 text-xs sm:text-sm font-medium">Pg/Visit</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">
                 {stats.totalVisits > 0 ? (stats.totalPages / stats.totalVisits).toFixed(1) : '0'}
               </p>
+              {trends && (
+                <div className="mt-2">
+                  <TrendIndicator trend={trends.avgPages.trend} change={trends.avgPages.change} />
+                </div>
+              )}
             </div>
-            <Target className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
+            <Target className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
-          {trends && (
-            <div className="bg-orange-700/30 rounded-lg px-2 py-1 inline-block">
-              <TrendIndicator trend={trends.avgPages.trend} change={trends.avgPages.change} />
-            </div>
-          )}
         </Card>
 
         {/* Bounce Rate */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-pink-500 to-rose-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-2 sm:mb-3">
-            <div className="min-w-0">
-              <p className="text-pink-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Bounce</p>
-              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.bounceRate.toFixed(1)}%</p>
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-pink-500 to-rose-600 text-white">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-pink-100 text-xs sm:text-sm font-medium">Bounce</p>
+              <p className="text-2xl sm:text-3xl font-bold mt-1 sm:mt-2">{stats.bounceRate.toFixed(1)}%</p>
+              {trends && (
+                <div className="mt-2">
+                  <TrendIndicator trend={trends.bounceRate.trend} change={trends.bounceRate.change} />
+                </div>
+              )}
             </div>
-            <Zap className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
+            <Zap className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
-          {trends && (
-            <div className="bg-pink-700/30 rounded-lg px-2 py-1 inline-block">
-              <TrendIndicator trend={trends.bounceRate.trend} change={trends.bounceRate.change} />
-            </div>
-          )}
         </Card>
       </div>
 
