@@ -713,7 +713,7 @@ export default function AnalyticsDashboard() {
               Geographic Reach
             </h3>
             <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-              {data.byCountry.length} countries
+              {data.byCountry.length} {data.byCountry.length === 1 ? 'country' : 'countries'}
             </span>
           </div>
           <div className="space-y-3">
@@ -729,20 +729,78 @@ export default function AnalyticsDashboard() {
                   const uniqueVisitors = parseInt(country.unique_visitors);
                   const maxVisits = parseInt(data.byCountry[0].visits);
                   const percentage = (visits / maxVisits) * 100;
+                  
+                  // Country code to full name and flag mapping
+                  const countryData: Record<string, { name: string; flag: string }> = {
+                    'JP': { name: 'Japan', flag: '🇯🇵' },
+                    'US': { name: 'United States', flag: '🇺🇸' },
+                    'GB': { name: 'United Kingdom', flag: '🇬🇧' },
+                    'CA': { name: 'Canada', flag: '🇨🇦' },
+                    'AU': { name: 'Australia', flag: '🇦🇺' },
+                    'DE': { name: 'Germany', flag: '🇩🇪' },
+                    'FR': { name: 'France', flag: '🇫🇷' },
+                    'CN': { name: 'China', flag: '🇨🇳' },
+                    'IN': { name: 'India', flag: '🇮🇳' },
+                    'BR': { name: 'Brazil', flag: '🇧🇷' },
+                    'SG': { name: 'Singapore', flag: '🇸🇬' },
+                    'KR': { name: 'South Korea', flag: '🇰🇷' },
+                    'PH': { name: 'Philippines', flag: '🇵🇭' },
+                    'TH': { name: 'Thailand', flag: '🇹🇭' },
+                    'VN': { name: 'Vietnam', flag: '🇻🇳' },
+                    'ID': { name: 'Indonesia', flag: '🇮🇩' },
+                    'MY': { name: 'Malaysia', flag: '🇲🇾' },
+                    'TW': { name: 'Taiwan', flag: '🇹🇼' },
+                    'HK': { name: 'Hong Kong', flag: '🇭🇰' },
+                    'NL': { name: 'Netherlands', flag: '🇳🇱' },
+                    'ES': { name: 'Spain', flag: '🇪🇸' },
+                    'IT': { name: 'Italy', flag: '🇮🇹' },
+                    'MX': { name: 'Mexico', flag: '🇲🇽' },
+                    'RU': { name: 'Russia', flag: '🇷🇺' },
+                    'NZ': { name: 'New Zealand', flag: '🇳🇿' },
+                    'SE': { name: 'Sweden', flag: '🇸🇪' },
+                    'NO': { name: 'Norway', flag: '🇳🇴' },
+                    'DK': { name: 'Denmark', flag: '🇩🇰' },
+                    'FI': { name: 'Finland', flag: '🇫🇮' },
+                    'PL': { name: 'Poland', flag: '🇵🇱' },
+                    'BE': { name: 'Belgium', flag: '🇧🇪' },
+                    'AT': { name: 'Austria', flag: '🇦🇹' },
+                    'CH': { name: 'Switzerland', flag: '🇨🇭' },
+                    'IE': { name: 'Ireland', flag: '🇮🇪' },
+                    'PT': { name: 'Portugal', flag: '🇵🇹' },
+                    'GR': { name: 'Greece', flag: '🇬🇷' },
+                    'CZ': { name: 'Czech Republic', flag: '🇨🇿' },
+                    'RO': { name: 'Romania', flag: '🇷🇴' },
+                    'TR': { name: 'Turkey', flag: '🇹🇷' },
+                    'AE': { name: 'United Arab Emirates', flag: '🇦🇪' },
+                    'SA': { name: 'Saudi Arabia', flag: '🇸🇦' },
+                    'IL': { name: 'Israel', flag: '🇮🇱' },
+                    'ZA': { name: 'South Africa', flag: '🇿🇦' },
+                    'EG': { name: 'Egypt', flag: '🇪🇬' },
+                    'AR': { name: 'Argentina', flag: '🇦🇷' },
+                    'CL': { name: 'Chile', flag: '🇨🇱' },
+                    'CO': { name: 'Colombia', flag: '🇨🇴' },
+                    'PE': { name: 'Peru', flag: '🇵🇪' },
+                    'VE': { name: 'Venezuela', flag: '🇻🇪' },
+                    'Unknown': { name: 'Unknown', flag: '🌍' }
+                  };
+                  
+                  const countryCode = country.country.toUpperCase();
+                  const countryInfo = countryData[countryCode] || { 
+                    name: country.country, 
+                    flag: '🌍' 
+                  };
 
                   return (
                     <div key={index} className="group hover:bg-green-50 rounded-md sm:rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 transition-colors">
                       <div className="flex items-center justify-between mb-1.5 sm:mb-2">
-                        <div className="flex items-center gap-1.5 sm:gap-2">
-                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg bg-linear-to-r from-green-500 to-green-600 text-white flex items-center justify-center text-[10px] sm:text-xs font-bold shadow-sm">
-                            {country.country.substring(0, 2).toUpperCase()}
-                          </div>
-                          <div className="min-w-0">
-                            <span className="text-xs sm:text-sm font-semibold text-gray-900 block truncate">{country.country}</span>
-                            <p className="text-[10px] sm:text-xs text-gray-500">{uniqueVisitors} unique</p>
+                        <div className="flex items-center gap-1.5 sm:gap-2 flex-1 min-w-0">
+                          <span className="text-xl sm:text-2xl shrink-0">{countryInfo.flag}</span>
+                          <div className="min-w-0 flex-1">
+                            <span className="text-xs sm:text-sm font-semibold text-gray-900 block truncate">{countryInfo.name}</span>
+                            <p className="text-[10px] sm:text-xs text-gray-500">{uniqueVisitors} unique visitor{uniqueVisitors !== 1 ? 's' : ''}</p>
                           </div>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-green-600 shrink-0">{visits}</span>
+                        <span className="text-xs sm:text-sm font-bold text-green-600 shrink-0 ml-2">{visits}</span>
                       </div>
                       <div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div
