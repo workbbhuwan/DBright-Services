@@ -59,6 +59,28 @@ function getIpAddress(request: NextRequest): string | undefined {
 
 // Helper to get country from IP (simplified version)
 // In production, you'd use a GeoIP service or Cloudflare headers
+async function getCountryFromIP(ip: string | undefined): Promise<string | undefined> {
+  if (!ip || ip === '127.0.0.1' || ip === '::1' || ip.startsWith('192.168.') || ip.startsWith('10.')) {
+    return undefined; // Local/private IP
+  }
+
+  try {
+    // Use ip-api.com free API (no key required, 45 requests/minute)
+    const response = await fetch(`http://ip-api.com/json/${ip}?fields=countryCode`, {
+      signal: AbortSignal.timeout(2000) // 2 second timeout
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      return data.countryCode || undefined;
+    }
+  } catch (error) {
+    // Silently fail
+  }
+  
+  return undefined;
+}
+
 function getCountryFromHeaders(request: NextRequest): string | undefined {
   // Cloudflare provides country code in headers
   const cfCountry = request.headers.get('cf-ipcountry');
@@ -79,12 +101,21 @@ export async function POST(request: NextRequest) {
     
     const body = await request.json();
     const userAgent = request.headers.get('user-agent') || 'Unknown';
+    const ipAddress = getIpAddress(request);
+    
+    // Try to get country from headers first, then fallback to IP geolocation
+    let country = getCountryFromHeaders(request) || body.country;
+    
+    // If no country from headers, use IP geolocation
+    if (!country && ipAddress) {
+      country = await getCountryFromIP(ipAddress);
+    }
     
     const analyticsData = {
       pagePath: body.path || '/',
       referrer: body.referrer,
-      ipAddress: getIpAddress(request),
-      country: getCountryFromHeaders(request) || body.country,
+      ipAddress: ipAddress,
+      country: country,
       city: body.city,
       deviceType: getDeviceType(userAgent),
       browser: getBrowser(userAgent),
