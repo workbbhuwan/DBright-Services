@@ -570,7 +570,7 @@ export default function AdminDashboard() {
                 Messages ({filteredMessages.length})
               </h2>
               
-              <div className="space-y-2 sm:space-y-3 lg:space-y-4 max-h-[calc(100vh-24rem)] sm:max-h-[600px] overflow-y-auto">
+              <div className="space-y-2 sm:space-y-3 lg:space-y-4 max-h-[calc(100vh-24rem)] sm:max-h-150 overflow-y-auto">
                 {filteredMessages.length === 0 ? (
                   <div className="text-center py-8 sm:py-12 text-gray-500">
                     <Mail className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 opacity-50" />

@@ -277,16 +277,16 @@ export default function AnalyticsDashboard() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center py-20">
+      <div className="flex items-center justify-center py-12 sm:py-20">
         <div className="text-center">
           <div className="relative">
-            <div className="w-16 h-16 mx-auto mb-4">
-              <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
-              <div className="absolute inset-0 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
+            <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4">
+              <div className="absolute inset-0 border-3 sm:border-4 border-blue-200 rounded-full"></div>
+              <div className="absolute inset-0 border-3 sm:border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
             </div>
           </div>
-          <p className="text-gray-600 font-medium">Loading analytics dashboard...</p>
-          <p className="text-sm text-gray-500 mt-1">Fetching real-time data</p>
+          <p className="text-sm sm:text-base text-gray-600 font-medium">Loading analytics...</p>
+          <p className="text-xs sm:text-sm text-gray-500 mt-1">Fetching data</p>
         </div>
       </div>
     );
@@ -294,17 +294,17 @@ export default function AnalyticsDashboard() {
 
   if (error || !data) {
     return (
-      <div className="space-y-4">
-        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl px-6 py-5 shadow-sm">
-          <div className="flex items-start gap-4">
+      <div className="space-y-3 sm:space-y-4">
+        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg sm:rounded-xl px-4 py-4 sm:px-6 sm:py-5 shadow-sm">
+          <div className="flex items-start gap-3 sm:gap-4">
             <div className="flex-shrink-0">
-              <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                <Activity className="w-6 h-6 text-yellow-600" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600" />
               </div>
             </div>
-            <div className="flex-1">
-              <h3 className="font-bold text-gray-900 text-lg mb-2">Analytics System Initializing</h3>
-              <p className="text-sm text-gray-700 mb-3">
+            <div className="flex-1 min-w-0">
+              <h3 className="font-bold text-gray-900 text-base sm:text-lg mb-2">Analytics Initializing</h3>
+              <p className="text-xs sm:text-sm text-gray-700 mb-3">
                 {error || 'The analytics engine is setting up your dashboard. This usually takes just a moment.'}
               </p>
               <div className="bg-white rounded-lg p-4 mb-4">
@@ -326,7 +326,7 @@ export default function AnalyticsDashboard() {
               <Button 
                 onClick={handleRefresh} 
                 size="sm" 
-                className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white shadow-md"
+                className="bg-linear-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white shadow-md"
               >
                 <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
                 {isRefreshing ? 'Checking...' : 'Check Again'}
@@ -336,45 +336,45 @@ export default function AnalyticsDashboard() {
         </div>
         
         {/* Preview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 opacity-60 pointer-events-none">
-          <Card className="p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 opacity-60 pointer-events-none">
+          <Card className="p-3 sm:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-blue-100 text-sm font-medium mb-1">Total Visits</p>
-                <p className="text-3xl font-bold">-</p>
-                <p className="text-blue-200 text-xs mt-2">Waiting for data...</p>
+                <p className="text-blue-100 text-xs sm:text-sm font-medium mb-1">Visits</p>
+                <p className="text-xl sm:text-3xl font-bold">-</p>
+                <p className="text-blue-200 text-[10px] sm:text-xs mt-1 sm:mt-2">Waiting...</p>
               </div>
-              <Eye className="w-12 h-12 opacity-80" />
+              <Eye className="w-8 h-8 sm:w-12 sm:h-12 opacity-80" />
             </div>
           </Card>
-          <Card className="p-6 bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg">
+          <Card className="p-3 sm:p-6 bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-green-100 text-sm font-medium mb-1">Unique Visitors</p>
-                <p className="text-3xl font-bold">-</p>
-                <p className="text-green-200 text-xs mt-2">Waiting for data...</p>
+                <p className="text-green-100 text-xs sm:text-sm font-medium mb-1">Visitors</p>
+                <p className="text-xl sm:text-3xl font-bold">-</p>
+                <p className="text-green-200 text-[10px] sm:text-xs mt-1 sm:mt-2">Waiting...</p>
               </div>
-              <Users className="w-12 h-12 opacity-80" />
+              <Users className="w-8 h-8 sm:w-12 sm:h-12 opacity-80" />
             </div>
           </Card>
-          <Card className="p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg">
+          <Card className="p-3 sm:p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-100 text-sm font-medium mb-1">Page Views</p>
-                <p className="text-3xl font-bold">-</p>
-                <p className="text-purple-200 text-xs mt-2">Waiting for data...</p>
+                <p className="text-purple-100 text-xs sm:text-sm font-medium mb-1">Pages</p>
+                <p className="text-xl sm:text-3xl font-bold">-</p>
+                <p className="text-purple-200 text-[10px] sm:text-xs mt-1 sm:mt-2">Waiting...</p>
               </div>
-              <MousePointer className="w-12 h-12 opacity-80" />
+              <MousePointer className="w-8 h-8 sm:w-12 sm:h-12 opacity-80" />
             </div>
           </Card>
-          <Card className="p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg">
+          <Card className="p-3 sm:p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-orange-100 text-sm font-medium mb-1">Engagement</p>
-                <p className="text-3xl font-bold">-</p>
-                <p className="text-orange-200 text-xs mt-2">Waiting for data...</p>
+                <p className="text-orange-100 text-xs sm:text-sm font-medium mb-1">Engage</p>
+                <p className="text-xl sm:text-3xl font-bold">-</p>
+                <p className="text-orange-200 text-[10px] sm:text-xs mt-1 sm:mt-2">Waiting...</p>
               </div>
-              <Activity className="w-12 h-12 opacity-80" />
+              <Activity className="w-8 h-8 sm:w-12 sm:h-12 opacity-80" />
             </div>
           </Card>
         </div>
@@ -385,18 +385,19 @@ export default function AnalyticsDashboard() {
   const stats = data.stats;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-6">
       {/* Enhanced Header with Real-time Status */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-              <BarChart3 className="w-6 h-6 text-white" />
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 flex items-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
+              <BarChart3 className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
             </div>
-            Analytics Dashboard
+            <span className="hidden sm:inline">Analytics Dashboard</span>
+            <span className="sm:hidden">Analytics</span>
           </h2>
-          <div className="flex items-center gap-3 mt-2">
-            <p className="text-sm text-gray-600">Real-time visitor insights and trends</p>
+          <div className="flex items-center gap-2 sm:gap-3 mt-1.5 sm:mt-2">
+            <p className="text-xs sm:text-sm text-gray-600">Real-time insights</p>
             {lastUpdated && (
               <div className="flex items-center gap-1.5 text-xs text-gray-500">
                 <div className={`w-2 h-2 rounded-full ${autoRefresh ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`}></div>
@@ -406,77 +407,77 @@ export default function AnalyticsDashboard() {
           </div>
         </div>
         
-        <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex gap-2">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <div className="flex gap-1.5 sm:gap-2">
             <Button
               variant={timeRange === 7 ? 'default' : 'outline'}
               onClick={() => handleTimeRangeChange(7)}
               size="sm"
-              className="text-xs sm:text-sm"
+              className="text-xs sm:text-sm px-2 sm:px-3 h-8 sm:h-9"
             >
-              7 Days
+              7d
             </Button>
             <Button
               variant={timeRange === 30 ? 'default' : 'outline'}
               onClick={() => handleTimeRangeChange(30)}
               size="sm"
-              className="text-xs sm:text-sm"
+              className="text-xs sm:text-sm px-2 sm:px-3 h-8 sm:h-9"
             >
-              30 Days
+              30d
             </Button>
             <Button
               variant={timeRange === 90 ? 'default' : 'outline'}
               onClick={() => handleTimeRangeChange(90)}
               size="sm"
-              className="text-xs sm:text-sm"
+              className="text-xs sm:text-sm px-2 sm:px-3 h-8 sm:h-9"
             >
-              90 Days
+              90d
             </Button>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-1.5 sm:gap-2">
             <Button
               onClick={() => setAutoRefresh(!autoRefresh)}
               variant="outline"
               size="sm"
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 h-8 sm:h-9"
               title={autoRefresh ? 'Auto-refresh enabled' : 'Auto-refresh disabled'}
             >
-              <Activity className={`w-4 h-4 ${autoRefresh ? 'text-green-600' : 'text-gray-400'}`} />
-              <span className="hidden sm:inline">{autoRefresh ? 'Live' : 'Paused'}</span>
+              <Activity className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${autoRefresh ? 'text-green-600' : 'text-gray-400'}`} />
+              <span className="hidden sm:inline text-xs sm:text-sm">{autoRefresh ? 'Live' : 'Paused'}</span>
             </Button>
             <Button
               onClick={handleRefresh}
               disabled={isRefreshing}
               variant="outline"
               size="sm"
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 h-8 sm:h-9"
             >
-              <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-              <span className="hidden sm:inline">Refresh</span>
+              <RefreshCw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+              <span className="hidden sm:inline text-xs sm:text-sm">Refresh</span>
             </Button>
             <Button
               onClick={handleExport}
               variant="outline"
               size="sm"
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-3 h-8 sm:h-9"
             >
-              <Download className="w-4 h-4" />
-              <span className="hidden sm:inline">Export</span>
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline text-xs sm:text-sm">Export</span>
             </Button>
           </div>
         </div>
       </div>
 
       {/* Key Performance Indicators */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-4">
         {/* Total Visits */}
-        <Card className="p-4 sm:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-3">
-            <div>
-              <p className="text-blue-100 text-xs sm:text-sm font-medium mb-1">Total Visits</p>
-              <p className="text-2xl sm:text-3xl font-bold">{stats.totalVisits.toLocaleString()}</p>
+        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+          <div className="flex items-start justify-between mb-2 sm:mb-3">
+            <div className="min-w-0">
+              <p className="text-blue-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Visits</p>
+              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.totalVisits.toLocaleString()}</p>
             </div>
-            <Eye className="w-10 h-10 sm:w-12 sm:h-12 opacity-80" />
+            <Eye className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
           </div>
           {trends && (
             <div className="bg-blue-700/30 rounded-lg px-2 py-1 inline-block">
@@ -486,13 +487,13 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Unique Visitors */}
-        <Card className="p-4 sm:p-6 bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-3">
-            <div>
-              <p className="text-green-100 text-xs sm:text-sm font-medium mb-1">Unique Visitors</p>
-              <p className="text-2xl sm:text-3xl font-bold">{stats.uniqueVisitors.toLocaleString()}</p>
+        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+          <div className="flex items-start justify-between mb-2 sm:mb-3">
+            <div className="min-w-0">
+              <p className="text-green-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Visitors</p>
+              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.uniqueVisitors.toLocaleString()}</p>
             </div>
-            <Users className="w-10 h-10 sm:w-12 sm:h-12 opacity-80" />
+            <Users className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
           </div>
           {trends && (
             <div className="bg-green-700/30 rounded-lg px-2 py-1 inline-block">
@@ -502,13 +503,13 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Page Views */}
-        <Card className="p-4 sm:p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-3">
-            <div>
-              <p className="text-purple-100 text-xs sm:text-sm font-medium mb-1">Page Views</p>
-              <p className="text-2xl sm:text-3xl font-bold">{stats.totalPages.toLocaleString()}</p>
+        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+          <div className="flex items-start justify-between mb-2 sm:mb-3">
+            <div className="min-w-0">
+              <p className="text-purple-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Pages</p>
+              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.totalPages.toLocaleString()}</p>
             </div>
-            <MousePointer className="w-10 h-10 sm:w-12 sm:h-12 opacity-80" />
+            <MousePointer className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
           </div>
           {trends && (
             <div className="bg-purple-700/30 rounded-lg px-2 py-1 inline-block">
@@ -518,15 +519,15 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Pages per Visit */}
-        <Card className="p-4 sm:p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-3">
-            <div>
-              <p className="text-orange-100 text-xs sm:text-sm font-medium mb-1">Pages/Visit</p>
-              <p className="text-2xl sm:text-3xl font-bold">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+          <div className="flex items-start justify-between mb-2 sm:mb-3">
+            <div className="min-w-0">
+              <p className="text-orange-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Pg/Visit</p>
+              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">
                 {stats.totalVisits > 0 ? (stats.totalPages / stats.totalVisits).toFixed(1) : '0'}
               </p>
             </div>
-            <Target className="w-10 h-10 sm:w-12 sm:h-12 opacity-80" />
+            <Target className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
           </div>
           {trends && (
             <div className="bg-orange-700/30 rounded-lg px-2 py-1 inline-block">
@@ -536,13 +537,13 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Bounce Rate */}
-        <Card className="p-4 sm:p-6 bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-lg hover:shadow-xl transition-shadow">
-          <div className="flex items-start justify-between mb-3">
-            <div>
-              <p className="text-pink-100 text-xs sm:text-sm font-medium mb-1">Bounce Rate</p>
-              <p className="text-2xl sm:text-3xl font-bold">{stats.bounceRate.toFixed(1)}%</p>
+        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+          <div className="flex items-start justify-between mb-2 sm:mb-3">
+            <div className="min-w-0">
+              <p className="text-pink-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Bounce</p>
+              <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.bounceRate.toFixed(1)}%</p>
             </div>
-            <Zap className="w-10 h-10 sm:w-12 sm:h-12 opacity-80" />
+            <Zap className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
           </div>
           {trends && (
             <div className="bg-pink-700/30 rounded-lg px-2 py-1 inline-block">
@@ -553,23 +554,23 @@ export default function AnalyticsDashboard() {
       </div>
 
       {/* Enhanced Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6">
         {/* Daily Traffic Trend Chart */}
-        <Card className="p-6 shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-bold flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Calendar className="w-5 h-5 text-blue-600" />
+        <Card className="p-4 sm:p-6 shadow-lg">
+          <div className="flex items-center justify-between mb-3 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-bold flex items-center gap-2">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
               </div>
               Traffic Trend
             </h3>
             <div className="flex gap-2 text-xs">
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded"></div>
+                <div className="w-3 h-3 bg-linear-to-r from-blue-500 to-blue-600 rounded"></div>
                 <span className="text-gray-600">Visits</span>
               </div>
               <div className="flex items-center gap-1">
-                <div className="w-3 h-3 bg-gradient-to-r from-green-500 to-green-600 rounded"></div>
+                <div className="w-3 h-3 bg-linear-to-r from-green-500 to-green-600 rounded"></div>
                 <span className="text-gray-600">Unique</span>
               </div>
             </div>
@@ -581,7 +582,7 @@ export default function AnalyticsDashboard() {
                 <p className="text-gray-500 text-sm">No traffic data yet</p>
               </div>
             ) : (
-              <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="space-y-1.5 sm:space-y-2 max-h-[300px] sm:max-h-[400px] overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
                 {data.dailyVisits.slice().reverse().map((day, index) => {
                   const visits = parseInt(day.visits);
                   const uniqueVisitors = parseInt(day.unique_visitors);
@@ -590,9 +591,9 @@ export default function AnalyticsDashboard() {
                   const isToday = new Date(day.date).toDateString() === new Date().toDateString();
 
                   return (
-                    <div key={index} className={`group hover:bg-gray-50 rounded-lg p-2 -mx-2 transition-colors ${isToday ? 'bg-blue-50' : ''}`}>
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className="text-xs font-medium text-gray-700 w-24 shrink-0">
+                    <div key={index} className={`group hover:bg-gray-50 rounded-md sm:rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 transition-colors ${isToday ? 'bg-blue-50' : ''}`}>
+                      <div className="flex items-center gap-2 sm:gap-3 mb-1.5 sm:mb-2">
+                        <div className="text-[10px] sm:text-xs font-medium text-gray-700 w-16 sm:w-24 shrink-0">
                           {new Date(day.date).toLocaleDateString('en-US', { 
                             month: 'short', 
                             day: 'numeric',
@@ -600,28 +601,28 @@ export default function AnalyticsDashboard() {
                           })}
                           {isToday && <span className="ml-1 text-blue-600 font-bold">•</span>}
                         </div>
-                        <div className="flex-1 space-y-1.5">
+                        <div className="flex-1 space-y-1">
                           {/* Visits Bar */}
-                          <div className="relative h-7 bg-gray-100 rounded-md overflow-hidden">
+                          <div className="relative h-5 sm:h-7 bg-gray-100 rounded-md overflow-hidden">
                             <div
                               className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-end pr-2 transition-all duration-500 group-hover:from-blue-600 group-hover:to-blue-700"
                               style={{ width: `${visitsWidth}%` }}
                             >
                               {visits > 0 && (
-                                <span className="text-xs font-bold text-white drop-shadow">
+                                <span className="text-[10px] sm:text-xs font-bold text-white drop-shadow">
                                   {visits}
                                 </span>
                               )}
                             </div>
                           </div>
                           {/* Unique Visitors Bar */}
-                          <div className="relative h-5 bg-gray-100 rounded-md overflow-hidden">
+                          <div className="relative h-4 sm:h-5 bg-gray-100 rounded-md overflow-hidden">
                             <div
                               className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-end pr-2 transition-all duration-500 group-hover:from-green-600 group-hover:to-green-700"
                               style={{ width: `${uniqueWidth}%` }}
                             >
                               {uniqueVisitors > 0 && (
-                                <span className="text-xs font-semibold text-white drop-shadow">
+                                <span className="text-[10px] sm:text-xs font-semibold text-white drop-shadow">
                                   {uniqueVisitors}
                                 </span>
                               )}
@@ -642,11 +643,11 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Top Pages Performance */}
-        <Card className="p-6 shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-bold flex items-center gap-2">
-              <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                <BarChart3 className="w-5 h-5 text-purple-600" />
+        <Card className="p-4 sm:p-6 shadow-lg">
+          <div className="flex items-center justify-between mb-3 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-bold flex items-center gap-2">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
               </div>
               Top Pages
             </h3>
@@ -661,44 +662,44 @@ export default function AnalyticsDashboard() {
                 <p className="text-gray-500 text-sm">No page views yet</p>
               </div>
             ) : (
-              <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="space-y-2 sm:space-y-3 max-h-[300px] sm:max-h-[400px] overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
                 {data.topPages.slice(0, 10).map((page, index) => {
                   const visits = parseInt(page.visits);
                   const uniqueVisitors = parseInt(page.unique_visitors);
                   const conversionRate = visits > 0 ? (uniqueVisitors / visits * 100) : 0;
                   
                   return (
-                    <div key={index} className="group hover:bg-purple-50 rounded-lg p-3 -mx-3 transition-all duration-200">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center text-sm font-bold shrink-0 shadow-md">
+                    <div key={index} className="group hover:bg-purple-50 rounded-md sm:rounded-lg p-2 sm:p-3 -mx-2 sm:-mx-3 transition-all duration-200">
+                      <div className="flex items-start gap-2 sm:gap-3">
+                        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center text-xs sm:text-sm font-bold shrink-0 shadow-md">
                           {index + 1}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between mb-2">
-                            <p className="text-sm font-semibold text-gray-900 truncate pr-2">
+                          <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                            <p className="text-xs sm:text-sm font-semibold text-gray-900 truncate pr-2">
                               {page.page_path === '/' ? '🏠 Home' : 
                                page.page_path === '/services' ? '⚙️ Services' :
                                page.page_path === '/contact' ? '📧 Contact' :
                                page.page_path === '/company-profile' ? '🏢 Company' :
                                page.page_path}
                             </p>
-                            <span className="text-sm font-bold text-purple-600 shrink-0">
+                            <span className="text-xs sm:text-sm font-bold text-purple-600 shrink-0">
                               {visits}
                             </span>
                           </div>
-                          <div className="flex items-center gap-3 text-xs text-gray-600 mb-2">
-                            <div className="flex items-center gap-1">
-                              <Users className="w-3 h-3" />
-                              <span>{uniqueVisitors} unique</span>
+                          <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-gray-600 mb-1.5 sm:mb-2">
+                            <div className="flex items-center gap-0.5 sm:gap-1">
+                              <Users className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                              <span className="truncate">{uniqueVisitors} unique</span>
                             </div>
-                            <div className="flex items-center gap-1">
-                              <Target className="w-3 h-3" />
-                              <span>{conversionRate.toFixed(1)}% engaged</span>
+                            <div className="flex items-center gap-0.5 sm:gap-1">
+                              <Target className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                              <span className="truncate">{conversionRate.toFixed(1)}%</span>
                             </div>
                           </div>
-                          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
                             <div
-                              className="h-full bg-gradient-to-r from-purple-500 to-purple-600 transition-all duration-500"
+                              className="h-full bg-linear-to-r from-purple-500 to-purple-600 transition-all duration-500"
                               style={{ width: `${(visits / parseInt(data.topPages[0].visits)) * 100}%` }}
                             />
                           </div>
@@ -714,13 +715,13 @@ export default function AnalyticsDashboard() {
       </div>
 
       {/* Visitor Demographics & Technology Stack */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-6">
         {/* Geographic Distribution */}
-        <Card className="p-6 shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-bold flex items-center gap-2">
-              <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                <Globe className="w-5 h-5 text-green-600" />
+        <Card className="p-4 sm:p-6 shadow-lg">
+          <div className="flex items-center justify-between mb-3 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-bold flex items-center gap-2">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
               </div>
               Geographic Reach
             </h3>
@@ -735,7 +736,7 @@ export default function AnalyticsDashboard() {
                 <p className="text-gray-500 text-sm">No geographic data</p>
               </div>
             ) : (
-              <div className="space-y-3 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="space-y-3 max-h-87.5 overflow-y-auto pr-2 custom-scrollbar">
                 {data.byCountry.slice(0, 12).map((country, index) => {
                   const visits = parseInt(country.visits);
                   const uniqueVisitors = parseInt(country.unique_visitors);
@@ -743,20 +744,20 @@ export default function AnalyticsDashboard() {
                   const percentage = (visits / maxVisits) * 100;
 
                   return (
-                    <div key={index} className="group hover:bg-green-50 rounded-lg p-2 -mx-2 transition-colors">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-green-600 text-white flex items-center justify-center text-xs font-bold shadow-sm">
+                    <div key={index} className="group hover:bg-green-50 rounded-md sm:rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 transition-colors">
+                      <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg bg-gradient-to-br from-green-500 to-green-600 text-white flex items-center justify-center text-[10px] sm:text-xs font-bold shadow-sm">
                             {country.country.substring(0, 2).toUpperCase()}
                           </div>
-                          <div>
-                            <span className="text-sm font-semibold text-gray-900">{country.country}</span>
-                            <p className="text-xs text-gray-500">{uniqueVisitors} unique visitors</p>
+                          <div className="min-w-0">
+                            <span className="text-xs sm:text-sm font-semibold text-gray-900 block truncate">{country.country}</span>
+                            <p className="text-[10px] sm:text-xs text-gray-500">{uniqueVisitors} unique</p>
                           </div>
                         </div>
-                        <span className="text-sm font-bold text-green-600">{visits}</span>
+                        <span className="text-xs sm:text-sm font-bold text-green-600 flex-shrink-0">{visits}</span>
                       </div>
-                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500"
                           style={{ width: `${percentage}%` }}
@@ -771,11 +772,11 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Device Analytics */}
-        <Card className="p-6 shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-bold flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                <Monitor className="w-5 h-5 text-blue-600" />
+        <Card className="p-4 sm:p-6 shadow-lg">
+          <div className="flex items-center justify-between mb-3 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-bold flex items-center gap-2">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Monitor className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
               </div>
               Device Types
             </h3>
@@ -792,7 +793,7 @@ export default function AnalyticsDashboard() {
             ) : (
               <>
                 {/* Device Distribution Pie */}
-                <div className="grid grid-cols-3 gap-3 mb-6">
+                <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-4 sm:mb-6">
                   {deviceStats.percentages.map((device, index) => {
                     const colors = {
                       'Desktop': 'from-blue-500 to-blue-600',
@@ -809,43 +810,43 @@ export default function AnalyticsDashboard() {
 
                     return (
                       <div key={index} className="text-center">
-                        <div className={`w-full aspect-square rounded-xl bg-gradient-to-br ${colorClass} p-4 mb-2 shadow-md flex items-center justify-center`}>
+                        <div className={`w-full aspect-square rounded-lg sm:rounded-xl bg-gradient-to-br ${colorClass} p-2 sm:p-4 mb-1.5 sm:mb-2 shadow-md flex items-center justify-center`}>
                           <div className="text-center text-white">
-                            <Icon className="w-8 h-8 mx-auto mb-1" />
-                            <p className="text-2xl font-bold">{device.percentage.toFixed(0)}%</p>
+                            <Icon className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-0.5 sm:mb-1" />
+                            <p className="text-lg sm:text-2xl font-bold">{device.percentage.toFixed(0)}%</p>
                           </div>
                         </div>
-                        <p className="text-xs font-medium text-gray-700">{device.device_type}</p>
-                        <p className="text-xs text-gray-500">{device.visits} visits</p>
+                        <p className="text-[10px] sm:text-xs font-medium text-gray-700">{device.device_type}</p>
+                        <p className="text-[9px] sm:text-xs text-gray-500">{device.visits} visits</p>
                       </div>
                     );
                   })}
                 </div>
 
                 {/* Detailed Breakdown */}
-                <div className="space-y-3 pt-3 border-t">
+                <div className="space-y-2 sm:space-y-3 pt-2 sm:pt-3 border-t">
                   {deviceStats.percentages.map((device, index) => (
-                    <div key={index} className="group hover:bg-blue-50 rounded-lg p-2 -mx-2 transition-colors">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          {device.device_type === 'Mobile' && <Smartphone className="w-4 h-4 text-blue-600" />}
-                          {device.device_type === 'Desktop' && <Monitor className="w-4 h-4 text-blue-600" />}
-                          {device.device_type === 'Tablet' && <Monitor className="w-4 h-4 text-blue-600" />}
-                          <span className="text-sm font-medium text-gray-700">{device.device_type}</span>
+                    <div key={index} className="group hover:bg-blue-50 rounded-md sm:rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 transition-colors">
+                      <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          {device.device_type === 'Mobile' && <Smartphone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600" />}
+                          {device.device_type === 'Desktop' && <Monitor className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600" />}
+                          {device.device_type === 'Tablet' && <Monitor className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600" />}
+                          <span className="text-xs sm:text-sm font-medium text-gray-700">{device.device_type}</span>
                         </div>
                         <div className="text-right">
-                          <span className="text-sm font-bold text-gray-900">{device.visits}</span>
-                          <span className="text-xs text-gray-500 ml-2">({device.percentage.toFixed(1)}%)</span>
+                          <span className="text-xs sm:text-sm font-bold text-gray-900">{device.visits}</span>
+                          <span className="text-[10px] sm:text-xs text-gray-500 ml-1 sm:ml-2">({device.percentage.toFixed(1)}%)</span>
                         </div>
                       </div>
-                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-500"
                           style={{ width: `${device.percentage}%` }}
                         />
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {device.unique_visitors} unique visitors
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
+                        {device.unique_visitors} unique
                       </p>
                     </div>
                   ))}
@@ -856,11 +857,11 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Browser Analytics */}
-        <Card className="p-6 shadow-lg">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-bold flex items-center gap-2">
-              <div className="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center">
-                <Globe className="w-5 h-5 text-orange-600" />
+        <Card className="p-4 sm:p-6 shadow-lg">
+          <div className="flex items-center justify-between mb-3 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-bold flex items-center gap-2">
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-orange-100 rounded-lg flex items-center justify-center">
+                <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-orange-600" />
               </div>
               Browser Usage
             </h3>
@@ -875,7 +876,7 @@ export default function AnalyticsDashboard() {
                 <p className="text-gray-500 text-sm">No browser data</p>
               </div>
             ) : (
-              <div className="space-y-3 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar">
+              <div className="space-y-3 max-h-87.5 overflow-y-auto pr-2 custom-scrollbar">
                 {data.byBrowser.slice(0, 12).map((browser, index) => {
                   const visits = parseInt(browser.visits);
                   const maxVisits = parseInt(data.byBrowser[0].visits);
@@ -892,21 +893,21 @@ export default function AnalyticsDashboard() {
                   const emoji = browserEmoji[browser.browser as keyof typeof browserEmoji] || '🌐';
 
                   return (
-                    <div key={index} className="group hover:bg-orange-50 rounded-lg p-2 -mx-2 transition-colors">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xl">{emoji}</span>
-                          <span className="text-sm font-medium text-gray-700">{browser.browser}</span>
+                    <div key={index} className="group hover:bg-orange-50 rounded-md sm:rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 transition-colors">
+                      <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                          <span className="text-base sm:text-xl flex-shrink-0">{emoji}</span>
+                          <span className="text-xs sm:text-sm font-medium text-gray-700 truncate">{browser.browser}</span>
                         </div>
-                        <span className="text-sm font-bold text-orange-600">{visits}</span>
+                        <span className="text-xs sm:text-sm font-bold text-orange-600 flex-shrink-0">{visits}</span>
                       </div>
-                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                      <div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-500"
                           style={{ width: `${percentage}%` }}
                         />
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">{percentage.toFixed(1)}% of traffic</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">{percentage.toFixed(1)}% of traffic</p>
                     </div>
                   );
                 })}

@@ -19,21 +19,26 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-    // Default to Japanese, with lazy initialization from localStorage
-    const [language, setLanguage] = useState<Language>(() => {
-        if (typeof window !== 'undefined') {
-            const savedLanguage = localStorage.getItem('language') as Language;
-            if (savedLanguage && (savedLanguage === 'ja' || savedLanguage === 'en')) {
-                return savedLanguage;
-            }
-        }
-        return 'ja';
-    });
+    // Always default to Japanese for SSR consistency
+    // Language will be hydrated from localStorage after mount
+    const [language, setLanguage] = useState<Language>('ja');
+    const [isHydrated, setIsHydrated] = useState(false);
 
-    // Save language preference to localStorage when it changes
+    // Hydrate language from localStorage after mount to avoid hydration mismatch
     useEffect(() => {
-        localStorage.setItem('language', language);
-    }, [language]);
+        const savedLanguage = localStorage.getItem('language') as Language;
+        if (savedLanguage && (savedLanguage === 'ja' || savedLanguage === 'en')) {
+            setLanguage(savedLanguage);
+        }
+        setIsHydrated(true);
+    }, []);
+
+    // Save language preference to localStorage when it changes (after hydration)
+    useEffect(() => {
+        if (isHydrated) {
+            localStorage.setItem('language', language);
+        }
+    }, [language, isHydrated]);
 
     // Get translations based on current language
     const translations = language === 'ja' ? jaTranslations : enTranslations;
