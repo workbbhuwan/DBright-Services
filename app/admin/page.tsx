@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { logger } from '@/lib/logger';
 import { 
@@ -45,7 +45,7 @@ interface Stats {
 
 type TabType = 'messages' | 'analytics';
 
-export default function AdminDashboard() {
+function AdminDashboard() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -830,5 +830,23 @@ export default function AdminDashboard() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function AdminDashboardPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="w-16 h-16 mx-auto mb-4 relative">
+            <div className="absolute inset-0 border-4 border-blue-200 rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
+          </div>
+          <p className="text-gray-600 font-medium">Loading dashboard...</p>
+        </div>
+      </div>
+    }>
+      <AdminDashboard />
+    </Suspense>
   );
 }
