@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { logger } from '@/lib/logger';
 import { 
   Mail, 
   Trash2, 
@@ -46,12 +47,13 @@ type TabType = 'messages' | 'analytics';
 
 export default function AdminDashboard() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
-  const [activeTab, setActiveTab] = useState<TabType>('messages');
+  const [activeTab, setActiveTab] = useState<TabType>((searchParams.get('tab') as TabType) || 'messages');
 
   // Dashboard state
   const [messages, setMessages] = useState<Message[]>([]);
@@ -69,6 +71,14 @@ export default function AdminDashboard() {
     checkAuth();
   }, []);
 
+  // Update tab from URL
+  useEffect(() => {
+    const tab = searchParams.get('tab') as TabType;
+    if (tab && (tab === 'messages' || tab === 'analytics')) {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
+
   // Fetch data when authenticated
   const fetchMessages = useCallback(async () => {
     try {
@@ -81,9 +91,7 @@ export default function AdminDashboard() {
         setLastUpdated(new Date());
       }
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Failed to fetch messages:', error);
-      }
+      logger.error('Failed to fetch messages:', error);
     }
   }, [filter]);
 
@@ -96,9 +104,7 @@ export default function AdminDashboard() {
         setStats(data.stats);
       }
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Failed to fetch stats:', error);
-      }
+      logger.error('Failed to fetch stats:', error);
     }
   }, []);
 
@@ -253,7 +259,6 @@ export default function AdminDashboard() {
       document.body.removeChild(a);
     } catch (err) {
       setError('Failed to export messages. Please try again.');
-      console.error('Export error:', err);
     } finally {
       setIsExporting(false);
     }
@@ -395,7 +400,10 @@ export default function AdminDashboard() {
           <div className="border-b border-gray-200">
             <nav className="-mb-px flex gap-4" aria-label="Tabs">
               <button
-                onClick={() => setActiveTab('messages')}
+                onClick={() => {
+                  setActiveTab('messages');
+                  router.push('/admin?tab=messages');
+                }}
                 className={`py-3 px-4 border-b-2 font-medium text-sm transition-colors flex items-center gap-2 ${
                   activeTab === 'messages'
                     ? 'border-blue-600 text-blue-600'
@@ -411,7 +419,10 @@ export default function AdminDashboard() {
                 )}
               </button>
               <button
-                onClick={() => setActiveTab('analytics')}
+                onClick={() => {
+                  setActiveTab('analytics');
+                  router.push('/admin?tab=analytics');
+                }}
                 className={`py-3 px-4 border-b-2 font-medium text-sm transition-colors flex items-center gap-2 ${
                   activeTab === 'analytics'
                     ? 'border-blue-600 text-blue-600'

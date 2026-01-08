@@ -255,7 +255,7 @@ export default function AnalyticsDashboard() {
   const TrendIndicator = ({ trend, change }: { trend: 'up' | 'down' | 'neutral', change: number }) => {
     if (trend === 'neutral') {
       return (
-        <span className="inline-flex items-center text-xs font-medium text-gray-500">
+        <span className="inline-flex items-center text-xs font-medium text-white">
           <Minus className="w-3 h-3 mr-1" />
           {Math.abs(change).toFixed(1)}%
         </span>
@@ -673,10 +673,10 @@ export default function AnalyticsDashboard() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-1.5 sm:mb-2">
                             <p className="text-xs sm:text-sm font-semibold text-gray-900 truncate pr-2">
-                              {page.page_path === '/' ? '🏠 Home' : 
-                               page.page_path === '/services' ? '⚙️ Services' :
-                               page.page_path === '/contact' ? '📧 Contact' :
-                               page.page_path === '/company-profile' ? '🏢 Company' :
+                              {page.page_path === '/' ? 'Home' : 
+                               page.page_path === '/services' ? 'Services' :
+                               page.page_path === '/contact' ? 'Contact' :
+                               page.page_path === '/company-profile' ? 'Company' :
                                page.page_path}
                             </p>
                             <span className="text-xs sm:text-sm font-bold text-purple-600 shrink-0">
