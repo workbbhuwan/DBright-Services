@@ -32,9 +32,12 @@ export function proxy(request: NextRequest) {
         '/contact',
         '/admin',
         '/api/contact',
+        '/api/track',
+        '/api/analytics',
         '/api/admin/login',
         '/api/admin/messages',
         '/api/admin/stats',
+        '/api/admin/export',
     ];
 
     // Check if the pathname starts with any valid route
