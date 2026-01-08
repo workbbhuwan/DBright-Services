@@ -12,12 +12,17 @@ import { usePathname } from 'next/navigation';
 function getSessionId(): string {
   if (typeof window === 'undefined') return '';
   
-  let sessionId = sessionStorage.getItem('analytics_session_id');
-  if (!sessionId) {
-    sessionId = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
-    sessionStorage.setItem('analytics_session_id', sessionId);
+  try {
+    let sessionId = sessionStorage.getItem('analytics_session_id');
+    if (!sessionId) {
+      sessionId = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
+      sessionStorage.setItem('analytics_session_id', sessionId);
+    }
+    return sessionId;
+  } catch {
+    // Handle browsers with tracking prevention or private mode
+    return `temp-${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
   }
-  return sessionId;
 }
 
 // Track page view
@@ -31,24 +36,15 @@ async function trackPageView(path: string) {
       sessionId: getSessionId(),
     };
 
-    console.log('[Analytics] Tracking page view:', path);
-
     // Send tracking data (fire and forget)
-    const response = await fetch('/api/track', {
+    await fetch('/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
       keepalive: true, // Ensures request completes even if user navigates away
     });
-    
-    if (response.ok) {
-      console.log('[Analytics] Page view tracked successfully');
-    } else {
-      console.error('[Analytics] Failed to track page view:', response.status);
-    }
-  } catch (error) {
+  } catch {
     // Silently fail - analytics should never break the app
-    console.error('[Analytics] Tracking error:', error);
   }
 }
 

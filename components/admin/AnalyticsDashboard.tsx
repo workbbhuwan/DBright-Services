@@ -161,9 +161,8 @@ export default function AnalyticsDashboard() {
       } else {
         setError('Failed to load analytics data');
       }
-    } catch (err) {
+    } catch {
       setError('Failed to load analytics data');
-      console.error('Analytics fetch error:', err);
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
@@ -172,6 +171,7 @@ export default function AnalyticsDashboard() {
 
   useEffect(() => {
     fetchAnalytics(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeRange]);
 
   // Auto-refresh every 60 seconds

@@ -27,7 +27,6 @@ export async function GET(request: NextRequest) {
   try {
     // Check authentication
     if (!await isAuthenticated()) {
-      console.log('[Analytics API] Unauthorized access attempt');
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -37,8 +36,6 @@ export async function GET(request: NextRequest) {
     // Get days parameter from query string
     const searchParams = request.nextUrl.searchParams;
     const days = parseInt(searchParams.get('days') || '30');
-    
-    console.log(`[Analytics API] Fetching analytics for ${days} days`);
 
     // Initialize database if needed
     const initPromise = initDatabase();
@@ -46,8 +43,7 @@ export async function GET(request: NextRequest) {
       setTimeout(() => resolve({ success: false, timeout: true }), 8000)
     );
     
-    const initResult = await Promise.race([initPromise, timeoutPromise]);
-    console.log('[Analytics API] Database init result:', initResult);
+    await Promise.race([initPromise, timeoutPromise]);
 
     // Fetch all analytics data in parallel with timeout protection
     const [
@@ -83,9 +79,6 @@ export async function GET(request: NextRequest) {
         new Promise<{ success: boolean; data: never[] }>((resolve) => setTimeout(() => resolve({ success: false, data: [] }), 5000))
       ])
     ]);
-
-    console.log('[Analytics API] Data fetched successfully');
-    console.log('[Analytics API] Stats:', statsResult.data);
 
     return NextResponse.json(
       { 

@@ -74,7 +74,7 @@ async function getCountryFromIP(ip: string | undefined): Promise<string | undefi
       const data = await response.json();
       return data.countryCode || undefined;
     }
-  } catch (error) {
+  } catch {
     // Silently fail
   }
   
@@ -126,30 +126,14 @@ export async function POST(request: NextRequest) {
       sessionId: body.sessionId,
     };
 
-    console.log('[Track API] Tracking page view:', {
-      path: analyticsData.pagePath,
-      device: analyticsData.deviceType,
-      browser: analyticsData.browser,
-      country: analyticsData.country,
-      ip: analyticsData.ipAddress
-    });
-
-    const result = await savePageAnalytics(analyticsData);
-    
-    if (result.success) {
-      console.log('[Track API] Successfully saved analytics');
-    } else {
-      console.error('[Track API] Failed to save analytics:', result.error);
-    }
+    await savePageAnalytics(analyticsData);
 
     return NextResponse.json(
       { success: true },
       { status: 200 }
     );
-  } catch (error) {
-    console.error('[Track API] Error:', error);
-    
-    // Don't fail on tracking errors
+  } catch {
+    // Silently fail - analytics should not expose errors
     return NextResponse.json(
       { success: true },
       { status: 200 }
