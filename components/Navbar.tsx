@@ -54,7 +54,7 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
             >
                 <div
                     className={cn(
-                        'max-w-[1200px] mx-auto px-3 sm:px-4 md:px-6 lg:px-10',
+                        'max-w-300 mx-auto px-3 sm:px-4 md:px-6 lg:px-10',
                         containerClassName
                     )}
                 >
@@ -66,7 +66,7 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
                                 alt="Dbright Services Logo"
                                 width={130}
                                 height={40}
-                                className="transition-transform duration-300 hover:scale-105 w-[110px] h-auto sm:w-[130px]"
+                                className="transition-transform duration-300 hover:scale-105 w-27.5 h-auto sm:w-32.5"
                                 priority
                             />
                         </Link>
@@ -166,7 +166,7 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
                             className="fixed right-0 top-0 bottom-0 w-full max-w-xs sm:max-w-sm bg-white shadow-2xl z-50 md:hidden flex flex-col"
                         >
                             <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6 border-b border-gray-200">
-                                <Image src="/logo.png" alt="Logo" width={100} height={28} className="sm:w-[120px] sm:h-[30px]" />
+                                <Image src="/logo.png" alt="Logo" width={100} height={28} className="sm:w-30 sm:h-7.5" />
                                 <button
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="p-2 rounded-md hover:bg-gray-100"

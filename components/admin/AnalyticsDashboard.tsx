@@ -20,8 +20,6 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import {
-  TrendingUp,
-  TrendingDown,
   Users,
   Globe,
   Monitor,
@@ -31,7 +29,6 @@ import {
   RefreshCw,
   Eye,
   Activity,
-  Clock,
   MousePointer,
   Download,
   ArrowUp,
@@ -39,7 +36,6 @@ import {
   Minus,
   Target,
   Zap,
-  PieChart,
 } from 'lucide-react';
 
 interface AnalyticsStats {
@@ -295,9 +291,9 @@ export default function AnalyticsDashboard() {
   if (error || !data) {
     return (
       <div className="space-y-3 sm:space-y-4">
-        <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg sm:rounded-xl px-4 py-4 sm:px-6 sm:py-5 shadow-sm">
+        <div className="bg-linear-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg sm:rounded-xl px-4 py-4 sm:px-6 sm:py-5 shadow-sm">
           <div className="flex items-start gap-3 sm:gap-4">
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-full flex items-center justify-center">
                 <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600" />
               </div>
@@ -337,7 +333,7 @@ export default function AnalyticsDashboard() {
         
         {/* Preview Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 opacity-60 pointer-events-none">
-          <Card className="p-3 sm:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg">
+          <Card className="p-3 sm:p-6 bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-100 text-xs sm:text-sm font-medium mb-1">Visits</p>
@@ -347,7 +343,7 @@ export default function AnalyticsDashboard() {
               <Eye className="w-8 h-8 sm:w-12 sm:h-12 opacity-80" />
             </div>
           </Card>
-          <Card className="p-3 sm:p-6 bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg">
+          <Card className="p-3 sm:p-6 bg-linear-to-r from-green-500 to-green-600 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-100 text-xs sm:text-sm font-medium mb-1">Visitors</p>
@@ -357,7 +353,7 @@ export default function AnalyticsDashboard() {
               <Users className="w-8 h-8 sm:w-12 sm:h-12 opacity-80" />
             </div>
           </Card>
-          <Card className="p-3 sm:p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg">
+          <Card className="p-3 sm:p-6 bg-linear-to-r from-purple-500 to-purple-600 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-purple-100 text-xs sm:text-sm font-medium mb-1">Pages</p>
@@ -367,7 +363,7 @@ export default function AnalyticsDashboard() {
               <MousePointer className="w-8 h-8 sm:w-12 sm:h-12 opacity-80" />
             </div>
           </Card>
-          <Card className="p-3 sm:p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg">
+          <Card className="p-3 sm:p-6 bg-linear-to-r from-orange-500 to-orange-600 text-white shadow-lg">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-orange-100 text-xs sm:text-sm font-medium mb-1">Engage</p>
@@ -390,7 +386,7 @@ export default function AnalyticsDashboard() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-4">
         <div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 flex items-center gap-2 sm:gap-3">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-linear-to-r from-blue-500 to-purple-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg">
               <BarChart3 className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
             </div>
             <span className="hidden sm:inline">Analytics Dashboard</span>
@@ -471,13 +467,13 @@ export default function AnalyticsDashboard() {
       {/* Key Performance Indicators */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-4">
         {/* Total Visits */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg hover:shadow-xl transition-shadow">
           <div className="flex items-start justify-between mb-2 sm:mb-3">
             <div className="min-w-0">
               <p className="text-blue-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Visits</p>
               <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.totalVisits.toLocaleString()}</p>
             </div>
-            <Eye className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
+            <Eye className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
           </div>
           {trends && (
             <div className="bg-blue-700/30 rounded-lg px-2 py-1 inline-block">
@@ -487,13 +483,13 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Unique Visitors */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-green-500 to-green-600 text-white shadow-lg hover:shadow-xl transition-shadow">
           <div className="flex items-start justify-between mb-2 sm:mb-3">
             <div className="min-w-0">
               <p className="text-green-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Visitors</p>
               <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.uniqueVisitors.toLocaleString()}</p>
             </div>
-            <Users className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
+            <Users className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
           </div>
           {trends && (
             <div className="bg-green-700/30 rounded-lg px-2 py-1 inline-block">
@@ -503,13 +499,13 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Page Views */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-purple-500 to-purple-600 text-white shadow-lg hover:shadow-xl transition-shadow">
           <div className="flex items-start justify-between mb-2 sm:mb-3">
             <div className="min-w-0">
               <p className="text-purple-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Pages</p>
               <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.totalPages.toLocaleString()}</p>
             </div>
-            <MousePointer className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
+            <MousePointer className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
           </div>
           {trends && (
             <div className="bg-purple-700/30 rounded-lg px-2 py-1 inline-block">
@@ -519,7 +515,7 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Pages per Visit */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-orange-500 to-orange-600 text-white shadow-lg hover:shadow-xl transition-shadow">
           <div className="flex items-start justify-between mb-2 sm:mb-3">
             <div className="min-w-0">
               <p className="text-orange-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Pg/Visit</p>
@@ -527,7 +523,7 @@ export default function AnalyticsDashboard() {
                 {stats.totalVisits > 0 ? (stats.totalPages / stats.totalVisits).toFixed(1) : '0'}
               </p>
             </div>
-            <Target className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
+            <Target className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
           </div>
           {trends && (
             <div className="bg-orange-700/30 rounded-lg px-2 py-1 inline-block">
@@ -537,13 +533,13 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Bounce Rate */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-lg hover:shadow-xl transition-shadow">
+        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-pink-500 to-rose-600 text-white shadow-lg hover:shadow-xl transition-shadow">
           <div className="flex items-start justify-between mb-2 sm:mb-3">
             <div className="min-w-0">
               <p className="text-pink-100 text-[10px] sm:text-xs lg:text-sm font-medium mb-0.5 sm:mb-1 truncate">Bounce</p>
               <p className="text-lg sm:text-2xl lg:text-3xl font-bold">{stats.bounceRate.toFixed(1)}%</p>
             </div>
-            <Zap className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 flex-shrink-0" />
+            <Zap className="w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12 opacity-80 shrink-0" />
           </div>
           {trends && (
             <div className="bg-pink-700/30 rounded-lg px-2 py-1 inline-block">
@@ -582,7 +578,7 @@ export default function AnalyticsDashboard() {
                 <p className="text-gray-500 text-sm">No traffic data yet</p>
               </div>
             ) : (
-              <div className="space-y-1.5 sm:space-y-2 max-h-[300px] sm:max-h-[400px] overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
+              <div className="space-y-1.5 sm:space-y-2 max-h-75 sm:max-h-100 overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
                 {data.dailyVisits.slice().reverse().map((day, index) => {
                   const visits = parseInt(day.visits);
                   const uniqueVisitors = parseInt(day.unique_visitors);
@@ -605,7 +601,7 @@ export default function AnalyticsDashboard() {
                           {/* Visits Bar */}
                           <div className="relative h-5 sm:h-7 bg-gray-100 rounded-md overflow-hidden">
                             <div
-                              className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-end pr-2 transition-all duration-500 group-hover:from-blue-600 group-hover:to-blue-700"
+                              className="absolute inset-y-0 left-0 bg-linear-to-r from-blue-500 to-blue-600 flex items-center justify-end pr-2 transition-all duration-500 group-hover:from-blue-600 group-hover:to-blue-700"
                               style={{ width: `${visitsWidth}%` }}
                             >
                               {visits > 0 && (
@@ -618,7 +614,7 @@ export default function AnalyticsDashboard() {
                           {/* Unique Visitors Bar */}
                           <div className="relative h-4 sm:h-5 bg-gray-100 rounded-md overflow-hidden">
                             <div
-                              className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-end pr-2 transition-all duration-500 group-hover:from-green-600 group-hover:to-green-700"
+                              className="absolute inset-y-0 left-0 bg-linear-to-r from-green-500 to-green-600 flex items-center justify-end pr-2 transition-all duration-500 group-hover:from-green-600 group-hover:to-green-700"
                               style={{ width: `${uniqueWidth}%` }}
                             >
                               {uniqueVisitors > 0 && (
@@ -662,7 +658,7 @@ export default function AnalyticsDashboard() {
                 <p className="text-gray-500 text-sm">No page views yet</p>
               </div>
             ) : (
-              <div className="space-y-2 sm:space-y-3 max-h-[300px] sm:max-h-[400px] overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
+              <div className="space-y-2 sm:space-y-3 max-h-75 sm:max-h-100 overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
                 {data.topPages.slice(0, 10).map((page, index) => {
                   const visits = parseInt(page.visits);
                   const uniqueVisitors = parseInt(page.unique_visitors);
@@ -671,7 +667,7 @@ export default function AnalyticsDashboard() {
                   return (
                     <div key={index} className="group hover:bg-purple-50 rounded-md sm:rounded-lg p-2 sm:p-3 -mx-2 sm:-mx-3 transition-all duration-200">
                       <div className="flex items-start gap-2 sm:gap-3">
-                        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center text-xs sm:text-sm font-bold shrink-0 shadow-md">
+                        <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-linear-to-r from-purple-500 to-purple-600 text-white flex items-center justify-center text-xs sm:text-sm font-bold shrink-0 shadow-md">
                           {index + 1}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -747,7 +743,7 @@ export default function AnalyticsDashboard() {
                     <div key={index} className="group hover:bg-green-50 rounded-md sm:rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 transition-colors">
                       <div className="flex items-center justify-between mb-1.5 sm:mb-2">
                         <div className="flex items-center gap-1.5 sm:gap-2">
-                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg bg-gradient-to-br from-green-500 to-green-600 text-white flex items-center justify-center text-[10px] sm:text-xs font-bold shadow-sm">
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-md sm:rounded-lg bg-linear-to-r from-green-500 to-green-600 text-white flex items-center justify-center text-[10px] sm:text-xs font-bold shadow-sm">
                             {country.country.substring(0, 2).toUpperCase()}
                           </div>
                           <div className="min-w-0">
@@ -755,11 +751,11 @@ export default function AnalyticsDashboard() {
                             <p className="text-[10px] sm:text-xs text-gray-500">{uniqueVisitors} unique</p>
                           </div>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-green-600 flex-shrink-0">{visits}</span>
+                        <span className="text-xs sm:text-sm font-bold text-green-600 shrink-0">{visits}</span>
                       </div>
                       <div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-green-500 to-green-600 transition-all duration-500"
+                          className="h-full bg-linear-to-r from-green-500 to-green-600 transition-all duration-500"
                           style={{ width: `${percentage}%` }}
                         />
                       </div>
@@ -810,7 +806,7 @@ export default function AnalyticsDashboard() {
 
                     return (
                       <div key={index} className="text-center">
-                        <div className={`w-full aspect-square rounded-lg sm:rounded-xl bg-gradient-to-br ${colorClass} p-2 sm:p-4 mb-1.5 sm:mb-2 shadow-md flex items-center justify-center`}>
+                        <div className={`w-full aspect-square rounded-lg sm:rounded-xl bg-linear-to-r ${colorClass} p-2 sm:p-4 mb-1.5 sm:mb-2 shadow-md flex items-center justify-center`}>
                           <div className="text-center text-white">
                             <Icon className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-0.5 sm:mb-1" />
                             <p className="text-lg sm:text-2xl font-bold">{device.percentage.toFixed(0)}%</p>
@@ -841,7 +837,7 @@ export default function AnalyticsDashboard() {
                       </div>
                       <div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all duration-500"
+                          className="h-full bg-linear-to-r from-blue-500 to-blue-600 transition-all duration-500"
                           style={{ width: `${device.percentage}%` }}
                         />
                       </div>
@@ -896,14 +892,14 @@ export default function AnalyticsDashboard() {
                     <div key={index} className="group hover:bg-orange-50 rounded-md sm:rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 transition-colors">
                       <div className="flex items-center justify-between mb-1.5 sm:mb-2">
                         <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
-                          <span className="text-base sm:text-xl flex-shrink-0">{emoji}</span>
+                          <span className="text-base sm:text-xl shrink-0">{emoji}</span>
                           <span className="text-xs sm:text-sm font-medium text-gray-700 truncate">{browser.browser}</span>
                         </div>
-                        <span className="text-xs sm:text-sm font-bold text-orange-600 flex-shrink-0">{visits}</span>
+                        <span className="text-xs sm:text-sm font-bold text-orange-600 shrink-0">{visits}</span>
                       </div>
                       <div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-orange-500 to-orange-600 transition-all duration-500"
+                          className="h-full bg-linear-to-r from-orange-500 to-orange-600 transition-all duration-500"
                           style={{ width: `${percentage}%` }}
                         />
                       </div>
