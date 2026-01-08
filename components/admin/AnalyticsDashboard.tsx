@@ -474,7 +474,7 @@ export default function AnalyticsDashboard() {
         </Card>
 
         {/* Unique Visitors */}
-        <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-green-500 to-green-600 text-white">
+        {/* <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-green-500 to-green-600 text-white">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-green-100 text-xs sm:text-sm font-medium">Visitors</p>
@@ -487,7 +487,7 @@ export default function AnalyticsDashboard() {
             </div>
             <Users className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 opacity-80" />
           </div>
-        </Card>
+        </Card> */}
 
         {/* Page Views */}
         <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-purple-500 to-purple-600 text-white">
