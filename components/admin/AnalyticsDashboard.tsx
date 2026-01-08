@@ -456,7 +456,7 @@ export default function AnalyticsDashboard() {
       </div>
 
       {/* Key Performance Indicators */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         {/* Total Visits */}
         <Card className="p-3 sm:p-4 lg:p-6 bg-linear-to-r from-blue-500 to-blue-600 text-white">
           <div className="flex items-center justify-between">
@@ -556,10 +556,6 @@ export default function AnalyticsDashboard() {
                 <div className="w-3 h-3 bg-linear-to-r from-blue-500 to-blue-600 rounded"></div>
                 <span className="text-gray-600">Visits</span>
               </div>
-              <div className="flex items-center gap-1">
-                <div className="w-3 h-3 bg-linear-to-r from-green-500 to-green-600 rounded"></div>
-                <span className="text-gray-600">Unique</span>
-              </div>
             </div>
           </div>
           <div className="space-y-2">
@@ -572,9 +568,7 @@ export default function AnalyticsDashboard() {
               <div className="space-y-1.5 sm:space-y-2 max-h-75 sm:max-h-100 overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
                 {data.dailyVisits.slice().reverse().map((day, index) => {
                   const visits = parseInt(day.visits);
-                  const uniqueVisitors = parseInt(day.unique_visitors);
                   const visitsWidth = (visits / chartData.maxVisits) * 100;
-                  const uniqueWidth = (uniqueVisitors / chartData.maxVisits) * 100;
                   const isToday = new Date(day.date).toDateString() === new Date().toDateString();
 
                   return (
@@ -602,23 +596,9 @@ export default function AnalyticsDashboard() {
                               )}
                             </div>
                           </div>
-                          {/* Unique Visitors Bar */}
-                          <div className="relative h-4 sm:h-5 bg-gray-100 rounded-md overflow-hidden">
-                            <div
-                              className="absolute inset-y-0 left-0 bg-linear-to-r from-green-500 to-green-600 flex items-center justify-end pr-2 transition-all duration-500 group-hover:from-green-600 group-hover:to-green-700"
-                              style={{ width: `${uniqueWidth}%` }}
-                            >
-                              {uniqueVisitors > 0 && (
-                                <span className="text-[10px] sm:text-xs font-semibold text-white drop-shadow">
-                                  {uniqueVisitors}
-                                </span>
-                              )}
-                            </div>
-                          </div>
                         </div>
                         <div className="text-xs text-gray-500 w-16 text-right">
                           <div className="font-medium text-gray-700">{visits}</div>
-                          <div className="text-green-600">{uniqueVisitors}</div>
                         </div>
                       </div>
                     </div>
@@ -652,8 +632,6 @@ export default function AnalyticsDashboard() {
               <div className="space-y-2 sm:space-y-3 max-h-75 sm:max-h-100 overflow-y-auto pr-1 sm:pr-2 custom-scrollbar">
                 {data.topPages.slice(0, 10).map((page, index) => {
                   const visits = parseInt(page.visits);
-                  const uniqueVisitors = parseInt(page.unique_visitors);
-                  const conversionRate = visits > 0 ? (uniqueVisitors / visits * 100) : 0;
                   
                   return (
                     <div key={index} className="group hover:bg-purple-50 rounded-md sm:rounded-lg p-2 sm:p-3 -mx-2 sm:-mx-3 transition-all duration-200">
@@ -673,16 +651,6 @@ export default function AnalyticsDashboard() {
                             <span className="text-xs sm:text-sm font-bold text-purple-600 shrink-0">
                               {visits}
                             </span>
-                          </div>
-                          <div className="flex items-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-gray-600 mb-1.5 sm:mb-2">
-                            <div className="flex items-center gap-0.5 sm:gap-1">
-                              <Users className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                              <span className="truncate">{uniqueVisitors} unique</span>
-                            </div>
-                            <div className="flex items-center gap-0.5 sm:gap-1">
-                              <Target className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                              <span className="truncate">{conversionRate.toFixed(1)}%</span>
-                            </div>
                           </div>
                           <div className="h-1.5 sm:h-2 bg-gray-200 rounded-full overflow-hidden">
                             <div
@@ -726,7 +694,6 @@ export default function AnalyticsDashboard() {
               <div className="space-y-3 max-h-87.5 overflow-y-auto pr-2 custom-scrollbar">
                 {data.byCountry.slice(0, 12).map((country, index) => {
                   const visits = parseInt(country.visits);
-                  const uniqueVisitors = parseInt(country.unique_visitors);
                   const maxVisits = parseInt(data.byCountry[0].visits);
                   const percentage = (visits / maxVisits) * 100;
                   
@@ -945,7 +912,6 @@ export default function AnalyticsDashboard() {
                           <span className="text-xl sm:text-2xl shrink-0">{countryInfo.flag}</span>
                           <div className="min-w-0 flex-1">
                             <span className="text-xs sm:text-sm font-semibold text-gray-900 block truncate">{countryInfo.name}</span>
-                            <p className="text-[10px] sm:text-xs text-gray-500">{uniqueVisitors} unique visitor{uniqueVisitors !== 1 ? 's' : ''}</p>
                           </div>
                         </div>
                         <span className="text-xs sm:text-sm font-bold text-green-600 shrink-0 ml-2">{visits}</span>
@@ -1038,9 +1004,6 @@ export default function AnalyticsDashboard() {
                           style={{ width: `${device.percentage}%` }}
                         />
                       </div>
-                      <p className="text-[10px] sm:text-xs text-gray-500 mt-1">
-                        {device.unique_visitors} unique
-                      </p>
                     </div>
                   ))}
                 </div>
