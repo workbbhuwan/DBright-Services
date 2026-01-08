@@ -909,7 +909,14 @@ export default function AnalyticsDashboard() {
                     <div key={index} className="group hover:bg-green-50 rounded-md sm:rounded-lg p-1.5 sm:p-2 -mx-1.5 sm:-mx-2 transition-colors">
                       <div className="flex items-center justify-between mb-1.5 sm:mb-2">
                         <div className="flex items-center gap-1.5 sm:gap-2 flex-1 min-w-0">
-                          <span className="text-xl sm:text-2xl shrink-0">{countryInfo.flag}</span>
+                          <img
+                            src={`https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`}
+                            alt={countryInfo.name}
+                            className="w-6 h-4 sm:w-8 sm:h-6 object-contain rounded shrink-0 shadow-sm"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
                           <div className="min-w-0 flex-1">
                             <span className="text-xs sm:text-sm font-semibold text-gray-900 block truncate">{countryInfo.name}</span>
                           </div>
