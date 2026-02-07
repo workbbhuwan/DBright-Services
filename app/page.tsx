@@ -23,11 +23,6 @@ export default function Home() {
 
       <Testimonials />
 
-      <SectionDivider
-        label={language === 'ja' ? '選ばれる理由' : 'Why Choose Us'}
-        linkText={language === 'ja' ? 'サービスを見る' : 'Get A Service'}
-        linkHref="/services"
-      />
       <WhyChooseUs />
 
       <SectionDivider
