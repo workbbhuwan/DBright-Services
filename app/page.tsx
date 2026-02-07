@@ -17,11 +17,6 @@ export default function Home() {
     <div className="flex flex-col w-full overflow-hidden">
       <Hero />
 
-      <SectionDivider
-        label={language === 'ja' ? '私たちについて' : 'About Us'}
-        linkText={language === 'ja' ? '詳しく見る' : 'Learn More'}
-        linkHref="/company-profile"
-      />
       <Intro />
 
       <SectionDivider
