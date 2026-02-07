@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/translations/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ChevronsRight, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -58,34 +58,40 @@ export function Navbar() {
                             />
                         </Link>
 
-                        {/* Desktop Nav */}
-                        <div className="hidden md:flex items-center gap-1 lg:gap-2">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    className={cn(
-                                        'relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200',
-                                        isActive(item.href)
-                                            ? 'text-[#135b3e] bg-[#f0fdf4]'
-                                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                        {/* Desktop Nav - pill container */}
+                        <div className="hidden md:flex items-center gap-0 border border-gray-200 rounded-full px-2 py-1.5 bg-white shadow-sm">
+                            {navItems.map((item, index) => (
+                                <div key={item.href} className="flex items-center">
+                                    {index > 0 && (
+                                        <Sparkles className="w-3 h-3 text-gray-300 mx-1 shrink-0" />
                                     )}
-                                >
-                                    {item.label}
-                                </Link>
+                                    <Link
+                                        href={item.href}
+                                        className={cn(
+                                            'relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200',
+                                            isActive(item.href)
+                                                ? 'text-[#135b3e] bg-[#f0fdf4]'
+                                                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                                        )}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                </div>
                             ))}
                         </div>
 
                         {/* Right Actions */}
                         <div className="hidden md:flex items-center gap-3">
                             <LanguageSwitcher />
-                            <Link
-                                href="/contact"
-                                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#135b3e] text-white text-sm font-semibold hover:bg-[#1a7a54] transition-all duration-300 hover:shadow-md"
-                            >
-                                {language === 'ja' ? 'お問い合わせ' : 'Contact Us'}
-                                <ArrowRight className="w-3.5 h-3.5" />
-                            </Link>
+                            <div className="rounded-full border-2 border-[#b8e6d0] p-0.5">
+                                <Link
+                                    href="/contact"
+                                    className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#135b3e] text-white text-sm font-semibold hover:bg-[#1a7a54] transition-all duration-300 hover:shadow-md"
+                                >
+                                    {language === 'ja' ? 'お問い合わせ' : 'Book Now'}
+                                    <ChevronsRight className="w-4 h-4" />
+                                </Link>
+                            </div>
                         </div>
 
                         {/* Mobile Menu Button */}
@@ -180,14 +186,16 @@ export function Navbar() {
 
                             <div className="border-t border-gray-100 p-5 space-y-4">
                                 <LanguageSwitcher />
-                                <Link
-                                    href="/contact"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-full bg-[#135b3e] text-white font-semibold hover:bg-[#1a7a54] transition-colors"
-                                >
-                                    {language === 'ja' ? 'お問い合わせ' : 'Contact Us'}
-                                    <ArrowRight className="w-4 h-4" />
-                                </Link>
+                                <div className="rounded-full border-2 border-[#b8e6d0] p-0.5">
+                                    <Link
+                                        href="/contact"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-full bg-[#135b3e] text-white font-semibold hover:bg-[#1a7a54] transition-colors"
+                                    >
+                                        {language === 'ja' ? 'お問い合わせ' : 'Book Now'}
+                                        <ChevronsRight className="w-4 h-4" />
+                                    </Link>
+                                </div>
                             </div>
                         </motion.div>
                     </>
