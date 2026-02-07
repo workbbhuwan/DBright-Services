@@ -3,152 +3,204 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/lib/translations/LanguageContext';
-import { ArrowRight, Star, CheckCircle } from 'lucide-react';
+import { ChevronsRight, Star, Leaf, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { fadeInUp, fadeInLeft, fadeInRight, staggerContainer } from './animations';
 
 export default function Hero() {
     const { language } = useLanguage();
 
-    const badge = language === 'ja' ? '信頼のプロフェッショナル' : 'Verified & Trained Professionals';
     const headline = language === 'ja'
-        ? 'あらゆるニーズに\n応えるサービス'
-        : 'Effortless Solutions\nFor Every Need';
+        ? 'あらゆる空間を\n美しく、快適に'
+        : 'Effortless Cleaning\nFor Every Space';
     const subtitle = language === 'ja'
-        ? '清掃、人材派遣、留学サポートから不動産まで。\nスピード・信頼・確かな品質でお届けします。'
-        : 'Professional services delivering spotless results with speed, care, and reliability.';
-    const ctaPrimary = language === 'ja' ? 'お問い合わせ' : 'Get Started';
+        ? 'プロの清掃スタッフが、スピード・丁寧さ・信頼をもって\nピカピカの仕上がりをお届けします。'
+        : 'Professional cleaners delivering spotless results with speed, care, and reliability.';
+    const ctaPrimary = language === 'ja' ? 'お問い合わせ' : 'Book Your Cleaning';
     const ctaSecondary = language === 'ja' ? 'サービスを見る' : 'View All Services';
+    const badgeLeft = language === 'ja' ? 'エコ素材使用' : 'Eco-Friendly\nMaterials';
+    const badgeRight = language === 'ja' ? '研修済みスタッフ' : 'Verified & Trained\nCleaners';
 
     return (
         <section className="relative w-full bg-white overflow-hidden">
-            <div className="site-container">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[85vh] py-16 sm:py-20 lg:py-24">
-                    {/* Left Content */}
+            <div className="site-container relative">
+                <div className="flex flex-col items-center pt-10 sm:pt-14 lg:pt-16 pb-6 sm:pb-8">
+
+                    {/* Rating Row */}
                     <motion.div
-                        initial="initial"
-                        animate="animate"
-                        variants={staggerContainer}
-                        className="order-2 lg:order-1 text-center lg:text-left"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                        className="flex items-center gap-3 mb-5"
                     >
-                        {/* Badge */}
-                        <motion.div variants={fadeInUp} className="flex justify-center lg:justify-start mb-6">
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#dcfce7] bg-[#f0fdf4] text-[#135b3e] text-sm font-medium">
-                                <CheckCircle className="w-4 h-4" />
-                                {badge}
-                            </div>
-                        </motion.div>
-
-                        {/* Rating */}
-                        <motion.div variants={fadeInUp} className="flex items-center justify-center lg:justify-start gap-3 mb-6">
-                            <div className="flex -space-x-2">
-                                {['/intro.png', '/hotel.png', '/staffing.png'].map((src, i) => (
-                                    <div key={i} className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-sm">
-                                        <Image src={src} alt="" width={36} height={36} className="object-cover w-full h-full" />
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="flex items-center gap-1">
-                                <div className="flex">
-                                    {[1, 2, 3, 4, 5].map(i => (
-                                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                                    ))}
+                        <div className="flex -space-x-2">
+                            {['/intro.png', '/hotel.png', '/staffing.png'].map((src, i) => (
+                                <div key={i} className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-sm">
+                                    <Image src={src} alt="" width={36} height={36} className="object-cover w-full h-full" />
                                 </div>
-                                <span className="text-sm font-semibold text-gray-900">4.9/5</span>
-                                <span className="text-sm text-gray-500">{language === 'ja' ? 'お客様評価' : 'Customer Rating'}</span>
+                            ))}
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <div className="flex">
+                                {[1, 2, 3, 4].map(i => (
+                                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                ))}
+                                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" style={{ clipPath: 'inset(0 10% 0 0)' }} />
                             </div>
+                            <span className="text-sm font-semibold text-gray-900">4.9/5</span>
+                            <span className="text-sm text-[#135b3e] font-medium">{language === 'ja' ? 'お客様評価' : 'Customer Rating'}</span>
+                        </div>
+                    </motion.div>
+
+                    {/* Headline with side badges */}
+                    <div className="relative w-full flex justify-center">
+                        {/* Left Floating Badge */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -40 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+                            className="hidden lg:flex absolute left-0 xl:left-4 top-1/2 -translate-y-1/2 z-10 flex-col items-center text-center bg-white rounded-2xl shadow-lg border border-gray-100 px-5 py-4 w-35"
+                        >
+                            <div className="w-12 h-12 rounded-xl bg-[#f0fdf4] flex items-center justify-center mb-2">
+                                <Leaf className="w-6 h-6 text-[#135b3e]" />
+                            </div>
+                            <p className="text-xs font-semibold text-gray-800 leading-tight whitespace-pre-line">{badgeLeft}</p>
                         </motion.div>
 
-                        {/* Headline */}
+                        {/* Right Floating Badge */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 40 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
+                            className="hidden lg:flex absolute right-0 xl:right-4 top-1/2 -translate-y-1/2 z-10 flex-col items-center text-center bg-white rounded-2xl shadow-lg border border-gray-100 px-5 py-4 w-35"
+                        >
+                            <div className="w-12 h-12 rounded-xl bg-[#f0fdf4] flex items-center justify-center mb-2">
+                                <ShieldCheck className="w-6 h-6 text-[#135b3e]" />
+                            </div>
+                            <p className="text-xs font-semibold text-gray-800 leading-tight whitespace-pre-line">{badgeRight}</p>
+                        </motion.div>
+
                         <motion.h1
-                            variants={fadeInUp}
-                            className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] xl:text-[4rem] font-bold text-gray-900 leading-[1.1] tracking-tight mb-5 whitespace-pre-line"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                            className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-bold text-gray-900 leading-[1.08] tracking-tight mb-5 text-center whitespace-pre-line"
+                            style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
                         >
                             {headline}
                         </motion.h1>
+                    </div>
 
-                        {/* Subtitle */}
-                        <motion.p
-                            variants={fadeInUp}
-                            className="text-base sm:text-lg text-gray-500 leading-relaxed max-w-lg mx-auto lg:mx-0 mb-8 whitespace-pre-line"
-                        >
-                            {subtitle}
-                        </motion.p>
-
-                        {/* CTA Buttons */}
-                        <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
-                            <Link
-                                href="/contact"
-                                className="btn-primary text-base px-7 py-3.5"
-                            >
-                                {ctaPrimary}
-                                <ArrowRight className="w-4 h-4" />
-                            </Link>
-                            <Link
-                                href="/services"
-                                className="btn-outline text-base px-7 py-3.5"
-                            >
-                                {ctaSecondary}
-                                <ArrowRight className="w-4 h-4" />
-                            </Link>
-                        </motion.div>
-                    </motion.div>
-
-                    {/* Right Image */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 40, scale: 0.95 }}
-                        animate={{ opacity: 1, x: 0, scale: 1 }}
-                        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                        className="order-1 lg:order-2 relative"
+                    {/* Subtitle */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                        className="text-base sm:text-lg text-gray-500 leading-relaxed text-center max-w-xl mb-8"
                     >
-                        <div className="relative aspect-4/3 lg:aspect-3/4 xl:aspect-4/5 rounded-3xl overflow-hidden shadow-2xl">
-                            <Image
-                                src="/heroine.png"
-                                alt="D.BRIGHT Services"
-                                fill
-                                priority
-                                sizes="(max-width: 1024px) 100vw, 50vw"
-                                className="object-cover"
-                            />
-                            {/* Gradient overlay at bottom */}
-                            <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent" />
-                        </div>
+                        {subtitle}
+                    </motion.p>
 
-                        {/* Floating badge - bottom left */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.8, duration: 0.5 }}
-                            className="absolute -bottom-4 -left-4 sm:bottom-6 sm:left-4 bg-white rounded-2xl shadow-xl px-5 py-3 flex items-center gap-3 border border-gray-100"
+                    {/* CTA Buttons */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+                        className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4"
+                    >
+                        <Link
+                            href="/contact"
+                            className="btn-primary text-base px-7 py-3.5"
                         >
-                            <div className="w-10 h-10 rounded-full bg-[#f0fdf4] flex items-center justify-center">
-                                <CheckCircle className="w-5 h-5 text-[#135b3e]" />
-                            </div>
-                            <div>
-                                <p className="text-sm font-bold text-gray-900">100+</p>
-                                <p className="text-xs text-gray-500">{language === 'ja' ? '満足したお客様' : 'Satisfied Clients'}</p>
-                            </div>
-                        </motion.div>
-
-                        {/* Floating badge - top right */}
-                        <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1, duration: 0.5 }}
-                            className="absolute -top-2 -right-2 sm:top-4 sm:right-4 bg-[#135b3e] text-white rounded-2xl shadow-xl px-4 py-2.5"
+                            {ctaPrimary}
+                            <ChevronsRight className="w-5 h-5" />
+                        </Link>
+                        <Link
+                            href="/services"
+                            className="btn-outline text-base px-7 py-3.5"
                         >
-                            <p className="text-xs font-medium opacity-80">{language === 'ja' ? '満足度' : 'Satisfaction'}</p>
-                            <p className="text-xl font-bold">100%</p>
-                        </motion.div>
-
-                        {/* Decorative elements */}
-                        <div className="absolute -z-10 -top-6 -right-6 w-full h-full rounded-3xl bg-[#f0fdf4] hidden lg:block" />
+                            {ctaSecondary}
+                            <ChevronsRight className="w-5 h-5" />
+                        </Link>
                     </motion.div>
                 </div>
-            </div>
 
-            {/* Background decorative dots */}
-            <div className="absolute top-0 left-0 w-full h-full bg-dot-pattern opacity-30 pointer-events-none" />
+                {/* Images Layout - Left & Right on top row, Center below */}
+                <div className="relative mt-2 sm:mt-4 pb-10 sm:pb-16">
+
+                    {/* Decorative curved lines - left */}
+                    <svg className="hidden lg:block absolute left-55 xl:left-65 -top-2 z-0 w-24 h-40" viewBox="0 0 100 160" fill="none">
+                        <path d="M10 0 C 50 20, 60 80, 90 155" stroke="#d1d5db" strokeWidth="1.5" strokeDasharray="6 4" fill="none" />
+                    </svg>
+
+                    {/* Decorative curved lines - right */}
+                    <svg className="hidden lg:block absolute right-55 xl:right-65 -top-2 z-0 w-24 h-40" viewBox="0 0 100 160" fill="none">
+                        <path d="M90 0 C 50 20, 40 80, 10 155" stroke="#d1d5db" strokeWidth="1.5" strokeDasharray="6 4" fill="none" />
+                    </svg>
+
+                    {/* Top Row - Left and Right images pushed to edges */}
+                    <div className="flex flex-col sm:flex-row justify-between gap-4 sm:gap-0">
+                        {/* Left Image */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+                            className="relative w-full sm:w-60 lg:w-70 aspect-4/5 rounded-2xl overflow-hidden shadow-lg"
+                        >
+                            <Image
+                                src="/staffing.png"
+                                alt="Professional cleaning team"
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 640px) 100vw, 280px"
+                            />
+                        </motion.div>
+
+                        {/* Right Image */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
+                            className="relative w-full sm:w-60 lg:w-70 aspect-4/5 rounded-2xl overflow-hidden shadow-lg"
+                        >
+                            <Image
+                                src="/hotel.png"
+                                alt="Expert cleaning staff"
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 640px) 100vw, 280px"
+                            />
+                        </motion.div>
+                    </div>
+
+                    {/* Center Image (Featured) - overlapping below */}
+                    <div className="flex justify-center -mt-16 sm:-mt-24 lg:-mt-32">
+                        <motion.div
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
+                            className="relative w-full sm:w-90 lg:w-105 aspect-4/3 rounded-2xl overflow-hidden shadow-xl"
+                        >
+                            <Image
+                                src="/heroine.png"
+                                alt="D.BRIGHT cleaning service"
+                                fill
+                                priority
+                                className="object-cover"
+                                sizes="(max-width: 640px) 100vw, 420px"
+                            />
+                            {/* Play button overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <div className="w-14 h-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg cursor-pointer hover:bg-white transition-colors">
+                                    <svg viewBox="0 0 24 24" className="w-6 h-6 text-gray-800 ml-0.5" fill="currentColor">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </div>
         </section>
     );
 }
