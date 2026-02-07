@@ -21,11 +21,6 @@ export default function Home() {
 
       <Services />
 
-      <SectionDivider
-        label={language === 'ja' ? 'お客様の声' : 'Testimonials'}
-        linkText={language === 'ja' ? 'サービスを見る' : 'Get A Service'}
-        linkHref="/contact"
-      />
       <Testimonials />
 
       <SectionDivider
