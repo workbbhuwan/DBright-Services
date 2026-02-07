@@ -5,6 +5,7 @@ import { LanguageProvider } from "@/lib/translations/LanguageContext";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
+import StickySidebar from "@/components/StickySidebar";
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body className={`${notoSansJP.variable} ${inter.variable} font-sans antialiased`}>
         <LanguageProvider>
           <AnalyticsTracker />
+          <StickySidebar />
           <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
             <Navbar />
             <main className="grow w-full">

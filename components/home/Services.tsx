@@ -13,7 +13,7 @@ export default function Services() {
     const services = [
         {
             num: '01',
-            image: '/hotel.png',
+            image: '/service-page/home-cleaning.png',
             title: language === 'ja' ? 'ホーム清掃' : 'Home Cleaning',
             tags: language === 'ja'
                 ? ['エコ素材', '家族安心', '定期清掃', '研修済み']
@@ -22,21 +22,21 @@ export default function Services() {
         },
         {
             num: '02',
-            image: '/staffing.png',
+            image: '/service-page/office-cleaning.png',
             title: language === 'ja' ? 'オフィス清掃' : 'Office Cleaning',
             tags: [],
             showTags: false,
         },
         {
             num: '03',
-            image: '/halal.png',
+            image: '/service-page/deep-cleaning.png',
             title: language === 'ja' ? 'ディープクリーニング' : 'Deep Cleaning',
             tags: [],
             showTags: false,
         },
         {
             num: '04',
-            image: '/study.png',
+            image: '/service-page/window-cleaning.png',
             title: language === 'ja' ? '窓ガラス清掃' : 'Window Cleaning',
             tags: [],
             showTags: false,

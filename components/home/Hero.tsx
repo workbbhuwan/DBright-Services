@@ -11,11 +11,11 @@ export default function Hero() {
     const { language } = useLanguage();
 
     const headline = language === 'ja'
-        ? 'あらゆる空間を\n美しく、快適に'
-        : 'Effortless Cleaning\nFor Every Space';
+        ? '確かな技術と信頼で\n清掃空間をお届けします'
+        : 'Trusted Expertise\nFor Cleaning Spaces';
     const subtitle = language === 'ja'
-        ? 'プロの清掃スタッフが、スピード・丁寧さ・信頼をもって\nピカピカの仕上がりをお届けします。'
-        : 'Professional cleaners delivering spotless results with speed, care, and reliability.';
+        ? '経験豊富なプロフェッショナルが、厳格な品質基準のもと\n最高の清掃サービスをご提供いたします。'
+        : 'Our experienced professionals deliver best cleaning services\nwith rigorous quality standards you can count on.';
     const ctaPrimary = language === 'ja' ? 'お問い合わせ' : 'Book Your Cleaning';
     const ctaSecondary = language === 'ja' ? 'サービスを見る' : 'View All Services';
     const badgeLeft = language === 'ja' ? 'エコ素材使用' : 'Eco-Friendly\nMaterials';
@@ -43,9 +43,9 @@ export default function Hero() {
                         <div className="flex items-center gap-1.5">
                             <div className="flex">
                                 {[1, 2, 3, 4].map(i => (
-                                    <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                    <Star key={i} className="w-4 h-4 fill-emerald-500 text-emerald-500" />
                                 ))}
-                                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" style={{ clipPath: 'inset(0 10% 0 0)' }} />
+                                <Star className="w-4 h-4 fill-emerald-500 text-emerald-500" style={{ clipPath: 'inset(0 10% 0 0)' }} />
                             </div>
                             <span className="text-sm font-semibold text-gray-900">4.9/5</span>
                             <span className="text-sm text-[#135b3e] font-medium">{language === 'ja' ? 'お客様評価' : 'Customer Rating'}</span>
@@ -148,10 +148,10 @@ export default function Hero() {
                             className="relative w-full sm:w-60 lg:w-70 aspect-4/5 rounded-2xl overflow-hidden shadow-lg"
                         >
                             <Image
-                                src="/staffing.png"
+                                src="/service-page/office-cleaning.png"
                                 alt="Professional cleaning team"
                                 fill
-                                className="object-cover"
+                                className="object-cover object-right"
                                 sizes="(max-width: 640px) 100vw, 280px"
                             />
                         </motion.div>
@@ -181,22 +181,15 @@ export default function Hero() {
                             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
                             className="relative w-full sm:w-90 lg:w-105 aspect-4/3 rounded-2xl overflow-hidden shadow-xl"
                         >
-                            <Image
-                                src="/heroine.png"
-                                alt="D.BRIGHT cleaning service"
-                                fill
-                                priority
-                                className="object-cover"
-                                sizes="(max-width: 640px) 100vw, 420px"
-                            />
-                            {/* Play button overlay */}
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <div className="w-14 h-14 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-lg cursor-pointer hover:bg-white transition-colors">
-                                    <svg viewBox="0 0 24 24" className="w-6 h-6 text-gray-800 ml-0.5" fill="currentColor">
-                                        <path d="M8 5v14l11-7z" />
-                                    </svg>
-                                </div>
-                            </div>
+                            <video
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="w-full h-full object-cover"
+                            >
+                                <source src="/clean.mp4" type="video/mp4" />
+                            </video>
                         </motion.div>
                     </div>
                 </div>

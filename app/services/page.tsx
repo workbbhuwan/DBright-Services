@@ -76,20 +76,6 @@ export default function ServicesPage() {
                 tags: ['留学相談', '手続き支援', '国内外対応', '学生サポート'],
                 image: '/service-page/window-cleaning.png',
             },
-            {
-                number: '05',
-                title: '外国人向けコンサルティング',
-                description: '外国人の日本での生活、文化、ビジネスに関する情報提供とコンサルティングで安心した暮らしを支援します。',
-                tags: ['生活支援', '文化理解', 'ビジネス相談', '多言語対応'],
-                image: '/foreinger.png',
-            },
-            {
-                number: '06',
-                title: '通訳・翻訳サービス',
-                description: 'ビジネス、法律、医療、日常生活に対応する専門的な通訳・翻訳サービスを提供します。',
-                tags: ['ビジネス翻訳', '法律通訳', '医療通訳', '専門対応'],
-                image: '/translation.png',
-            },
         ]
         : [
             {
