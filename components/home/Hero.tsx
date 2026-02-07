@@ -33,7 +33,7 @@ export default function Hero() {
                         className="flex items-center gap-3 mb-5"
                     >
                         <div className="flex -space-x-2">
-                            {['/intro.png', '/hotel.png', '/staffing.png'].map((src, i) => (
+                            {['/rating/1.webp', '/rating/2.png', '/rating/3.avif'].map((src, i) => (
                                 <div key={i} className="w-9 h-9 rounded-full border-2 border-white overflow-hidden shadow-sm">
                                     <Image src={src} alt="" width={36} height={36} className="object-cover w-full h-full" />
                                 </div>
