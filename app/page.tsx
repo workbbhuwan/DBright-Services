@@ -19,11 +19,6 @@ export default function Home() {
 
       <Intro />
 
-      <SectionDivider
-        label={language === 'ja' ? 'サービス' : 'Our Services'}
-        linkText={language === 'ja' ? '全サービス' : 'Explore All Services'}
-        linkHref="/services"
-      />
       <Services />
 
       <SectionDivider

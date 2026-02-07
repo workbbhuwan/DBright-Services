@@ -4,7 +4,7 @@ import { useLanguage } from '@/lib/translations/LanguageContext';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ChevronsRight, Plus } from 'lucide-react';
 import { fadeInUp, staggerContainer } from './animations';
 
 export default function Services() {
@@ -14,52 +14,49 @@ export default function Services() {
         {
             num: '01',
             image: '/hotel.png',
-            title: language === 'ja' ? 'ホテル清掃' : 'Hotel Cleaning',
+            title: language === 'ja' ? 'ホーム清掃' : 'Home Cleaning',
             tags: language === 'ja'
-                ? ['高品質', 'プロ対応', 'マナー重視', '即対応']
-                : ['Premium Quality', 'Professional', 'Expert Team', 'Quick Response'],
+                ? ['エコ素材', '家族安心', '定期清掃', '研修済み']
+                : ['Eco-Friendly', 'Family Safe', 'Routine Clean', 'Trained Cleaners'],
+            showTags: true,
         },
         {
             num: '02',
             image: '/staffing.png',
-            title: language === 'ja' ? '人材派遣サービス' : 'Staffing Services',
-            tags: language === 'ja'
-                ? ['即戦力', '多業種対応', '信頼の実績', '柔軟対応']
-                : ['Skilled Workers', 'Multi-Industry', 'Reliable', 'Flexible Staff'],
+            title: language === 'ja' ? 'オフィス清掃' : 'Office Cleaning',
+            tags: [],
+            showTags: false,
         },
         {
             num: '03',
             image: '/halal.png',
-            title: language === 'ja' ? 'ハラール事業支援' : 'Halal Business Support',
-            tags: language === 'ja'
-                ? ['認証対応', '文化理解', '店舗運営', 'コンサル']
-                : ['Certified', 'Cultural Expertise', 'Store Operations', 'Consulting'],
+            title: language === 'ja' ? 'ディープクリーニング' : 'Deep Cleaning',
+            tags: [],
+            showTags: false,
         },
         {
             num: '04',
             image: '/study.png',
-            title: language === 'ja' ? '留学サポート' : 'Study Abroad Support',
-            tags: language === 'ja'
-                ? ['手続き代行', '学校紹介', '完全サポート', '多言語対応']
-                : ['Full Support', 'School Search', 'Documentation', 'Multilingual'],
+            title: language === 'ja' ? '窓ガラス清掃' : 'Window Cleaning',
+            tags: [],
+            showTags: false,
         },
     ];
 
     return (
-        <section className="relative py-16 sm:py-20 md:py-28 bg-white w-full">
+        <section className="relative py-16 sm:py-20 md:py-28 bg-[#1a7a6e] w-full overflow-hidden">
             <div className="site-container">
-                {/* Section Header */}
-                <motion.div
+                {/* Section Title */}
+                <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="mb-12 sm:mb-16"
+                    className="text-2xl sm:text-3xl font-bold text-white text-center mb-12 sm:mb-16"
+                    style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
                 >
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
-                        {language === 'ja' ? '提供サービス' : 'Our Services'}
-                    </h2>
-                </motion.div>
+                    {language === 'ja' ? '提供サービス' : 'Our Services'}
+                </motion.h2>
 
                 {/* Services List */}
                 <motion.div
@@ -67,52 +64,65 @@ export default function Services() {
                     whileInView="animate"
                     viewport={{ once: true }}
                     variants={staggerContainer}
-                    className="space-y-4 sm:space-y-5"
+                    className="space-y-0"
                 >
                     {services.map((service, index) => (
                         <motion.div key={index} variants={fadeInUp}>
                             <Link href="/services" className="group block">
-                                <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-5 sm:p-6 md:p-8 rounded-2xl border border-gray-100 bg-white hover:bg-[#f0fdf4] hover:border-[#bbf7d0] transition-all duration-400 card-hover">
-                                    {/* Number */}
-                                    <span className="text-sm font-bold text-[#135b3e] opacity-60 shrink-0 min-w-9">
-                                        {service.num}.
-                                    </span>
+                                <div className="relative border-t border-white/20 py-6 sm:py-8 md:py-10">
+                                    <div className="flex items-center gap-4 sm:gap-8">
+                                        {/* Number */}
+                                        <span className="text-sm font-medium text-white/50 shrink-0">
+                                            {service.num}.
+                                        </span>
 
-                                    {/* Image Thumbnail */}
-                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shrink-0 relative">
-                                        <Image
-                                            src={service.image}
-                                            alt={service.title}
-                                            fill
-                                            className="object-cover group-hover:scale-110 transition-transform duration-500"
-                                        />
-                                    </div>
+                                        {/* Content area */}
+                                        <div className="flex-1 min-w-0">
+                                            {/* Tags (only on first service) */}
+                                            {service.showTags && service.tags.length > 0 && (
+                                                <div className="flex flex-wrap gap-2 mb-3">
+                                                    {service.tags.map((tag, i) => (
+                                                        <span
+                                                            key={i}
+                                                            className="px-3 py-1 rounded-full border border-[#c8f547]/50 text-[#c8f547] text-xs font-medium"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
 
-                                    {/* Content */}
-                                    <div className="flex-1 min-w-0">
-                                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 group-hover:text-[#135b3e] transition-colors mb-2 sm:mb-3">
-                                            {service.title}
-                                        </h3>
-                                        <div className="flex flex-wrap gap-2">
-                                            {service.tags.map((tag, i) => (
-                                                <span
-                                                    key={i}
-                                                    className="px-3 py-1 rounded-full bg-gray-50 text-gray-600 text-xs sm:text-sm font-medium group-hover:bg-[#dcfce7] group-hover:text-[#135b3e] transition-colors"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
+                                            {/* Service Title */}
+                                            <h3
+                                                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight group-hover:text-[#c8f547] transition-colors duration-300"
+                                                style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
+                                            >
+                                                {service.title}
+                                            </h3>
                                         </div>
-                                    </div>
 
-                                    {/* Arrow */}
-                                    <div className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-[#135b3e] group-hover:border-[#135b3e] transition-all duration-300 absolute top-5 right-5 sm:relative sm:top-auto sm:right-auto">
-                                        <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-white transition-colors" />
+                                        {/* Tilted Image with + icon */}
+                                        <div className="hidden sm:block shrink-0 relative">
+                                            <div className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-xl overflow-hidden rotate-6 shadow-lg group-hover:rotate-0 transition-transform duration-500">
+                                                <Image
+                                                    src={service.image}
+                                                    alt={service.title}
+                                                    fill
+                                                    className="object-cover"
+                                                />
+                                            </div>
+                                            {/* Plus icon badge */}
+                                            <div className="absolute -top-2 -right-2 w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                <Plus className="w-4 h-4 text-[#1a7a6e]" />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </Link>
                         </motion.div>
                     ))}
+                    {/* Bottom border */}
+                    <div className="border-t border-white/20" />
                 </motion.div>
 
                 {/* Bottom CTA */}
@@ -121,14 +131,14 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    className="mt-10 sm:mt-12 flex justify-center"
+                    className="mt-10 sm:mt-14 flex justify-center"
                 >
                     <Link
                         href="/services"
-                        className="btn-primary text-base px-8 py-3.5"
+                        className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-[#135b3e] text-white text-sm font-semibold hover:bg-[#0e4a32] transition-all duration-300 hover:shadow-lg border border-white/10"
                     >
                         {language === 'ja' ? 'すべてのサービスを見る' : 'Explore All Services'}
-                        <ArrowRight className="w-4 h-4" />
+                        <ChevronsRight className="w-4 h-4" />
                     </Link>
                 </motion.div>
             </div>
