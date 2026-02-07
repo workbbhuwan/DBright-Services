@@ -107,7 +107,7 @@ export default function ContactPage() {
                         className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-tight whitespace-pre-line"
                     >
                         {language === 'ja'
-                            ? 'お気軽に\nご連絡ください'
+                            ? 'お気軽に ご連絡ください'
                             : 'Get In Touch With Us'}
                     </motion.h1>
 
