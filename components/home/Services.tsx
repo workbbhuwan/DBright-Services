@@ -3,206 +3,132 @@
 import { useLanguage } from '@/lib/translations/LanguageContext';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui/card';
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from '@/components/ui/carousel';
-import { Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { fadeInUp, staggerContainer } from './animations';
 
-interface ServicesProps {
-    className?: string;
-}
-
-export default function Services({ className }: ServicesProps) {
+export default function Services() {
     const { language } = useLanguage();
 
     const services = [
         {
+            num: '01',
             image: '/hotel.png',
             title: language === 'ja' ? 'ホテル清掃' : 'Hotel Cleaning',
-            description: language === 'ja'
-                ? 'マナーを心得たホテル清掃のエキスパート!信頼と実績をもとに、高品質なサービスを提供します。'
-                : 'Expert hotel cleaning with excellent manners! We provide high-quality service based on trust and proven experience.',
+            tags: language === 'ja'
+                ? ['高品質', 'プロ対応', 'マナー重視', '即対応']
+                : ['Premium Quality', 'Professional', 'Expert Team', 'Quick Response'],
         },
         {
+            num: '02',
             image: '/staffing.png',
             title: language === 'ja' ? '人材派遣サービス' : 'Staffing Services',
-            description: language === 'ja'
-                ? 'さまざまな業界に対応した信頼できる人材を派遣し、即戦力となる人材をご紹介します。'
-                : 'We dispatch reliable personnel for various industries, introducing staff who can immediately contribute to your business.',
+            tags: language === 'ja'
+                ? ['即戦力', '多業種対応', '信頼の実績', '柔軟対応']
+                : ['Skilled Workers', 'Multi-Industry', 'Reliable', 'Flexible Staff'],
         },
         {
+            num: '03',
             image: '/halal.png',
             title: language === 'ja' ? 'ハラール事業支援' : 'Halal Business Support',
-            description: language === 'ja'
-                ? 'ハラール食品店やレストランの運営・企画を行い、文化的・法的基準に準拠した事業展開をサポート。'
-                : 'We manage and plan halal food stores and restaurants in compliance with cultural and legal standards.',
+            tags: language === 'ja'
+                ? ['認証対応', '文化理解', '店舗運営', 'コンサル']
+                : ['Certified', 'Cultural Expertise', 'Store Operations', 'Consulting'],
         },
         {
+            num: '04',
             image: '/study.png',
             title: language === 'ja' ? '留学サポート' : 'Study Abroad Support',
-            description: language === 'ja'
-                ? '国内外の留学先を紹介し、手続き全般をサポートします。'
-                : 'We introduce study abroad destinations both domestically and internationally and provide full support.',
-        },
-        {
-            image: '/foreinger.png',
-            title: language === 'ja' ? '外国人向けコンサルティング' : 'Consulting for Foreigners',
-            description: language === 'ja'
-                ? '外国人の日本での生活やビジネスに関する情報とコンサルティングを提供。'
-                : 'We provide information and consulting on life and business in Japan for foreigners.',
+            tags: language === 'ja'
+                ? ['手続き代行', '学校紹介', '完全サポート', '多言語対応']
+                : ['Full Support', 'School Search', 'Documentation', 'Multilingual'],
         },
     ];
 
-    const fadeInUp = {
-        initial: { opacity: 0, y: 20 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-100px" },
-        transition: { duration: 0.5 }
-    };
-
     return (
-        <section className={`py-12 sm:py-12 md:py-15 pb-8 sm:pb-7 md:pb-5 bg-linear-to-b from-gray-50 to-white relative overflow-hidden ${className || ''}`}>
-            {/* Decorative Background Elements */}
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
-                <div className="absolute top-10 left-10 w-64 h-64 bg-blue-200 rounded-full filter blur-3xl"></div>
-                <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-200 rounded-full filter blur-3xl"></div>
-            </div>
-
-            <div className="site-container px-4 sm:px-6 lg:px-8 relative z-10">
+        <section className="relative py-16 sm:py-20 md:py-28 bg-white w-full">
+            <div className="site-container">
                 {/* Section Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="text-center mb-8 sm:mb-8 md:mb-10"
+                    transition={{ duration: 0.6 }}
+                    className="mb-12 sm:mb-16"
                 >
-                    <div className="inline-block mb-3 sm:mb-4 px-3 sm:px-4 py-1 bg-blue-100 rounded-full">
-                        <span className="text-blue-700 text-xs sm:text-sm font-semibold uppercase tracking-wider">
-                            {language === 'ja' ? 'サービス' : 'Services'}
-                        </span>
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
                         {language === 'ja' ? '提供サービス' : 'Our Services'}
                     </h2>
-                    <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto px-4">
-                        {language === 'ja'
-                            ? 'お客様の多様なニーズに合わせた包括的なソリューションを提供します'
-                            : 'Comprehensive solutions tailored to meet your diverse needs'}
-                    </p>
                 </motion.div>
 
-                {/* Services Carousel */}
-                <motion.div {...fadeInUp} className="max-w-6xl mx-auto">
-                    <Carousel opts={{ align: "start", loop: true }} className="w-full">
-                        <CarouselContent className="-ml-3 sm:-ml-4">
-                            {services.map((service, index) => (
-                                <CarouselItem key={index} className="pl-3 sm:pl-4 basis-full sm:basis-1/2 lg:basis-1/3">
-                                    <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white group overflow-hidden relative">
+                {/* Services List */}
+                <motion.div
+                    initial="initial"
+                    whileInView="animate"
+                    viewport={{ once: true }}
+                    variants={staggerContainer}
+                    className="space-y-4 sm:space-y-5"
+                >
+                    {services.map((service, index) => (
+                        <motion.div key={index} variants={fadeInUp}>
+                            <Link href="/services" className="group block">
+                                <div className="relative flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 p-5 sm:p-6 md:p-8 rounded-2xl border border-gray-100 bg-white hover:bg-[#f0fdf4] hover:border-[#bbf7d0] transition-all duration-400 card-hover">
+                                    {/* Number */}
+                                    <span className="text-sm font-bold text-[#135b3e] opacity-60 shrink-0 min-w-9">
+                                        {service.num}.
+                                    </span>
 
-                                        {/* ✨ Decorative Golden Sparkles for Every Card */}
-                                        <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-20">
-                                            <motion.div
-                                                animate={{ rotate: [0, 360], scale: [1, 1.2, 1] }}
-                                                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                                            >
-                                                <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 drop-shadow-lg" style={{ color: '#0000FF' }} />
-                                            </motion.div>
+                                    {/* Image Thumbnail */}
+                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden shrink-0 relative">
+                                        <Image
+                                            src={service.image}
+                                            alt={service.title}
+                                            fill
+                                            className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                        />
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="flex-1 min-w-0">
+                                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 group-hover:text-[#135b3e] transition-colors mb-2 sm:mb-3">
+                                            {service.title}
+                                        </h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {service.tags.map((tag, i) => (
+                                                <span
+                                                    key={i}
+                                                    className="px-3 py-1 rounded-full bg-gray-50 text-gray-600 text-xs sm:text-sm font-medium group-hover:bg-[#dcfce7] group-hover:text-[#135b3e] transition-colors"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
                                         </div>
+                                    </div>
 
-                                        <div className="absolute top-2 left-3 sm:left-4 z-20 opacity-70">
-                                            <motion.div
-                                                animate={{ y: [-2, 2, -2], rotate: [0, 180, 360] }}
-                                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                            >
-                                                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 drop-shadow-lg" style={{ color: '#FFD700' }} />
-                                            </motion.div>
-                                        </div>
-
-                                        <div className="absolute bottom-16 sm:bottom-20 left-4 sm:left-6 z-20 opacity-60">
-                                            <motion.div
-                                                animate={{ y: [2, -2, 2], rotate: [360, 180, 0] }}
-                                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                            >
-                                                <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 drop-shadow-md" style={{ color: '#800080' }} />
-                                            </motion.div>
-                                        </div>
-
-                                        {/* Gradient Overlay */}
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-r from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-
-                                        <CardContent className="p-0">
-                                            {/* Image */}
-                                            <div className="relative w-full h-40 sm:h-48 overflow-hidden">
-                                                <Image
-                                                    src={service.image}
-                                                    alt={service.title}
-                                                    fill
-                                                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                                                />
-                                                <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent"></div>
-                                            </div>
-
-                                            {/* Content */}
-                                            <div className="p-4 sm:p-6 space-y-2 sm:space-y-3">
-                                                <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                                                    {service.title}
-                                                </h3>
-                                                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed line-clamp-3">
-                                                    {service.description}
-                                                </p>
-                                                <Link href="/services">
-                                                    <Button
-                                                        variant="ghost"
-                                                        className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 p-0 h-auto font-semibold group/btn text-sm"
-                                                    >
-                                                        {language === 'ja' ? '詳しく見る' : 'Learn More'}
-                                                        <svg
-                                                            className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1 group-hover/btn:translate-x-1 transition-transform"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            stroke="currentColor"
-                                                        >
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                                        </svg>
-                                                    </Button>
-                                                </Link>
-                                            </div>
-                                        </CardContent>
-
-                                        {/* Bottom Accent Line */}
-                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-yellow-500 to-yellow-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                                    </Card>
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious className="hidden md:flex -left-12" />
-                        <CarouselNext className="hidden md:flex -right-12" />
-                    </Carousel>
+                                    {/* Arrow */}
+                                    <div className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-[#135b3e] group-hover:border-[#135b3e] transition-all duration-300 absolute top-5 right-5 sm:relative sm:top-auto sm:right-auto">
+                                        <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 group-hover:text-white transition-colors" />
+                                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
+                    ))}
                 </motion.div>
 
                 {/* Bottom CTA */}
                 <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                    className="text-center mt-8 sm:mt-10 md:mt-13"
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="mt-10 sm:mt-12 flex justify-center"
                 >
-                    <Link href="/services">
-                        <Button className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 sm:px-8 py-5 sm:py-6 text-sm sm:text-base rounded-full transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl">
-                            {language === 'ja' ? 'すべてのサービスを見る' : 'View All Services'}
-                            <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
-                        </Button>
+                    <Link
+                        href="/services"
+                        className="btn-primary text-base px-8 py-3.5"
+                    >
+                        {language === 'ja' ? 'すべてのサービスを見る' : 'Explore All Services'}
+                        <ArrowRight className="w-4 h-4" />
                     </Link>
                 </motion.div>
             </div>

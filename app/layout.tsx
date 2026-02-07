@@ -6,7 +6,6 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import AnalyticsTracker from "@/components/AnalyticsTracker";
 
-// Noto Sans JP for Japanese text
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
@@ -14,10 +13,9 @@ const notoSansJP = Noto_Sans_JP({
   display: "swap",
 });
 
-// Inter for English text
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800"],
   variable: "--font-inter",
   display: "swap",
 });
@@ -28,7 +26,6 @@ export const metadata: Metadata = {
   keywords: ["cleaning service", "staffing agency", "study abroad support", "real estate Japan", "temporary staffing", "Japan services", "worker dispatch", "留学サポート", "人材派遣"],
 };
 
-// Move viewport to dedicated export as per Next.js guidance
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -48,10 +45,7 @@ export default function RootLayout({
           <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
             <Navbar />
             <main className="grow w-full">
-              {/* Central fixed-width content wrapper */}
-              <div className="site-container">
-                {children}
-              </div>
+              {children}
             </main>
             <Footer />
           </div>

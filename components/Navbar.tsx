@@ -5,30 +5,23 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/translations/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
-export interface NavbarProps {
-    className?: string;
-    containerClassName?: string;
-}
-
-export function Navbar({ className, containerClassName }: NavbarProps) {
-    const { t } = useLanguage();
+export function Navbar() {
+    const { t, language } = useLanguage();
     const pathname = usePathname();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
-    // Add shadow when scrolling
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 10);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Prevent background scroll when mobile menu open
     useEffect(() => {
         document.body.style.overflow = mobileMenuOpen ? 'hidden' : 'unset';
         return () => { document.body.style.overflow = 'unset'; };
@@ -47,71 +40,57 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
         <>
             <nav
                 className={cn(
-                    'sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b transition-all duration-300',
-                    scrolled ? 'border-gray-200 shadow-lg' : 'border-transparent shadow-sm',
-                    className
+                    'sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md transition-all duration-300',
+                    scrolled ? 'shadow-sm border-b border-gray-100' : 'border-b border-transparent'
                 )}
             >
-                <div
-                    className={cn(
-                        'max-w-300 mx-auto px-3 sm:px-4 md:px-6 lg:px-10',
-                        containerClassName
-                    )}
-                >
-                    <div className="sticky top-0 flex items-center justify-between h-14 sm:h-16 lg:h-16">
-                        {/* === Logo === */}
-                        <Link href="/" aria-label="Dbright Services Home" className="flex items-center gap-2">
+                <div className="site-container">
+                    <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20">
+                        {/* Logo */}
+                        <Link href="/" aria-label="D.BRIGHT Home" className="flex items-center shrink-0">
                             <Image
                                 src="/logo.png"
-                                alt="Dbright Services Logo"
+                                alt="D.BRIGHT Logo"
                                 width={130}
                                 height={40}
-                                className="transition-transform duration-300 hover:scale-105 w-27.5 h-auto sm:w-32.5"
+                                className="transition-transform duration-300 hover:scale-105 w-28 h-auto sm:w-32"
                                 priority
                             />
                         </Link>
 
-                        {/* === Desktop Nav === */}
-                        <div className="hidden md:flex flex-1 justify-center">
-                            <ul className="flex items-center gap-6 lg:gap-8 xl:gap-14">
-                                {navItems.map((item) => (
-                                    <li key={item.href}>
-                                        <Link
-                                            href={item.href}
-                                            className={cn(
-                                                'relative px-2 lg:px-3 py-2 text-sm lg:text-[15px] font-semibold transition-all duration-200',
-                                                isActive(item.href)
-                                                    ? 'text-blue-600' // Active text = blue
-                                                    : 'text-gray-800 hover:text-blue-600 hover:bg-blue-50/60 rounded-md'
-                                            )}
-                                        >
-                                            <span className="relative z-10">{item.label}</span>
-                                            {isActive(item.href) && (
-                                                <motion.div
-                                                    layoutId="navbar-active"
-                                                    className="absolute inset-0 bg-blue-50 rounded-md border border-blue-100"
-                                                    transition={{ type: 'spring', stiffness: 350, damping: 25 }}
-                                                />
-                                            )}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
+                        {/* Desktop Nav */}
+                        <div className="hidden md:flex items-center gap-1 lg:gap-2">
+                            {navItems.map((item) => (
+                                <Link
+                                    key={item.href}
+                                    href={item.href}
+                                    className={cn(
+                                        'relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-200',
+                                        isActive(item.href)
+                                            ? 'text-[#135b3e] bg-[#f0fdf4]'
+                                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                                    )}
+                                >
+                                    {item.label}
+                                </Link>
+                            ))}
                         </div>
 
-                        {/* === Language Switcher (Right) === */}
-                        <div className="hidden md:flex items-center">
+                        {/* Right Actions */}
+                        <div className="hidden md:flex items-center gap-3">
                             <LanguageSwitcher />
+                            <Link
+                                href="/contact"
+                                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#135b3e] text-white text-sm font-semibold hover:bg-[#1a7a54] transition-all duration-300 hover:shadow-md"
+                            >
+                                {language === 'ja' ? 'お問い合わせ' : 'Contact Us'}
+                                <ArrowRight className="w-3.5 h-3.5" />
+                            </Link>
                         </div>
 
-                        {/* === Mobile Menu Button === */}
+                        {/* Mobile Menu Button */}
                         <button
-                            className={cn(
-                                'md:hidden p-2 rounded-md transition-colors duration-200 ml-auto',
-                                mobileMenuOpen
-                                    ? 'bg-blue-600 text-white'
-                                    : 'text-gray-700 hover:bg-gray-100'
-                            )}
+                            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
                         >
@@ -124,7 +103,7 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
                                         exit={{ rotate: 90, opacity: 0 }}
                                         transition={{ duration: 0.2 }}
                                     >
-                                        <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                                        <X className="w-5 h-5" />
                                     </motion.div>
                                 ) : (
                                     <motion.div
@@ -134,7 +113,7 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
                                         exit={{ rotate: -90, opacity: 0 }}
                                         transition={{ duration: 0.2 }}
                                     >
-                                        <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+                                        <Menu className="w-5 h-5" />
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -143,7 +122,7 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
                 </div>
             </nav>
 
-            {/* === Mobile Drawer === */}
+            {/* Mobile Drawer */}
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <>
@@ -153,7 +132,7 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.25 }}
-                            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 md:hidden"
+                            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
                             onClick={() => setMobileMenuOpen(false)}
                         />
 
@@ -162,20 +141,20 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
                             initial={{ x: '100%' }}
                             animate={{ x: 0 }}
                             exit={{ x: '100%' }}
-                            transition={{ type: 'tween', duration: 0.35 }}
-                            className="fixed right-0 top-0 bottom-0 w-full max-w-xs sm:max-w-sm bg-white shadow-2xl z-50 md:hidden flex flex-col"
+                            transition={{ type: 'tween', duration: 0.3 }}
+                            className="fixed right-0 top-0 bottom-0 w-full max-w-xs bg-white shadow-2xl z-50 md:hidden flex flex-col"
                         >
-                            <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6 border-b border-gray-200">
-                                <Image src="/logo.png" alt="Logo" width={100} height={28} className="sm:w-30 sm:h-7.5" />
+                            <div className="flex items-center justify-between h-16 px-5 border-b border-gray-100">
+                                <Image src="/logo.png" alt="Logo" width={100} height={28} />
                                 <button
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="p-2 rounded-md hover:bg-gray-100"
+                                    className="p-2 rounded-lg hover:bg-gray-100"
                                 >
-                                    <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
+                                    <X className="w-5 h-5 text-gray-700" />
                                 </button>
                             </div>
 
-                            <nav className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 sm:py-8 space-y-3 sm:space-y-4">
+                            <nav className="flex-1 overflow-y-auto px-5 py-6 space-y-1">
                                 {navItems.map((item, index) => (
                                     <motion.div
                                         key={item.href}
@@ -187,10 +166,10 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
                                             href={item.href}
                                             onClick={() => setMobileMenuOpen(false)}
                                             className={cn(
-                                                'block px-4 sm:px-5 py-2.5 sm:py-3 text-base sm:text-lg font-semibold rounded-lg transition-all duration-200',
+                                                'block px-4 py-3 text-base font-medium rounded-xl transition-all duration-200',
                                                 isActive(item.href)
-                                                    ? 'bg-blue-600 text-white shadow-md' // Active: blue bg + white text
-                                                    : 'text-gray-800 hover:bg-gray-100'
+                                                    ? 'bg-[#f0fdf4] text-[#135b3e]'
+                                                    : 'text-gray-700 hover:bg-gray-50'
                                             )}
                                         >
                                             {item.label}
@@ -199,8 +178,16 @@ export function Navbar({ className, containerClassName }: NavbarProps) {
                                 ))}
                             </nav>
 
-                            <div className="border-t border-gray-200 p-4 sm:p-6">
+                            <div className="border-t border-gray-100 p-5 space-y-4">
                                 <LanguageSwitcher />
+                                <Link
+                                    href="/contact"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-full bg-[#135b3e] text-white font-semibold hover:bg-[#1a7a54] transition-colors"
+                                >
+                                    {language === 'ja' ? 'お問い合わせ' : 'Contact Us'}
+                                    <ArrowRight className="w-4 h-4" />
+                                </Link>
                             </div>
                         </motion.div>
                     </>
