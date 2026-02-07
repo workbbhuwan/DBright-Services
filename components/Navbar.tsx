@@ -68,7 +68,7 @@ export function Navbar() {
                                     <Link
                                         href={item.href}
                                         className={cn(
-                                            'relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200',
+                                            'relative px-4 py-1.5 text-sm font-bold rounded-full transition-all duration-200',
                                             isActive(item.href)
                                                 ? 'text-[#135b3e] bg-[#f0fdf4]'
                                                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
@@ -172,7 +172,7 @@ export function Navbar() {
                                             href={item.href}
                                             onClick={() => setMobileMenuOpen(false)}
                                             className={cn(
-                                                'block px-4 py-3 text-base font-medium rounded-xl transition-all duration-200',
+                                                'block px-4 py-3 text-base font-bold rounded-xl transition-all duration-200',
                                                 isActive(item.href)
                                                     ? 'bg-[#f0fdf4] text-[#135b3e]'
                                                     : 'text-gray-700 hover:bg-gray-50'
