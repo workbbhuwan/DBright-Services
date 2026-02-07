@@ -1,176 +1,362 @@
 'use client';
 
-/**
- * Company Profile Page
- * Displays company information, mission, and values
- */
-
 import { useLanguage } from '@/lib/translations/LanguageContext';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Target, Shield, Sparkles, Award, Building2, User, Briefcase, MapPin, Phone, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { ChevronsRight, Building2, User, Briefcase, MapPin, Phone, Mail, Landmark, Target, Shield, Sparkles, Award } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+
+const fadeInUp = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+};
+
+const staggerContainer = {
+    animate: {
+        transition: {
+            staggerChildren: 0.12,
+            delayChildren: 0.1,
+        },
+    },
+};
 
 export default function CompanyProfilePage() {
     const { t, language } = useLanguage();
 
-    // Animation variants
-    const fadeInUp = {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.5 }
-    };
-
-    const staggerContainer = {
-        animate: {
-            transition: {
-                staggerChildren: 0.1
-            }
-        }
-    };
-
-    // Company values data
     const values = [
         {
             icon: Target,
             title: t.companyProfile.values.quality.title,
             description: t.companyProfile.values.quality.description,
-            color: 'bg-blue-100 text-blue-600'
         },
         {
             icon: Shield,
             title: t.companyProfile.values.trust.title,
             description: t.companyProfile.values.trust.description,
-            color: 'bg-green-100 text-green-600'
         },
         {
             icon: Sparkles,
             title: t.companyProfile.values.cleanliness.title,
             description: t.companyProfile.values.cleanliness.description,
-            color: 'bg-purple-100 text-purple-600'
         },
         {
             icon: Award,
             title: t.companyProfile.values.professionalism.title,
             description: t.companyProfile.values.professionalism.description,
-            color: 'bg-orange-100 text-orange-600'
-        }
+        },
     ];
 
+    const companyInfo = [
+        {
+            icon: Building2,
+            label: language === 'ja' ? '会社名' : 'Company Name',
+            value: language === 'ja' ? '株式会社 D.BRIGHT' : 'D.BRIGHT Corporation',
+        },
+        {
+            icon: User,
+            label: language === 'ja' ? '代表取締役' : 'Representative Director',
+            value: language === 'ja' ? 'オザ・ケサブ・ラズ' : 'OJHA KESHAV RAJ',
+        },
+        {
+            icon: Landmark,
+            label: language === 'ja' ? '資本金' : 'Capital',
+            value: language === 'ja' ? '500万円' : '¥5,000,000',
+        },
+        {
+            icon: Landmark,
+            label: language === 'ja' ? '取引先銀行' : 'Bank',
+            value: language === 'ja' ? '千葉銀行、京葉銀行' : 'Chiba Bank, Keiyo Bank',
+        },
+    ];
+
+    const businessItems = language === 'ja'
+        ? ['清掃業', '労働者派遣業', '寮、ホテル、その他宿泊施設の経営・コンサルティング', '通訳・翻訳サービス']
+        : ['Cleaning services', 'Worker dispatch services', 'Dormitory, hotel, and other accommodation management/consulting', 'Interpretation and translation services'];
+
+    const majorClients = language === 'ja'
+        ? ['株式会社ハウゼスタッフ', '株式会社ベストクリエイト', '株式会社ユニバーサル企業']
+        : ['Hauze Staff Corporation', 'Best Create Corporation', 'Universal Corporation'];
+
     return (
-        <div className="flex flex-col">
-            {/* Company Description Section */}
-            <section className="py-12 md:py-12 bg-white relative overflow-visible">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col w-full">
+            {/* ===== HERO / HEADER ===== */}
+            <section className="pt-28 sm:pt-32 pb-12 sm:pb-16 bg-[#f8fafc]">
+                <div className="site-container text-center">
                     <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="flex justify-center mb-6"
+                    >
+                        <div className="section-badge">
+                            <span className="dot" />
+                            {language === 'ja' ? '会社概要' : 'About Us'}
+                        </div>
+                    </motion.div>
+
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-tight whitespace-pre-line"
+                    >
+                        {language === 'ja'
+                            ? '私たちについて'
+                            : 'Company Profile'}
+                    </motion.h1>
+                </div>
+            </section>
+
+            {/* ===== ABOUT / MISSION ===== */}
+            <section className="py-16 sm:py-20 md:py-28 bg-white">
+                <div className="site-container">
+                    <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+                        {/* Image Side */}
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="w-full lg:w-1/2"
+                        >
+                            <div className="relative rounded-3xl overflow-hidden aspect-4/3">
+                                <Image
+                                    src="/about-us/1.png"
+                                    alt="About DBright Services"
+                                    fill
+                                    className="object-cover"
+                                    sizes="(max-width: 1024px) 100vw, 50vw"
+                                />
+                            </div>
+                        </motion.div>
+
+                        {/* Text Side */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="w-full lg:w-1/2"
+                        >
+                            <div className="section-badge mb-6">
+                                <span className="dot" />
+                                {language === 'ja' ? '私たちのミッション' : 'Our Mission'}
+                            </div>
+                            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight mb-6">
+                                {language === 'ja'
+                                    ? '清潔で快適な空間を\nすべての方に'
+                                    : 'Clean & Comfortable\nSpaces for Everyone'}
+                            </h2>
+                            <p className="text-gray-500 leading-relaxed mb-6">
+                                {t.companyProfile.description}
+                            </p>
+                            <p className="text-gray-500 leading-relaxed">
+                                {t.companyProfile.mission.description}
+                            </p>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ===== VALUES ===== */}
+            <section className="py-16 sm:py-20 md:py-28 bg-[#f8fafc]">
+                <div className="site-container">
+                    <div className="bg-[#116f76] rounded-3xl px-6 sm:px-10 lg:px-14 py-10 sm:py-14">
+                        {/* Top Row */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                            className="flex items-center justify-between mb-8"
+                        >
+                            <div className="flex items-center gap-2 border border-white/30 rounded-full px-5 py-2">
+                                <span className="text-[#d4f57a] text-sm">✦</span>
+                                <span className="text-white text-sm font-medium">
+                                    {language === 'ja' ? '私たちの価値観' : 'Our Values'}
+                                </span>
+                            </div>
+                            <Link
+                                href="/contact"
+                                className="inline-flex items-center gap-2 bg-[#d4f57a] text-gray-900 font-medium text-sm rounded-full pl-5 pr-1.5 py-1.5 hover:bg-[#c8eb6a] transition-colors"
+                            >
+                                {language === 'ja' ? 'お問い合わせ' : 'Contact Us'}
+                                <span className="flex items-center justify-center w-8 h-8 bg-gray-900 rounded-full">
+                                    <ChevronsRight className="w-4 h-4 text-white" />
+                                </span>
+                            </Link>
+                        </motion.div>
+
+                        <div className="border-t border-white/20 mb-10" />
+
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight text-center whitespace-pre-line mb-12 sm:mb-16"
+                        >
+                            {language === 'ja'
+                                ? '私たちの事業を支える\n4つの柱'
+                                : 'The Four Pillars That\nDrive Our Business'}
+                        </motion.h2>
+
+                        <motion.div
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+                            initial="initial"
+                            whileInView="animate"
+                            viewport={{ once: true }}
+                            variants={staggerContainer}
+                        >
+                            {values.map((value, index) => {
+                                const Icon = value.icon;
+                                return (
+                                    <motion.div key={index} variants={fadeInUp}>
+                                        <div className="bg-white rounded-2xl p-6 sm:p-7 h-full">
+                                            <div className="w-12 h-12 bg-[#e8f5c8] rounded-xl flex items-center justify-center mb-6">
+                                                <Icon className="w-6 h-6 text-[#116f76]" />
+                                            </div>
+                                            <h3 className="text-lg font-bold text-gray-900 mb-3">
+                                                {value.title}
+                                            </h3>
+                                            <p className="text-sm text-gray-500 leading-relaxed">
+                                                {value.description}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                );
+                            })}
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ===== COMPANY INFORMATION ===== */}
+            <section className="py-16 sm:py-20 md:py-28 bg-white">
+                <div className="site-container">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4 }}
+                        className="flex justify-center mb-6"
+                    >
+                        <div className="section-badge">
+                            <span className="dot" />
+                            {language === 'ja' ? '会社情報' : 'Company Details'}
+                        </div>
+                    </motion.div>
+
+                    <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 overflow-visible"
+                        className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight text-center whitespace-pre-line mb-12 sm:mb-16"
                     >
-                        <h2 className="text-3xl font-bold text-gray-900 mb-8 pb-4 border-b-2 border-blue-600">
-                            {language === 'ja' ? '会社情報' : 'Company Information'}
-                        </h2>
+                        {language === 'ja' ? '会社についての\n基本情報' : 'Essential Information\nAbout Our Company'}
+                    </motion.h2>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-                            {/* Company Name */}
-                            <div className="group">
-                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <Building2 className="w-4 h-4 text-blue-500" />
-                                    {language === 'ja' ? '会社名' : 'Company Name'}
-                                </h3>
-                                <p className="text-lg text-gray-900 font-medium">
-                                    {language === 'ja' ? '株式会社 D.BRIGHT' : 'D.BRIGHT Corporation'}
-                                </p>
-                            </div>
+                    <motion.div
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-5xl mx-auto"
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        {companyInfo.map((item, index) => {
+                            const Icon = item.icon;
+                            return (
+                                <motion.div key={index} variants={fadeInUp}>
+                                    <div className="bg-[#f3f6f8] rounded-2xl p-6 sm:p-7 h-full">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="w-10 h-10 bg-[#e8f5c8] rounded-xl flex items-center justify-center">
+                                                <Icon className="w-5 h-5 text-[#116f76]" />
+                                            </div>
+                                            <span className="text-sm font-semibold text-[#116f76] uppercase tracking-wider">
+                                                {item.label}
+                                            </span>
+                                        </div>
+                                        <p className="text-lg font-bold text-gray-900">{item.value}</p>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </motion.div>
 
-                            {/* Representative */}
-                            <div className="group">
-                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <User className="w-4 h-4 text-green-500" />
-                                    {language === 'ja' ? '代表取締役' : 'Representative Director'}
-                                </h3>
-                                <p className="text-lg text-gray-900 font-medium">
-                                    {language === 'ja' ? 'オザ・ケサブ・ラズ' : 'OJHA KESHAV RAJ'}
-                                </p>
-                            </div>
-
-                            {/* Capital */}
-                            <div className="group">
-                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <p className="w-1 h-6 text-amber-500" >¥ </p>
-                                    {language === 'ja' ? '資本金' : 'Capital'}
-                                </h3>
-                                <p className="text-lg text-gray-900 font-medium">
-                                    {language === 'ja' ? '500万円' : '¥5,000,000'}
-                                </p>
-                            </div>
-
-                            {/* Bank */}
-                            <div className="group">
-                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <Building2 className="w-4 h-4 text-teal-500" />
-                                    {language === 'ja' ? '取引先銀行' : 'Bank'}
-                                </h3>
-                                <p className="text-lg text-gray-900 font-medium">
-                                    {language === 'ja' ? '千葉銀行、京葉銀行' : 'Chiba Bank, Keiyo Bank'}
-                                </p>
-                            </div>
-
-                            {/* Major Clients */}
-                            <div className="group">
-                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <Briefcase className="w-4 h-4 text-orange-500" />
-                                    {language === 'ja' ? '主要取引先' : 'Major Clients'}
-                                </h3>
-                                <ul className="space-y-1">
-                                    <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
-                                        <span className="text-gray-700">{language === 'ja' ? '株式会社ハウゼスタッフ' : 'Hauze Staff Corporation'}</span>
-                                    </li>
-                                    <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
-                                        <span className="text-gray-700">{language === 'ja' ? '株式会社ベストクリエイト' : 'Best Create Corporation'}</span>
-                                    </li>
-                                    <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
-                                        <span className="text-gray-700">{language === 'ja' ? '株式会社ユニバーサル企業' : 'Universal Corporation'}</span>
-                                    </li>
+                    {/* Main Business + Major Clients + Address/Contact Row */}
+                    <motion.div
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 max-w-5xl mx-auto mt-5 sm:mt-6"
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        {/* Main Business */}
+                        <motion.div variants={fadeInUp}>
+                            <div className="bg-[#f3f6f8] rounded-2xl p-6 sm:p-7 h-full">
+                                <div className="flex items-center gap-3 mb-5">
+                                    <div className="w-10 h-10 bg-[#e8f5c8] rounded-xl flex items-center justify-center">
+                                        <Briefcase className="w-5 h-5 text-[#116f76]" />
+                                    </div>
+                                    <span className="text-sm font-semibold text-[#116f76] uppercase tracking-wider">
+                                        {language === 'ja' ? '主な事業内容' : 'Main Business'}
+                                    </span>
+                                </div>
+                                <ul className="space-y-3">
+                                    {businessItems.map((item, i) => (
+                                        <li key={i} className="flex items-start gap-3">
+                                            <span className="inline-block w-1.5 h-1.5 bg-[#116f76] rounded-full mt-2 shrink-0" />
+                                            <span className="text-gray-700">{item}</span>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
+                        </motion.div>
 
-                            {/* Main Business */}
-                            <div className="group md:row-span-2">
-                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <Briefcase className="w-4 h-4 text-purple-500" />
-                                    {language === 'ja' ? '主な事業内容' : 'Main Business'}
-                                </h3>
-                                <ul className="space-y-2">
-                                    <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
-                                        <span className="text-gray-700">{language === 'ja' ? '清掃業' : 'Cleaning services'}</span>
-                                    </li>
-                                    <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
-                                        <span className="text-gray-700">{language === 'ja' ? '労働者派遣業' : 'Worker dispatch services'}</span>
-                                    </li>
-                                    <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
-                                        <span className="text-gray-700">{language === 'ja' ? '寮、ホテル、その他宿泊施設の経営・コンサルティング' : 'Dormitory, hotel, and other accommodation management/consulting'}</span>
-                                    </li>
-                                    <li className="flex items-start">
-                                        <span className="inline-block w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 shrink-0"></span>
-                                        <span className="text-gray-700">{language === 'ja' ? '通訳・翻訳サービス' : 'Interpretation and translation services'}</span>
-                                    </li>
+                        {/* Major Clients */}
+                        <motion.div variants={fadeInUp}>
+                            <div className="bg-[#f3f6f8] rounded-2xl p-6 sm:p-7 h-full">
+                                <div className="flex items-center gap-3 mb-5">
+                                    <div className="w-10 h-10 bg-[#e8f5c8] rounded-xl flex items-center justify-center">
+                                        <Briefcase className="w-5 h-5 text-[#116f76]" />
+                                    </div>
+                                    <span className="text-sm font-semibold text-[#116f76] uppercase tracking-wider">
+                                        {language === 'ja' ? '主要取引先' : 'Major Clients'}
+                                    </span>
+                                </div>
+                                <ul className="space-y-3">
+                                    {majorClients.map((client, i) => (
+                                        <li key={i} className="flex items-start gap-3">
+                                            <span className="inline-block w-1.5 h-1.5 bg-[#116f76] rounded-full mt-2 shrink-0" />
+                                            <span className="text-gray-700">{client}</span>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
+                        </motion.div>
+                    </motion.div>
 
-                            {/* Address */}
-                            <div className="group">
-                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <MapPin className="w-4 h-4 text-red-500" />
-                                    {language === 'ja' ? '所在地' : 'Address'}
-                                </h3>
+                    {/* Address + Contact Row */}
+                    <motion.div
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 max-w-5xl mx-auto mt-5 sm:mt-6"
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        {/* Address */}
+                        <motion.div variants={fadeInUp}>
+                            <div className="bg-[#f3f6f8] rounded-2xl p-6 sm:p-7 h-full">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="w-10 h-10 bg-[#e8f5c8] rounded-xl flex items-center justify-center">
+                                        <MapPin className="w-5 h-5 text-[#116f76]" />
+                                    </div>
+                                    <span className="text-sm font-semibold text-[#116f76] uppercase tracking-wider">
+                                        {language === 'ja' ? '所在地' : 'Address'}
+                                    </span>
+                                </div>
                                 <p className="text-gray-700 leading-relaxed">
                                     〒272-0035<br />
                                     {language === 'ja'
@@ -179,13 +365,19 @@ export default function CompanyProfilePage() {
                                     {language === 'ja' ? 'ハイホーム田中201号室' : 'High Home Tanaka Room 201'}
                                 </p>
                             </div>
+                        </motion.div>
 
-                            {/* Contact */}
-                            <div className="group">
-                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <Phone className="w-4 h-4 text-indigo-500" />
-                                    {language === 'ja' ? '連絡先' : 'Contact'}
-                                </h3>
+                        {/* Phone / Fax */}
+                        <motion.div variants={fadeInUp}>
+                            <div className="bg-[#f3f6f8] rounded-2xl p-6 sm:p-7 h-full">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="w-10 h-10 bg-[#e8f5c8] rounded-xl flex items-center justify-center">
+                                        <Phone className="w-5 h-5 text-[#116f76]" />
+                                    </div>
+                                    <span className="text-sm font-semibold text-[#116f76] uppercase tracking-wider">
+                                        {language === 'ja' ? '連絡先' : 'Contact'}
+                                    </span>
+                                </div>
                                 <div className="space-y-2">
                                     <p className="text-gray-700">
                                         <span className="font-semibold text-gray-900">TEL:</span> 047-711-2099
@@ -195,94 +387,77 @@ export default function CompanyProfilePage() {
                                     </p>
                                 </div>
                             </div>
+                        </motion.div>
 
-                            {/* Email */}
-                            <div className="group md:col-span-2">
-                                <h3 className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                    <Mail className="w-4 h-4 text-cyan-500" />
-                                    {language === 'ja' ? 'メールアドレス' : 'Email Address'}
-                                </h3>
-                                <p>
-                                    <a
-                                        href="mailto:info@dbrightservices.com"
-                                        className="text-lg text-blue-600 hover:text-blue-700 transition-colors font-medium inline-flex items-center group"
-                                    >
-                                        info@dbrightservices.com
-                                        <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                        </svg>
-                                    </a>
-                                </p>
+                        {/* Email */}
+                        <motion.div variants={fadeInUp}>
+                            <div className="bg-[#f3f6f8] rounded-2xl p-6 sm:p-7 h-full">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="w-10 h-10 bg-[#e8f5c8] rounded-xl flex items-center justify-center">
+                                        <Mail className="w-5 h-5 text-[#116f76]" />
+                                    </div>
+                                    <span className="text-sm font-semibold text-[#116f76] uppercase tracking-wider">
+                                        {language === 'ja' ? 'メール' : 'Email'}
+                                    </span>
+                                </div>
+                                <a
+                                    href="mailto:info@dbrightservices.com"
+                                    className="text-[#116f76] font-medium hover:underline transition-colors"
+                                >
+                                    info@dbrightservices.com
+                                </a>
                             </div>
-                        </div>
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Values Section */}
-            <section className="py-12 bg-linear-to-b from-gray-50 to-white relative overflow-hidden">
-                {/* Decorative Background */}
-                <div className="absolute inset-0 opacity-30 pointer-events-none">
-                    <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full filter blur-3xl"></div>
-                    <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-200 rounded-full filter blur-3xl"></div>
-                </div>
-
-                <div className="site-container px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* ===== CTA BANNER ===== */}
+            <section className="pb-16 sm:pb-20 md:pb-28 bg-white">
+                <div className="site-container">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="text-center mb-16"
+                        className="relative bg-[#116f76] rounded-3xl p-10 sm:p-14 lg:p-16 overflow-hidden"
                     >
-                        <div className="inline-block mb-4 px-4 py-1 bg-blue-100 rounded-full">
-                            <span className="text-blue-700 text-sm font-semibold uppercase tracking-wider">
-                                {language === 'ja' ? '私たちの価値観' : 'Our Values'}
-                            </span>
+                        <div className="absolute inset-0 bg-dot-pattern opacity-10" />
+
+                        <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                            <div className="text-center lg:text-left">
+                                <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">
+                                    {language === 'ja'
+                                        ? 'お気軽にお問い合わせください'
+                                        : 'Get In Touch With Us'}
+                                </h2>
+                                <p className="text-white/70 text-lg max-w-xl">
+                                    {language === 'ja'
+                                        ? 'ご質問やご相談がありましたら、いつでもお気軽にご連絡ください。'
+                                        : 'Have questions or need assistance? We\'d love to hear from you.'}
+                                </p>
+                            </div>
+                            <div className="flex flex-col sm:flex-row items-center gap-4">
+                                <Link
+                                    href="/contact"
+                                    className="inline-flex items-center gap-3 bg-[#d4f57a] text-gray-900 font-semibold text-base rounded-full pl-7 pr-2 py-2 hover:bg-[#c8eb6a] transition-colors"
+                                >
+                                    {language === 'ja' ? 'お問い合わせ' : 'Contact Us'}
+                                    <span className="flex items-center justify-center w-10 h-10 bg-gray-900 rounded-full">
+                                        <ChevronsRight className="w-5 h-5 text-white" />
+                                    </span>
+                                </Link>
+                                <Link
+                                    href="/services"
+                                    className="inline-flex items-center gap-3 bg-white/10 text-white font-semibold text-base rounded-full pl-7 pr-2 py-2 border border-white/30 hover:bg-white/20 transition-colors"
+                                >
+                                    {language === 'ja' ? 'サービス一覧' : 'Our Services'}
+                                    <span className="flex items-center justify-center w-10 h-10 bg-white/20 rounded-full">
+                                        <ChevronsRight className="w-5 h-5 text-white" />
+                                    </span>
+                                </Link>
+                            </div>
                         </div>
-                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                            {t.companyProfile.values.title}
-                        </h2>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                            {language === 'ja'
-                                ? '私たちの事業を支える4つの柱'
-                                : 'The four pillars that support our business'}
-                        </p>
-                    </motion.div>
-
-                    <motion.div
-                        className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto"
-                        initial="initial"
-                        whileInView="animate"
-                        viewport={{ once: true }}
-                        variants={staggerContainer}
-                    >
-                        {values.map((value, index) => {
-                            const Icon = value.icon;
-                            return (
-                                <motion.div key={index} variants={fadeInUp}>
-                                    <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-300 bg-white group overflow-hidden">
-                                        <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-r from-blue-50 to-transparent rounded-bl-full opacity-50 group-hover:opacity-100 transition-opacity"></div>
-
-                                        <CardHeader className="relative z-10">
-                                            <div className={`w-16 h-16 ${value.color} rounded-xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform duration-300`}>
-                                                <Icon className="h-8 w-8" />
-                                            </div>
-                                            <CardTitle className="text-2xl font-bold text-gray-900 mb-2">
-                                                {value.title}
-                                            </CardTitle>
-                                        </CardHeader>
-                                        <CardContent className="relative z-10">
-                                            <CardDescription className="text-base leading-relaxed text-gray-600">
-                                                {value.description}
-                                            </CardDescription>
-                                        </CardContent>
-
-                                        <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-blue-600 to-indigo-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                                    </Card>
-                                </motion.div>
-                            );
-                        })}
                     </motion.div>
                 </div>
             </section>
