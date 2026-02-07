@@ -16,25 +16,8 @@ export function Footer() {
     ];
 
     return (
-        <footer className="bg-[#0f172a] text-white w-full">
-            {/* Newsletter Band */}
-            <div className="border-b border-white/10">
-                <div className="site-container py-8 sm:py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <p className="text-sm sm:text-base font-medium text-gray-300">
-                        {language === 'ja' ? 'ニュースレターを購読する' : 'Subscribe to our newsletter'}
-                    </p>
-                    <div className="flex items-center gap-2 w-full sm:w-auto max-w-sm">
-                        <input
-                            type="email"
-                            placeholder={language === 'ja' ? 'メールアドレス' : 'Enter your email'}
-                            className="flex-1 px-4 py-2.5 rounded-full bg-white/10 border border-white/10 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-[#135b3e] transition-colors"
-                        />
-                        <button className="px-5 py-2.5 rounded-full bg-[#135b3e] text-white text-sm font-semibold hover:bg-[#1a7a54] transition-colors shrink-0">
-                            {language === 'ja' ? '送信' : 'Submit'}
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <footer className="bg-[#116f76] text-white w-full">
+        
 
             {/* Main Footer Content */}
             <div className="site-container py-12 sm:py-16">
@@ -48,7 +31,7 @@ export function Footer() {
                             height={40}
                             className="rounded-xl mb-4"
                         />
-                        <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-xs">
+                        <p className="text-white/80 text-sm leading-relaxed mb-6 max-w-xs">
                             {language === 'ja'
                                 ? '経験、信頼性、一貫した品質、そしてお客様第一のサービスをお届けする信頼のチームです。'
                                 : 'We are a trusted team delivering spotless results through experience, consistency, and customer-focused service every time.'}
@@ -73,7 +56,7 @@ export function Footer() {
                                     <p className="text-white font-semibold text-sm">
                                         {language === 'ja' ? 'AKARU クリーニング' : 'Akaru Cleaning'}
                                     </p>
-                                    <p className="text-gray-500 text-xs">akarucleaning.com</p>
+                                    <p className="text-white/60 text-xs">akarucleaning.com</p>
                                 </div>
                             </Link>
                         </div>
@@ -89,7 +72,7 @@ export function Footer() {
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}
-                                        className="text-gray-400 hover:text-white text-sm transition-colors duration-200 flex items-center gap-2 group"
+                                        className="text-white/80 hover:text-white text-sm transition-colors duration-200 flex items-center gap-2 group"
                                     >
                                         <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity -ml-5 group-hover:ml-0" />
                                         {link.label}
@@ -107,24 +90,24 @@ export function Footer() {
                         <div className="space-y-4">
                             <div className="flex items-start gap-3">
                                 <MapPin className="w-4 h-4 text-[#22c55e] mt-0.5 shrink-0" />
-                                <p className="text-gray-400 text-sm leading-relaxed">
+                                <p className="text-white/80 text-sm leading-relaxed">
                                     〒272-0034 千葉県市川市市川4-18-22<br />
                                     ハイホームタナカ201号室
                                 </p>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Phone className="w-4 h-4 text-[#22c55e] shrink-0" />
-                                <a href="tel:047-711-2099" className="text-gray-400 text-sm hover:text-white transition-colors">
+                                <a href="tel:047-711-2099" className="text-white/80 text-sm hover:text-white transition-colors">
                                     047-711-2099
                                 </a>
                             </div>
                             <div className="flex items-center gap-3">
                                 <Mail className="w-4 h-4 text-[#22c55e] shrink-0" />
-                                <a href="mailto:info@dbrightservices.com" className="text-gray-400 text-sm hover:text-white transition-colors">
+                                <a href="mailto:info@dbrightservices.com" className="text-white/80 text-sm hover:text-white transition-colors">
                                     info@dbrightservices.com
                                 </a>
                             </div>
-                            <p className="text-xs text-gray-500 pl-7">
+                            <p className="text-xs text-white/60 pl-7">
                                 {language === 'ja' ? '営業時間: 月〜金 / 10:00 - 19:00' : 'Business Hours: Mon - Fri / 10AM - 7PM'}
                             </p>
                         </div>
@@ -155,7 +138,7 @@ export function Footer() {
             {/* Bottom Bar */}
             <div className="border-t border-white/10">
                 <div className="site-container py-5 flex flex-col sm:flex-row items-center justify-center text-center">
-                    <p className="text-gray-500 text-xs sm:text-sm">
+                    <p className="text-white/70 text-xs sm:text-sm">
                         © {new Date().getFullYear()} {language === 'ja' ? '株式会社D.BRIGHT. All rights reserved.' : 'D.BRIGHT Co., Ltd. All rights reserved.'}
                     </p>
                 </div>

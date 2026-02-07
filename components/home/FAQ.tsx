@@ -2,72 +2,68 @@
 
 import { useLanguage } from '@/lib/translations/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { fadeInUp, staggerContainer } from './animations';
+
+interface FaqItem {
+    label: string;
+    question: string;
+    answer: string;
+}
 
 export default function FAQ() {
     const { language } = useLanguage();
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-    const faqs = language === 'ja'
+    const title = language === 'ja'
+        ? 'よくあるご質問'
+        : 'Quick Answers to\nCommon Questions';
+
+    const badgeText = language === 'ja' ? 'よくある質問' : 'FAQ Question';
+    const ctaText = language === 'ja' ? 'サービスを見る' : 'Get A Service';
+
+    const faqs: FaqItem[] = language === 'ja'
         ? [
-            {
-                q: 'Q1. サービスの予約はどのようにすればよいですか？',
-                a: 'お電話またはウェブサイトのお問い合わせフォームから簡単にご予約いただけます。営業時間中はお電話でも対応可能です。',
-            },
-            {
-                q: 'Q2. 対応エリアはどこですか？',
-                a: '千葉県市川市を拠点に、東京都内および近郊エリアに対応しています。詳しくはお問い合わせください。',
-            },
-            {
-                q: 'Q3. 人材派遣の最低契約期間はありますか？',
-                a: 'ご要望に応じて柔軟に対応いたします。短期から長期まで、お客様のニーズに合わせたプランをご提案します。',
-            },
-            {
-                q: 'Q4. 多言語でのサポートは可能ですか？',
-                a: 'はい、日本語・英語をはじめ、複数の言語に対応可能なスタッフが在籍しています。',
-            },
-            {
-                q: 'Q5. 料金の見積もりは無料ですか？',
-                a: 'はい、お見積もりは完全無料です。お気軽にお問い合わせください。',
-            },
-            {
-                q: 'Q6. サービスに満足できなかった場合はどうなりますか？',
-                a: 'お客様の満足を最優先に考えています。万が一ご期待に添えない場合は、無償で再対応させていただきます。',
-            },
+            { label: 'Q1.', question: 'オンラインシステムでクリーニングの予約はどのようにすればよいですか？', answer: 'ウェブサイトのお問い合わせフォームから簡単にご予約いただけます。営業時間中はお電話でも対応可能です。' },
+            { label: 'Q2.', question: 'プロのクリーナーはエコフレンドリーな用品や必要な機材を持参しますか？', answer: 'はい、環境に優しいクリーニング用品と専門機材はすべてスタッフが持参します。お客様にご準備いただくものはございません。' },
+            { label: 'Q3.', question: '確定したクリーニング予約を追加料金なしで後から変更できますか？', answer: 'はい、予定日の24時間前までであれば追加料金なしで変更可能です。お気軽にご連絡ください。' },
+            { label: 'Q4.', question: 'クリーニング製品はお子様やペット、敏感な方にも安全ですか？', answer: 'はい、無毒でエコフレンドリーな製品のみを使用しており、ご家族やペットにも完全に安全です。' },
+            { label: 'Q5.', question: 'お住まいの地域の空き状況に応じて当日予約は可能ですか？', answer: 'はい、空き状況に応じて当日予約も承っております。まずはお電話またはオンラインでご確認ください。' },
+            { label: 'Q6.', question: 'クリーニングが期待に沿わなかった場合はどうすればよいですか？', answer: 'お客様の満足を最優先に考えています。ご期待に添えない場合は、無償で再対応させていただきます。' },
         ]
         : [
-            {
-                q: 'Q1. How can I easily book a service through your online system?',
-                a: 'You can book through our website contact form or call us directly during business hours. We respond to all inquiries within 24 hours.',
-            },
-            {
-                q: 'Q2. What areas do you provide services in?',
-                a: 'Based in Ichikawa City, Chiba Prefecture, we serve the greater Tokyo metropolitan area. Contact us for details about your specific location.',
-            },
-            {
-                q: 'Q3. Is there a minimum contract period for staffing services?',
-                a: 'We offer flexible arrangements from short-term to long-term placements. We tailor our plans to fit your specific needs.',
-            },
-            {
-                q: 'Q4. Do you provide multilingual support?',
-                a: 'Yes, our team includes staff fluent in Japanese, English, and several other languages to serve our diverse clientele.',
-            },
-            {
-                q: 'Q5. Are your quotes and estimates free of charge?',
-                a: 'Absolutely! All estimates are completely free with no obligation. Contact us anytime for a detailed quote.',
-            },
-            {
-                q: 'Q6. What can I do if the service does not meet my expectations?',
-                a: 'Customer satisfaction is our top priority. If you are not fully satisfied, we offer free re-service and corrections at no additional cost.',
-            },
+            { label: 'Q1.', question: 'How can I easily book a cleaning appointment through your online system?', answer: 'You can book through our website contact form or call us directly during business hours. We respond to all inquiries within 24 hours.' },
+            { label: 'Q2.', question: 'Do your professional cleaners bring their own eco-friendly supplies and necessary equipment?', answer: 'Yes, our cleaners arrive fully equipped with all eco-friendly cleaning supplies and professional-grade equipment. You don\'t need to provide anything.' },
+            { label: 'Q3.', question: 'Can I reschedule my confirmed cleaning appointment later without paying additional fees?', answer: 'Absolutely! You can reschedule free of charge up to 24 hours before your appointment. Simply contact us to arrange a new time.' },
+            { label: 'Q4.', question: 'Are your cleaning products completely safe for children, pets, and sensitive individuals?', answer: 'Yes, we exclusively use non-toxic, eco-friendly products that are completely safe for families, pets, and individuals with sensitivities.' },
+            { label: 'Q5.', question: 'Do you provide same-day cleaning appointments depending on availability within my area?', answer: 'Yes, we offer same-day appointments based on availability. Contact us by phone or online to check current openings in your area.' },
+            { label: 'Q6.', question: 'What can I do if the cleaning does not meet my expectations?', answer: 'Customer satisfaction is our top priority. If you\'re not fully satisfied, we offer free re-service and corrections at no additional cost.' },
         ];
 
     return (
         <section className="relative py-16 sm:py-20 md:py-28 bg-[#f8fafc] w-full">
             <div className="site-container">
-                {/* Section Header */}
+                {/* Top Bar: Badge + CTA */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                    className="flex items-center justify-between mb-10 sm:mb-14"
+                >
+                    <div className="section-badge">
+                        <span className="dot" />
+                        {badgeText}
+                    </div>
+                    <Link href="/services" className="btn-primary text-sm">
+                        {ctaText}
+                        <ChevronRight className="w-4 h-4 ml-0.5" />
+                    </Link>
+                </motion.div>
+
+                {/* Section Title */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -75,53 +71,42 @@ export default function FAQ() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-12 sm:mb-16"
                 >
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
-                        {language === 'ja' ? 'よくあるご質問' : 'Quick Answers to Common Questions'}
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight whitespace-pre-line">
+                        {title}
                     </h2>
                 </motion.div>
 
-                {/* FAQ List */}
+                {/* FAQ Cards Grid */}
                 <motion.div
                     initial="initial"
                     whileInView="animate"
                     viewport={{ once: true }}
                     variants={staggerContainer}
-                    className="max-w-3xl mx-auto"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-5xl mx-auto"
                 >
                     {faqs.map((faq, index) => (
                         <motion.div key={index} variants={fadeInUp}>
-                            <div className="faq-item">
-                                <button
-                                    onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                                    className="w-full flex items-center justify-between py-5 sm:py-6 text-left group"
-                                >
-                                    <span className="text-base sm:text-lg font-semibold text-gray-900 pr-4 group-hover:text-[#135b3e] transition-colors">
-                                        {faq.q}
-                                    </span>
-                                    <div className={`shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center transition-all duration-300 ${openIndex === index
-                                        ? 'bg-[#135b3e] text-white rotate-0'
-                                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-                                        }`}>
-                                        {openIndex === index
-                                            ? <Minus className="w-4 h-4" />
-                                            : <Plus className="w-4 h-4" />
-                                        }
-                                    </div>
-                                </button>
-
+                            <div
+                                className="bg-[#f1f5f9] rounded-2xl p-6 sm:p-7 h-full flex flex-col cursor-pointer select-none transition-colors duration-200 hover:bg-[#e8ecf1]"
+                                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                            >
+                                <span className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
+                                    {faq.label}
+                                </span>
+                                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                                    {faq.question}
+                                </p>
                                 <AnimatePresence>
                                     {openIndex === index && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: 'auto', opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                                            className="overflow-hidden"
+                                        <motion.p
+                                            initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                                            animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
+                                            exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                                            className="text-sm text-gray-500 leading-relaxed overflow-hidden border-t border-gray-200 pt-4"
                                         >
-                                            <p className="pb-5 sm:pb-6 text-sm sm:text-base text-gray-500 leading-relaxed pr-12">
-                                                {faq.a}
-                                            </p>
-                                        </motion.div>
+                                            {faq.answer}
+                                        </motion.p>
                                     )}
                                 </AnimatePresence>
                             </div>

@@ -116,13 +116,13 @@ export default function Intro() {
                     {/* Stat Card 1 */}
                     <div className="flex flex-col justify-center rounded-2xl border border-dashed border-gray-300 p-6 sm:p-8">
                         <p className="text-sm font-medium text-[#135b3e] mb-4">
-                            {language === 'ja' ? '設立' : 'Established for'}
+                            {language === 'ja' ? '完了済み' : 'Completed'}
                         </p>
                         <div className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-none mb-3">
-                            <AnimatedCounter target={12} />
+                            <AnimatedCounter target={500} />+
                         </div>
                         <p className="text-sm sm:text-base font-medium text-[#135b3e]">
-                            {language === 'ja' ? '年のサービス実績' : 'Years of Service'}
+                            {language === 'ja' ? 'プロジェクト実績' : 'Projects Done'}
                         </p>
                     </div>
 

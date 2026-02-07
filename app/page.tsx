@@ -25,14 +25,8 @@ export default function Home() {
 
       <WhyChooseUs />
 
-      <SectionDivider
-        label={language === 'ja' ? 'よくある質問' : 'FAQ'}
-        linkText={language === 'ja' ? 'サービスを見る' : 'Get A Service'}
-        linkHref="/services"
-      />
       <FAQ />
 
-      <CTA />
     </div>
   );
 }
