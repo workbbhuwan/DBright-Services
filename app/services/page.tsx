@@ -2,7 +2,7 @@
 
 import { useLanguage } from '@/lib/translations/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronsRight, ClipboardList, CalendarClock, Users, Sparkles } from 'lucide-react';
+import { ChevronsRight, ClipboardList, CalendarClock, Users, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useLanguage } from '@/lib/translations/LanguageContext';
 import { ChevronsRight, Star, Leaf, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { fadeInUp, fadeInLeft, fadeInRight, staggerContainer } from './animations';
 
 export default function Hero() {
     const { language } = useLanguage();

@@ -1,13 +1,11 @@
 "use client";
 
 import Hero from '@/components/home/Hero';
-import SectionDivider from '@/components/home/SectionDivider';
 import Intro from '@/components/home/Intro';
 import Services from '@/components/home/Services';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
 import Testimonials from '@/components/home/Testimonials';
 import FAQ from '@/components/home/FAQ';
-import CTA from '@/components/home/CTA';
 import { useLanguage } from '@/lib/translations/LanguageContext';
 
 export default function Home() {
