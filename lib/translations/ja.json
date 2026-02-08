@@ -7,17 +7,17 @@
     },
     "home": {
         "hero": {
-            "title": "Dbright Services",
-            "tagline": "あなたの空間を輝かせる、プロフェッショナルなクリーニングサービス",
+            "title": "株式会社D.Bright",
+            "tagline": "株式会社D.Brightがあなたの空間を輝かせる、プロフェッショナルなクリーニングサービス",
             "ctaServices": "サービス一覧",
             "ctaContact": "お問い合わせ"
         },
         "intro": {
-            "title": "私たちについて",
-            "description": "Dbright Servicesは、日本全国でプロフェッショナルなクリーニングサービスを提供しています。家庭、オフィス、ホテル、Airbnbなど、あらゆる空間を清潔で快適な環境に変えることをお約束します。経験豊富なスタッフと最新の清掃技術で、お客様のニーズに合わせた最高品質のサービスを提供いたします。"
+            "title": "株式会社D.Brightについて",
+            "description": "株式会社D.Bright（D.BRIGHT Corporation）は、日本全国でプロフェッショナルなクリーニングサービスを提供しています。家庭、オフィス、ホテル、Airbnbなど、あらゆる空間を清潔で快適な環境に変えることをお約束します。経験豊富なスタッフと最新の清掃技術で、お客様のニーズに合わせた最高品質のサービスを提供いたします。"
         },
         "whyChooseUs": {
-            "title": "Dbrightを選ぶ理由",
+            "title": "株式会社D.Brightを選ぶ理由",
             "reasons": {
                 "quality": {
                     "title": "高品質",
@@ -71,10 +71,10 @@
     "companyProfile": {
         "title": "会社概要",
         "subtitle": "私たちの使命とビジョン",
-        "description": "Dbright Servicesは、日本の清掃業界において革新的なサービスを提供することを目指して設立されました。私たちは、すべてのお客様に清潔で快適な空間を提供することを使命としています。プロフェッショナルなスタッフ、最新の清掃技術、環境に優しい清掃用品を使用し、常に最高品質のサービスを追求しています。お客様の満足と信頼を第一に考え、日々サービスの向上に努めております。",
+        "description": "株式会社D.Bright（D.BRIGHT Corporation）は、日本の清掃業界において革新的なサービスを提供することを目指して設立されました。株式会社D.Brightは、すべてのお客様に清潔で快適な空間を提供することを使命としています。プロフェッショナルなスタッフ、最新の清掃技術、環境に優しい清掃用品を使用し、常に最高品質のサービスを追求しています。お客様の満足と信頼を第一に考え、日々サービスの向上に努めております。",
         "mission": {
             "title": "私たちのミッション",
-            "description": "Dbright Servicesは、清潔で快適な空間を通じて、人々の生活と仕事の質を向上させることを使命としています。プロフェッショナルな技術と心のこもったサービスで、お客様の期待を超える価値を提供いたします。"
+            "description": "株式会社D.Brightは、清潔で快適な空間を通じて、人々の生活と仕事の質を向上させることを使命としています。プロフェッショナルな技術と心のこもったサービスで、お客様の期待を超える価値を提供いたします。"
         },
         "values": {
             "title": "私たちの価値観",
@@ -111,10 +111,10 @@
         "error": "送信に失敗しました。もう一度お試しください。"
     },
     "footer": {
-        "company": "Dbright Services",
-        "address": "東京都渋谷区〇〇1-2-3",
-        "phone": "03-1234-5678",
-        "email": "info@dbright-services.jp",
-        "copyright": "© 2025 Dbright Services. All rights reserved."
+        "company": "株式会社D.Bright",
+        "address": "千葉県市川市新田4-18-22 ハイホームタナカ201号室",
+        "phone": "047-711-2099",
+        "email": "info@dbrightservices.com",
+        "copyright": "© 2026 株式会社D.Bright. All rights reserved."
     }
 }

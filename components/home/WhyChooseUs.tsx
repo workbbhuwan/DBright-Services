@@ -34,8 +34,8 @@ export default function WhyChooseUs() {
     const { language } = useLanguage();
 
     const title = language === 'ja'
-        ? 'お客様に選ばれる理由'
-        : 'Why Customers\nTrust Our Service';
+        ? '株式会社D.Brightが\n選ばれる理由'
+        : 'Why Customers Trust\nD.Bright Corporation';
 
     const badgeText = language === 'ja' ? '選ばれる理由' : 'Why Choose Us';
     const ctaText = language === 'ja' ? 'サービスを見る' : 'Get A Service';

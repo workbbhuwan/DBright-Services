@@ -80,23 +80,23 @@ export default function Intro() {
                 >
                     {language === 'ja' ? (
                         <>
-                            経験と信頼で確かな成果を届ける
+                            株式会社D.Brightは経験と信頼で確かな成果を届ける
                             <span className="inline-block align-middle mx-2 relative w-28 sm:w-36 h-8 sm:h-10 rounded-full overflow-hidden">
-                                <Image src="/staffing.png" alt="" fill className="object-cover" />
+                                <Image src="/staffing.png" alt="株式会社D.Bright スタッフ" fill className="object-cover" />
                             </span>
                             プロチーム。一貫した品質とお客様第一の
                             <span className="inline-block align-middle mx-2 relative w-28 sm:w-36 h-8 sm:h-10 rounded-full overflow-hidden">
-                                <Image src="/hotel.png" alt="" fill className="object-cover" />
+                                <Image src="/hotel.png" alt="株式会社D.Bright ホテル清掃" fill className="object-cover" />
                             </span>
                             サービスをお届けします。
                         </>
                     ) : (
                         <>
-                            We are trusted team delivering spotless results through experience{' '}
+                            D.Bright Corporation is a trusted team delivering spotless results through experience{' '}
                             <span className="inline-block align-middle mx-1 relative w-28 sm:w-36 h-8 sm:h-10 rounded-full overflow-hidden">
-                                <Image src="/staffing.png" alt="Our team" fill className="object-cover" />
+                                <Image src="/staffing.png" alt="D.Bright Corporation team" fill className="object-cover" />
                             </span>
-                            , reliability consistency, and customer-focused{' '}
+                            , reliability, consistency, and customer-focused{' '}
                             <span className="inline-block align-middle mx-1 relative w-28 sm:w-36 h-8 sm:h-10 rounded-full overflow-hidden">
                                 <Image src="/hotel.png" alt="Our service" fill className="object-cover" />
                             </span>

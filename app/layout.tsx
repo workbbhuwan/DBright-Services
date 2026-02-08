@@ -147,12 +147,72 @@ export default function RootLayout({
     ]
   };
 
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "株式会社D.Bright ホーム",
+        "item": SITE_URL
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "株式会社D.Bright サービス一覧",
+        "item": `${SITE_URL}/services`
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "株式会社D.Bright 会社概要",
+        "item": `${SITE_URL}/company-profile`
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "株式会社D.Bright お問い合わせ",
+        "item": `${SITE_URL}/contact`
+      }
+    ]
+  };
+
+  const localBusinessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "株式会社D.Bright",
+    "alternateName": ["D.BRIGHT Corporation", "D.Bright", "ディーブライト"],
+    "description": "株式会社D.Brightは千葉県市川市を拠点に、ホテル清掃、人材派遣、留学サポート、ハラール事業支援など幅広いサービスを提供。",
+    "url": SITE_URL,
+    "telephone": "+81-47-711-2099",
+    "email": "info@dbrightservices.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "新田4-18-22 ハイホーム田中201号室",
+      "addressLocality": "市川市",
+      "addressRegion": "千葉県",
+      "postalCode": "272-0035",
+      "addressCountry": "JP"
+    },
+    "openingHours": "Mo-Fr 10:00-19:00",
+    "priceRange": "¥¥"
+  };
+
   return (
     <html lang="ja" className="scroll-smooth">
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
       </head>
       <body className={`${notoSansJP.variable} ${inter.variable} font-sans antialiased`}>

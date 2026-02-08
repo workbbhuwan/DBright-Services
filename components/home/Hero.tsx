@@ -10,11 +10,11 @@ export default function Hero() {
     const { language } = useLanguage();
 
     const headline = language === 'ja'
-        ? '確かな技術と信頼で\n清掃空間をお届けします'
-        : 'Trusted Expertise\nFor Cleaning Spaces';
+        ? '株式会社D.Bright\n確かな技術と信頼で輝く空間を'
+        : 'D.Bright Corporation\nTrusted Expertise For Cleaning';
     const subtitle = language === 'ja'
-        ? '経験豊富なプロフェッショナルが、厳格な品質基準のもと\n最高の清掃サービスをご提供いたします。'
-        : 'Our experienced professionals deliver best cleaning services\nwith rigorous quality standards you can count on.';
+        ? '株式会社D.Brightは、経験豊富なプロフェッショナルが\n厳格な品質基準のもと最高の清掃サービスをご提供いたします。'
+        : 'D.Bright Corporation delivers professional cleaning services\nwith rigorous quality standards you can count on.';
     const ctaPrimary = language === 'ja' ? 'お問い合わせ' : 'Book Your Cleaning';
     const ctaSecondary = language === 'ja' ? 'サービスを見る' : 'View All Services';
     const badgeLeft = language === 'ja' ? 'エコ素材使用' : 'Eco-Friendly\nMaterials';

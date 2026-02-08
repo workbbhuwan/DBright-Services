@@ -33,8 +33,8 @@ export function Footer() {
                         />
                         <p className="text-white/80 text-sm leading-relaxed mb-6 max-w-xs">
                             {language === 'ja'
-                                ? '経験、信頼性、一貫した品質、そしてお客様第一のサービスをお届けする信頼のチームです。'
-                                : 'We are a trusted team delivering spotless results through experience, consistency, and customer-focused service every time.'}
+                                ? '株式会社D.Brightは、経験、信頼性、一貫した品質、そしてお客様第一のサービスをお届けする信頼のチームです。'
+                                : 'D.Bright Corporation (株式会社D.Bright) is a trusted team delivering spotless results through experience, consistency, and customer-focused service.'}
                         </p>
 
                         {/* Akaru Cleaning Partner */}

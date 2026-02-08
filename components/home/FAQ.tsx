@@ -26,20 +26,20 @@ export default function FAQ() {
 
     const faqs: FaqItem[] = language === 'ja'
         ? [
-            { label: 'Q1.', question: 'オンラインシステムでクリーニングの予約はどのようにすればよいですか？', answer: 'ウェブサイトのお問い合わせフォームから簡単にご予約いただけます。営業時間中はお電話でも対応可能です。' },
-            { label: 'Q2.', question: 'プロのクリーナーはエコフレンドリーな用品や必要な機材を持参しますか？', answer: 'はい、環境に優しいクリーニング用品と専門機材はすべてスタッフが持参します。お客様にご準備いただくものはございません。' },
-            { label: 'Q3.', question: '確定したクリーニング予約を追加料金なしで後から変更できますか？', answer: 'はい、予定日の24時間前までであれば追加料金なしで変更可能です。お気軽にご連絡ください。' },
-            { label: 'Q4.', question: 'クリーニング製品はお子様やペット、敏感な方にも安全ですか？', answer: 'はい、無毒でエコフレンドリーな製品のみを使用しており、ご家族やペットにも完全に安全です。' },
-            { label: 'Q5.', question: 'お住まいの地域の空き状況に応じて当日予約は可能ですか？', answer: 'はい、空き状況に応じて当日予約も承っております。まずはお電話またはオンラインでご確認ください。' },
-            { label: 'Q6.', question: 'クリーニングが期待に沿わなかった場合はどうすればよいですか？', answer: 'お客様の満足を最優先に考えています。ご期待に添えない場合は、無償で再対応させていただきます。' },
+            { label: 'Q1.', question: 'オンラインシステムでクリーニングの予約はどのようにすればよいですか？', answer: '株式会社D.Brightのウェブサイトのお問い合わせフォームから簡単にご予約いただけます。営業時間中はお電話でも対応可能です。' },
+            { label: 'Q2.', question: 'プロのクリーナーはエコフレンドリーな用品や必要な機材を持参しますか？', answer: 'はい、株式会社D.Brightのスタッフは環境に優しいクリーニング用品と専門機材をすべて持参します。お客様にご準備いただくものはございません。' },
+            { label: 'Q3.', question: '確定したクリーニング予約を追加料金なしで後から変更できますか？', answer: 'はい、予定日の24時間前までであれば追加料金なしで変更可能です。お気軽に株式会社D.Brightまでご連絡ください。' },
+            { label: 'Q4.', question: 'クリーニング製品はお子様やペット、敏感な方にも安全ですか？', answer: 'はい、株式会社D.Brightでは無毒でエコフレンドリーな製品のみを使用しており、ご家族やペットにも完全に安全です。' },
+            { label: 'Q5.', question: 'お住まいの地域の空き状況に応じて当日予約は可能ですか？', answer: 'はい、株式会社D.Brightでは空き状況に応じて当日予約も承っております。まずはお電話またはオンラインでご確認ください。' },
+            { label: 'Q6.', question: 'クリーニングが期待に沿わなかった場合はどうすればよいですか？', answer: '株式会社D.Brightはお客様の満足を最優先に考えています。ご期待に沿えない場合は、無償で再対応させていただきます。' },
         ]
         : [
-            { label: 'Q1.', question: 'How can I easily book a cleaning appointment through your online system?', answer: 'You can book through our website contact form or call us directly during business hours. We respond to all inquiries within 24 hours.' },
-            { label: 'Q2.', question: 'Do your professional cleaners bring their own eco-friendly supplies and necessary equipment?', answer: 'Yes, our cleaners arrive fully equipped with all eco-friendly cleaning supplies and professional-grade equipment. You don\'t need to provide anything.' },
-            { label: 'Q3.', question: 'Can I reschedule my confirmed cleaning appointment later without paying additional fees?', answer: 'Absolutely! You can reschedule free of charge up to 24 hours before your appointment. Simply contact us to arrange a new time.' },
-            { label: 'Q4.', question: 'Are your cleaning products completely safe for children, pets, and sensitive individuals?', answer: 'Yes, we exclusively use non-toxic, eco-friendly products that are completely safe for families, pets, and individuals with sensitivities.' },
-            { label: 'Q5.', question: 'Do you provide same-day cleaning appointments depending on availability within my area?', answer: 'Yes, we offer same-day appointments based on availability. Contact us by phone or online to check current openings in your area.' },
-            { label: 'Q6.', question: 'What can I do if the cleaning does not meet my expectations?', answer: 'Customer satisfaction is our top priority. If you\'re not fully satisfied, we offer free re-service and corrections at no additional cost.' },
+            { label: 'Q1.', question: 'How can I easily book a cleaning appointment through your online system?', answer: 'You can book through the D.Bright Corporation (株式会社D.Bright) website contact form or call us directly during business hours. We respond to all inquiries within 24 hours.' },
+            { label: 'Q2.', question: 'Do your professional cleaners bring their own eco-friendly supplies and necessary equipment?', answer: 'Yes, all D.Bright Corporation cleaners arrive fully equipped with eco-friendly cleaning supplies and professional-grade equipment. You don\'t need to provide anything.' },
+            { label: 'Q3.', question: 'Can I reschedule my confirmed cleaning appointment later without paying additional fees?', answer: 'Absolutely! You can reschedule free of charge up to 24 hours before your appointment. Simply contact D.Bright Corporation to arrange a new time.' },
+            { label: 'Q4.', question: 'Are your cleaning products completely safe for children, pets, and sensitive individuals?', answer: 'Yes, D.Bright Corporation (株式会社D.Bright) exclusively uses non-toxic, eco-friendly products that are completely safe for families, pets, and individuals with sensitivities.' },
+            { label: 'Q5.', question: 'Do you provide same-day cleaning appointments depending on availability within my area?', answer: 'Yes, D.Bright Corporation offers same-day appointments based on availability. Contact us by phone or online to check current openings in your area.' },
+            { label: 'Q6.', question: 'What can I do if the cleaning does not meet my expectations?', answer: 'Customer satisfaction is the top priority at D.Bright Corporation (株式会社D.Bright). If you\'re not fully satisfied, we offer free re-service and corrections at no additional cost.' },
         ];
 
     return (

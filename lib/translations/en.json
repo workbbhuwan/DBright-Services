@@ -7,17 +7,17 @@
     },
     "home": {
         "hero": {
-            "title": "Dbright Services",
-            "tagline": "Professional Cleaning Services That Make Your Space Shine",
+            "title": "D.Bright Corporation",
+            "tagline": "D.Bright Corporation (株式会社D.Bright) — Professional Cleaning Services That Make Your Space Shine",
             "ctaServices": "View Services",
             "ctaContact": "Contact Us"
         },
         "intro": {
-            "title": "About Us",
-            "description": "Dbright Services provides professional cleaning services throughout Japan. We are committed to transforming homes, offices, hotels, Airbnb properties, and all types of spaces into clean and comfortable environments. With experienced staff and the latest cleaning technology, we deliver the highest quality services tailored to your needs."
+            "title": "About D.Bright Corporation",
+            "description": "D.Bright Corporation (株式会社D.Bright) provides professional cleaning services throughout Japan. We are committed to transforming homes, offices, hotels, Airbnb properties, and all types of spaces into clean and comfortable environments. With experienced staff and the latest cleaning technology, we deliver the highest quality services tailored to your needs."
         },
         "whyChooseUs": {
-            "title": "Why Choose Dbright",
+            "title": "Why Choose D.Bright Corporation",
             "reasons": {
                 "quality": {
                     "title": "High Quality",
@@ -71,10 +71,10 @@
     "companyProfile": {
         "title": "Company Profile",
         "subtitle": "Our Mission and Vision",
-        "description": "Dbright Services was founded to provide innovative cleaning services in the Japanese cleaning industry. Our mission is to provide clean and comfortable spaces to all our customers. We use professional staff, the latest cleaning technology, and environmentally friendly cleaning products to consistently pursue the highest quality service. We prioritize customer satisfaction and trust, and strive daily to improve our services.",
+        "description": "D.Bright Corporation (株式会社D.Bright) was founded to provide innovative cleaning services in the Japanese cleaning industry. Our mission is to provide clean and comfortable spaces to all our customers. We use professional staff, the latest cleaning technology, and environmentally friendly cleaning products to consistently pursue the highest quality service. We prioritize customer satisfaction and trust, and strive daily to improve our services.",
         "mission": {
             "title": "Our Mission",
-            "description": "Dbright Services is committed to improving the quality of people's lives and work through clean and comfortable spaces. We provide value that exceeds customer expectations through professional techniques and heartfelt service."
+            "description": "D.Bright Corporation (株式会社D.Bright) is committed to improving the quality of people's lives and work through clean and comfortable spaces. We provide value that exceeds customer expectations through professional techniques and heartfelt service."
         },
         "values": {
             "title": "Our Values",
@@ -111,10 +111,10 @@
         "error": "Failed to send message. Please try again."
     },
     "footer": {
-        "company": "Dbright Services",
-        "address": "1-2-3 Shibuya, Shibuya-ku, Tokyo, Japan",
-        "phone": "03-1234-5678",
-        "email": "info@dbright-services.jp",
-        "copyright": "© 2025 Dbright Services. All rights reserved."
+        "company": "D.Bright Corporation (株式会社D.Bright)",
+        "address": "4-18-22 Shinden, Ichikawa-shi, Chiba, Japan",
+        "phone": "047-711-2099",
+        "email": "info@dbrightservices.com",
+        "copyright": "© 2026 D.Bright Corporation (株式会社D.Bright). All rights reserved."
     }
 }
