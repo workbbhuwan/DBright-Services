@@ -105,7 +105,7 @@ export const metadata: Metadata = {
   },
   verification: {
     // Add your Google Search Console verification code here
-    // google: "your-google-verification-code",
+    google: "6ThUQMa9oJIQdwucJPejDBreBzABpvHtEMZ0m9j19mk",
   },
   icons: {
     icon: "/logo.png",
