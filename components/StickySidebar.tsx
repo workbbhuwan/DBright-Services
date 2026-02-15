@@ -6,13 +6,13 @@ export default function StickySidebar() {
   return (
     <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 pr-3">
       {/* LINE Button */}
-      <a
-        href="https://line.me/ti/p/~0477112099"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Contact us on LINE"
-        className="group flex items-center justify-center w-14 h-14 rounded-full bg-[#06C755] text-white shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-300"
-      >
+        <a
+          href="https://line.me/ti/p/~8057873253"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Contact us on LINE"
+          className="group flex items-center justify-center w-14 h-14 rounded-full bg-[#06C755] text-white shadow-lg hover:scale-110 hover:shadow-xl transition-all duration-300"
+        >
         <svg
           viewBox="0 0 24 24"
           fill="currentColor"
