@@ -2,18 +2,23 @@
 
 /**
  * LanguageSwitcher Component
- * Allows users to toggle between Japanese and English
+ * Navigates between locale URLs (e.g. /ja/services ↔ /en/services)
  */
 
-import { useLanguage } from '@/lib/translations/LanguageContext';
+import { usePathname, useRouter } from 'next/navigation';
 import { Languages } from 'lucide-react';
 import { Button } from './ui/button';
+import { useLocale } from '@/lib/navigation';
+import { getSwitchedLocalePath } from '@/lib/navigation';
 
 export function LanguageSwitcher() {
-    const { language, setLanguage } = useLanguage();
+    const locale = useLocale();
+    const pathname = usePathname();
+    const router = useRouter();
 
     const toggleLanguage = () => {
-        setLanguage(language === 'ja' ? 'en' : 'ja');
+        const targetLocale = locale === 'ja' ? 'en' : 'ja';
+        router.push(getSwitchedLocalePath(pathname, targetLocale));
     };
 
     return (
@@ -25,7 +30,7 @@ export function LanguageSwitcher() {
             aria-label="Switch language"
         >
             <Languages className="h-4 w-4" />
-            <span className="font-medium text-lg">{language === 'ja' ? 'EN' : 'JA'}</span>
+            <span className="font-medium text-lg">{locale === 'ja' ? 'EN' : 'JA'}</span>
         </Button>
     );
 }

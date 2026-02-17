@@ -17,10 +17,10 @@ async function isAuthenticated() {
 // Convert messages to CSV format
 function convertToCSV(messages: Array<Record<string, unknown>>): string {
   if (messages.length === 0) {
-    return 'id,name,email,phone,message,status,created_at,ip_address\n';
+    return 'id,name,email,phone,service,company,preferred_date,preferred_time,message,status,created_at,ip_address\n';
   }
 
-  const headers = ['id', 'name', 'email', 'phone', 'message', 'status', 'created_at', 'ip_address'];
+  const headers = ['id', 'name', 'email', 'phone', 'service', 'company', 'preferred_date', 'preferred_time', 'message', 'status', 'created_at', 'ip_address'];
   const csvRows = [headers.join(',')];
 
   for (const message of messages) {

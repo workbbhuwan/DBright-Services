@@ -1,6 +1,7 @@
 'use client';
 
 import { useLanguage } from '@/lib/translations/LanguageContext';
+import { useLocalePath, useLocale } from '@/lib/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronsRight, ClipboardList, CalendarClock, Users, Sparkles } from 'lucide-react';
 import Image from 'next/image';
@@ -44,6 +45,14 @@ interface ProcessStep {
 
 export default function ServicesPage() {
     const { language } = useLanguage();
+    const locale = useLocale();
+    const contactPath = useLocalePath('/contact');
+    const servicesPath = useLocalePath('/services');
+
+    const getBookingPath = (serviceTitle: string) => {
+        const base = locale === 'ja' ? '/contact' : '/en/contact';
+        return `${base}?service=${encodeURIComponent(serviceTitle)}`;
+    };
     const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const services: ServiceItem[] = language === 'ja'
@@ -149,101 +158,50 @@ export default function ServicesPage() {
 
     return (
         <div className="flex flex-col w-full">
-            {/* ===== HERO / HEADER ===== */}
             <section className="pt-10 sm:pt-10 pb-12 sm:pb-16 bg-[#f8fafc]">
                 <div className="site-container text-center">
-                    {/* Service Badge */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="flex justify-center mb-6"
-                    >
-                        <div className="section-badge">
-                            <span className="dot" />
-                            {language === 'ja' ? 'サービス' : 'Service'}
-                        </div>
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="flex justify-center mb-6">
+                        <div className="section-badge"><span className="dot" />{language === 'ja' ? 'サービス' : 'Service'}</div>
                     </motion.div>
-
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-tight whitespace-pre-line"
-                    >
-                        {language === 'ja'
-                            ? 'プロフェッショナル\nサービスのご案内'
-                            : 'Professional Cleaning\nServices We Offer'}
+                    <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 tracking-tight whitespace-pre-line">
+                        {language === 'ja' ? 'プロフェッショナル\nサービスのご案内' : 'Professional Cleaning\nServices We Offer'}
                     </motion.h1>
                 </div>
             </section>
 
-            {/* ===== SERVICE CARDS LIST ===== */}
             <section className="py-12 sm:py-16 md:py-20 bg-white">
-                <motion.div
-                    className="site-container space-y-6 sm:space-y-8"
-                    initial="initial"
-                    whileInView="animate"
-                    viewport={{ once: true }}
-                    variants={staggerContainer}
-                >
+                <motion.div className="site-container space-y-6 sm:space-y-8" initial="initial" whileInView="animate" viewport={{ once: true }} variants={staggerContainer}>
                     {services.map((service, index) => (
-                        <motion.div
-                            key={index}
-                            variants={fadeInUp}
-                            className="group bg-[#f3f6f8] rounded-3xl overflow-hidden"
-                        >
+                        <motion.div key={index} variants={fadeInUp} className="group bg-[#f3f6f8] rounded-3xl overflow-hidden">
                             <div className="flex flex-col md:flex-row items-stretch">
-                                {/* Image with organic rounded shape */}
                                 <div className="relative w-full md:w-[50%] shrink-0 p-4 sm:p-5">
                                     <div className="relative h-full min-h-70 md:min-h-90 rounded-2xl overflow-hidden">
-                                        <Image
-                                            src={service.image}
-                                            alt={service.title}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-500"
-                                            sizes="(max-width: 768px) 100vw, 50vw"
-                                        />
+                                        <Image src={service.image} alt={service.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, 50vw" />
                                     </div>
                                 </div>
-
-                                {/* Text Content */}
                                 <div className="flex-1 flex flex-col justify-center px-6 pb-8 md:px-8 md:py-10 lg:px-12 lg:py-14">
-                                    <span className="text-base font-semibold text-[#135b3e] mb-2 block">
-                                        {service.number}.
-                                    </span>
-                                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-                                        {service.title}
-                                    </h3>
-                                    <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-6 max-w-lg">
-                                        {service.description}
-                                    </p>
-
-                                    {/* Tags - lime/yellow-green pills */}
+                                    <span className="text-base font-semibold text-[#135b3e] mb-2 block">{service.number}.</span>
+                                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 tracking-tight">{service.title}</h3>
+                                    <p className="text-gray-500 text-base sm:text-lg leading-relaxed mb-6 max-w-lg">{service.description}</p>
                                     <div className="flex flex-wrap gap-2.5 mb-8">
                                         {service.tags.map((tag, tagIndex) => (
-                                            <span
-                                                key={tagIndex}
-                                                className="px-4 py-2 rounded-full bg-[#e8f5c8] text-sm font-medium text-gray-700"
-                                            >
-                                                {tag}
-                                            </span>
+                                            <span key={tagIndex} className="px-4 py-2 rounded-full bg-[#e8f5c8] text-sm font-medium text-gray-700">{tag}</span>
                                         ))}
                                     </div>
-
-                                    {/* View More Button */}
-                                    <Link
-                                        href="/contact"
-                                        className="inline-flex items-center gap-2.5 w-fit px-5 py-2.5 rounded-full border-2 border-[#1a7a7a] text-base font-semibold text-gray-900 hover:bg-[#1a7a7a]/5 transition-colors"
-                                    >
-                                        {language === 'ja' ? '詳しく見る' : 'View More'}
-                                        <span className="w-8 h-8 rounded-full bg-[#1a7a7a] flex items-center justify-center">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-white">
-                                                <path d="M7 7l5 5-5 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                                                <path d="M13 7l5 5-5 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg>
-                                        </span>
-                                    </Link>
+                                    <div className="flex flex-wrap gap-3">
+                                        <Link href={getBookingPath(service.title)} className="inline-flex items-center gap-2.5 w-fit px-5 py-2.5 rounded-full bg-[#116f76] text-base font-semibold text-white hover:bg-[#0e5c62] transition-colors shadow-sm hover:shadow-md">
+                                            {language === 'ja' ? '今すぐ予約' : 'Book Now'}
+                                            <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                                <ChevronsRight className="w-4 h-4 text-white" />
+                                            </span>
+                                        </Link>
+                                        <Link href={contactPath} className="inline-flex items-center gap-2.5 w-fit px-5 py-2.5 rounded-full border-2 border-[#1a7a7a] text-base font-semibold text-gray-900 hover:bg-[#1a7a7a]/5 transition-colors">
+                                            {language === 'ja' ? '詳しく見る' : 'View More'}
+                                            <span className="w-8 h-8 rounded-full bg-[#1a7a7a] flex items-center justify-center">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="text-white"><path d="M7 7l5 5-5 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M13 7l5 5-5 5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                            </span>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>
@@ -251,76 +209,33 @@ export default function ServicesPage() {
                 </motion.div>
             </section>
 
-            {/* ===== HOW WE WORK - PROCESS ===== */}
             <section className="py-16 sm:py-20 md:py-28 bg-[#f8fafc]">
                 <div className="site-container">
                     <div className="bg-[#116f76] rounded-3xl px-6 sm:px-10 lg:px-14 py-10 sm:py-14">
-                        {/* Top Row: Badge + CTA */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5 }}
-                            className="flex items-center justify-between mb-8"
-                        >
+                        <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="flex items-center justify-between mb-8">
                             <div className="flex items-center gap-2 border border-white/30 rounded-full px-5 py-2">
                                 <span className="text-[#d4f57a] text-sm">✦</span>
-                                <span className="text-white text-sm font-medium">
-                                    {language === 'ja' ? '作業の流れ' : 'How We Work'}
-                                </span>
+                                <span className="text-white text-sm font-medium">{language === 'ja' ? '作業の流れ' : 'How We Work'}</span>
                             </div>
-                            <Link
-                                href="/contact"
-                                className="inline-flex items-center gap-2 bg-[#d4f57a] text-gray-900 font-medium text-sm rounded-full pl-5 pr-1.5 py-1.5 hover:bg-[#c8eb6a] transition-colors"
-                            >
+                            <Link href={contactPath} className="inline-flex items-center gap-2 bg-[#d4f57a] text-gray-900 font-medium text-sm rounded-full pl-5 pr-1.5 py-1.5 hover:bg-[#c8eb6a] transition-colors">
                                 {language === 'ja' ? 'サービスを見る' : 'Get A Service'}
-                                <span className="flex items-center justify-center w-8 h-8 bg-gray-900 rounded-full">
-                                    <ChevronsRight className="w-4 h-4 text-white" />
-                                </span>
+                                <span className="flex items-center justify-center w-8 h-8 bg-gray-900 rounded-full"><ChevronsRight className="w-4 h-4 text-white" /></span>
                             </Link>
                         </motion.div>
-
-                        {/* Divider */}
                         <div className="border-t border-white/20 mb-10" />
-
-                        {/* Title */}
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight text-center whitespace-pre-line mb-12 sm:mb-16"
-                        >
-                            {language === 'ja'
-                                ? 'シンプルでスムーズな\nサービスの流れ'
-                                : 'A Smooth, Simple\nCleaning Process'}
+                        <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight text-center whitespace-pre-line mb-12 sm:mb-16">
+                            {language === 'ja' ? 'シンプルでスムーズな\nサービスの流れ' : 'A Smooth, Simple\nCleaning Process'}
                         </motion.h2>
-
-                        {/* Process Steps Grid */}
-                        <motion.div
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
-                            initial="initial"
-                            whileInView="animate"
-                            viewport={{ once: true }}
-                            variants={staggerContainer}
-                        >
+                        <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5" initial="initial" whileInView="animate" viewport={{ once: true }} variants={staggerContainer}>
                             {processSteps.map((step, index) => (
                                 <motion.div key={index} variants={fadeInUp}>
                                     <div className="bg-white rounded-2xl p-6 sm:p-7 h-full">
                                         <div className="flex items-center justify-between mb-8">
-                                            <div className="w-12 h-12 bg-[#e8f5c8] rounded-xl flex items-center justify-center">
-                                                {stepIcons[index]}
-                                            </div>
-                                            <span className="text-sm font-bold text-gray-400 tracking-wider">
-                                                {step.step}
-                                            </span>
+                                            <div className="w-12 h-12 bg-[#e8f5c8] rounded-xl flex items-center justify-center">{stepIcons[index]}</div>
+                                            <span className="text-sm font-bold text-gray-400 tracking-wider">{step.step}</span>
                                         </div>
-                                        <h3 className="text-lg font-bold text-gray-900 mb-3">
-                                            {step.title}
-                                        </h3>
-                                        <p className="text-sm text-gray-500 leading-relaxed">
-                                            {step.description}
-                                        </p>
+                                        <h3 className="text-lg font-bold text-gray-900 mb-3">{step.title}</h3>
+                                        <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
                                     </div>
                                 </motion.div>
                             ))}
@@ -329,53 +244,22 @@ export default function ServicesPage() {
                 </div>
             </section>
 
-        
-
-            {/* ===== FAQ SECTION ===== */}
             <section className="py-16 sm:py-20 md:py-28 bg-[#f8fafc]">
                 <div className="site-container">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="text-center mb-12 sm:mb-16"
-                    >
+                    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-12 sm:mb-16">
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight whitespace-pre-line">
-                            {language === 'ja'
-                                ? 'よくあるご質問'
-                                : 'Quick Answers to\nCommon Questions'}
+                            {language === 'ja' ? 'よくあるご質問' : 'Quick Answers to\nCommon Questions'}
                         </h2>
                     </motion.div>
-
-                    <motion.div
-                        initial="initial"
-                        whileInView="animate"
-                        viewport={{ once: true }}
-                        variants={staggerContainer}
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-5xl mx-auto"
-                    >
+                    <motion.div initial="initial" whileInView="animate" viewport={{ once: true }} variants={staggerContainer} className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 max-w-5xl mx-auto">
                         {faqs.map((faq, index) => (
                             <motion.div key={index} variants={fadeInUp}>
-                                <div
-                                    className="bg-[#f1f5f9] rounded-2xl p-6 sm:p-7 h-full flex flex-col cursor-pointer select-none transition-colors duration-200 hover:bg-[#e8ecf1]"
-                                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                                >
-                                    <span className="text-lg sm:text-xl font-bold text-gray-900 mb-4">
-                                        {faq.label}
-                                    </span>
-                                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                                        {faq.question}
-                                    </p>
+                                <div className="bg-[#f1f5f9] rounded-2xl p-6 sm:p-7 h-full flex flex-col cursor-pointer select-none transition-colors duration-200 hover:bg-[#e8ecf1]" onClick={() => setOpenFaq(openFaq === index ? null : index)}>
+                                    <span className="text-lg sm:text-xl font-bold text-gray-900 mb-4">{faq.label}</span>
+                                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{faq.question}</p>
                                     <AnimatePresence>
                                         {openFaq === index && (
-                                            <motion.p
-                                                initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                                                animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
-                                                exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                                                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                                                className="text-sm text-gray-500 leading-relaxed overflow-hidden border-t border-gray-200 pt-4"
-                                            >
+                                            <motion.p initial={{ height: 0, opacity: 0, marginTop: 0 }} animate={{ height: 'auto', opacity: 1, marginTop: 16 }} exit={{ height: 0, opacity: 0, marginTop: 0 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }} className="text-sm text-gray-500 leading-relaxed overflow-hidden border-t border-gray-200 pt-4">
                                                 {faq.answer}
                                             </motion.p>
                                         )}
@@ -387,32 +271,15 @@ export default function ServicesPage() {
                 </div>
             </section>
 
-            {/* ===== BOTTOM CTA BUTTONS ===== */}
             <section className="pb-16 sm:pb-20 md:pb-28 bg-[#f8fafc]">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
-                >
-                    <Link
-                        href="/contact"
-                        className="inline-flex items-center gap-3 bg-[#d4f57a] text-[#116f76] font-semibold text-base rounded-full pl-7 pr-2 py-2 hover:bg-[#c8eb6a] transition-colors shadow-sm"
-                    >
+                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+                    <Link href={contactPath} className="inline-flex items-center gap-3 bg-[#d4f57a] text-[#116f76] font-semibold text-base rounded-full pl-7 pr-2 py-2 hover:bg-[#c8eb6a] transition-colors shadow-sm">
                         {language === 'ja' ? '清掃を予約する' : 'Book Your Cleaning'}
-                        <span className="flex items-center justify-center w-10 h-10 bg-[#116f76] rounded-full">
-                            <ChevronsRight className="w-5 h-5 text-white" />
-                        </span>
+                        <span className="flex items-center justify-center w-10 h-10 bg-[#116f76] rounded-full"><ChevronsRight className="w-5 h-5 text-white" /></span>
                     </Link>
-                    <Link
-                        href="/services"
-                        className="inline-flex items-center gap-3 bg-white text-[#116f76] font-semibold text-base rounded-full pl-7 pr-2 py-2 border-2 border-[#116f76] hover:bg-gray-50 transition-colors"
-                    >
+                    <Link href={servicesPath} className="inline-flex items-center gap-3 bg-white text-[#116f76] font-semibold text-base rounded-full pl-7 pr-2 py-2 border-2 border-[#116f76] hover:bg-gray-50 transition-colors">
                         {language === 'ja' ? 'すべてのサービス' : 'View All Services'}
-                        <span className="flex items-center justify-center w-10 h-10 bg-[#116f76] rounded-full">
-                            <ChevronsRight className="w-5 h-5 text-white" />
-                        </span>
+                        <span className="flex items-center justify-center w-10 h-10 bg-[#116f76] rounded-full"><ChevronsRight className="w-5 h-5 text-white" /></span>
                     </Link>
                 </motion.div>
             </section>

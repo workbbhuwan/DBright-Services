@@ -37,13 +37,36 @@ export async function initDatabase() {
         name VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
         phone VARCHAR(50),
-        message TEXT NOT NULL,
+        service VARCHAR(255),
+        company VARCHAR(255),
+        preferred_date VARCHAR(50),
+        preferred_time VARCHAR(50),
+        message TEXT,
         status VARCHAR(50) DEFAULT 'unread',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         ip_address VARCHAR(50),
         user_agent TEXT
       )
     `);
+
+    // Add new columns to existing tables (safe to run multiple times)
+    const newColumns = [
+      { name: 'service', type: 'VARCHAR(255)' },
+      { name: 'company', type: 'VARCHAR(255)' },
+      { name: 'preferred_date', type: 'VARCHAR(50)' },
+      { name: 'preferred_time', type: 'VARCHAR(50)' },
+    ];
+    for (const col of newColumns) {
+      await client.query(`
+        DO $$ BEGIN
+          ALTER TABLE contact_messages ADD COLUMN IF NOT EXISTS ${col.name} ${col.type};
+        EXCEPTION WHEN duplicate_column THEN NULL;
+        END $$;
+      `);
+    }
+
+    // Make message column nullable for existing tables
+    await client.query(`ALTER TABLE contact_messages ALTER COLUMN message DROP NOT NULL`);
 
     // Create analytics table for visitor tracking
     await client.query(`
@@ -92,16 +115,31 @@ export async function saveContactMessage(data: {
   name: string;
   email: string;
   phone?: string;
-  message: string;
+  service?: string;
+  company?: string;
+  preferredDate?: string;
+  preferredTime?: string;
+  message?: string;
   ipAddress?: string;
   userAgent?: string;
 }) {
   try {
     const result = await pool.query(
-      `INSERT INTO contact_messages (name, email, phone, message, ip_address, user_agent)
-       VALUES ($1, $2, $3, $4, $5, $6)
+      `INSERT INTO contact_messages (name, email, phone, service, company, preferred_date, preferred_time, message, ip_address, user_agent)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
        RETURNING id, created_at`,
-      [data.name, data.email, data.phone || null, data.message, data.ipAddress || null, data.userAgent || null]
+      [
+        data.name,
+        data.email,
+        data.phone || null,
+        data.service || null,
+        data.company || null,
+        data.preferredDate || null,
+        data.preferredTime || null,
+        data.message || null,
+        data.ipAddress || null,
+        data.userAgent || null,
+      ]
     );
 
     return { success: true, data: result.rows[0] };

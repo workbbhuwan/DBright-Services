@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 import { AlertTriangle, Home, RotateCcw } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/lib/translations/LanguageContext';
+import { getLocalePath } from '@/lib/navigation';
+import type { Locale } from '@/config/i18n';
 
 export default function Error({
     error,
@@ -13,20 +16,21 @@ export default function Error({
     reset: () => void;
 }) {
     const router = useRouter();
+    const params = useParams();
+    const locale = (params?.locale as Locale) || 'ja';
+    const homePath = getLocalePath(locale, '/');
+    const { language } = useLanguage();
 
     useEffect(() => {
-        // Log the error to an error reporting service
         console.error('Error boundary caught:', error);
     }, [error]);
 
-    // Auto-redirect to home page after 10 seconds
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.push('/');
+            router.push(homePath);
         }, 10000);
-
         return () => clearTimeout(timer);
-    }, [router]);
+    }, [router, homePath]);
 
     return (
         <div className="min-h-screen bg-linear-to-br from-red-50 via-white to-orange-100 flex items-center justify-center px-4">
@@ -36,7 +40,6 @@ export default function Error({
                 transition={{ duration: 0.6 }}
                 className="text-center max-w-2xl"
             >
-                {/* Error Icon */}
                 <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -46,14 +49,13 @@ export default function Error({
                     <AlertTriangle className="w-12 h-12 text-red-600" />
                 </motion.div>
 
-                {/* Error Message */}
                 <motion.h1
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
                     className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
                 >
-                    Something went wrong!
+                    {language === 'ja' ? '問題が発生しました' : 'Something went wrong!'}
                 </motion.h1>
 
                 <motion.p
@@ -62,10 +64,11 @@ export default function Error({
                     transition={{ delay: 0.5 }}
                     className="text-gray-600 text-lg mb-8"
                 >
-                    We encountered an unexpected error. Don&apos;t worry, we&apos;re working on it!
+                    {language === 'ja'
+                        ? '予期しないエラーが発生しました。現在対応中です。'
+                        : "We encountered an unexpected error. Don\u2019t worry, we\u2019re working on it!"}
                 </motion.p>
 
-                {/* Error Details (only in development) */}
                 {process.env.NODE_ENV === 'development' && error.message && (
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -79,17 +82,17 @@ export default function Error({
                     </motion.div>
                 )}
 
-                {/* Auto-redirect notice */}
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.9 }}
                     className="text-orange-600 font-semibold mb-8"
                 >
-                    Redirecting to home page in 10 seconds...
+                    {language === 'ja'
+                        ? '10秒後にホームページへリダイレクトします...'
+                        : 'Redirecting to home page in 10 seconds...'}
                 </motion.p>
 
-                {/* Action Buttons */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -101,19 +104,17 @@ export default function Error({
                         className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white rounded-lg font-semibold hover:bg-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                     >
                         <RotateCcw className="w-5 h-5" />
-                        Try Again
+                        {language === 'ja' ? '再試行' : 'Try Again'}
                     </button>
-
                     <button
-                        onClick={() => router.push('/')}
+                        onClick={() => router.push(homePath)}
                         className="inline-flex items-center gap-2 px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-semibold hover:bg-gray-300 transition-all duration-300 transform hover:scale-105"
                     >
                         <Home className="w-5 h-5" />
-                        Go to Home
+                        {language === 'ja' ? 'ホームに戻る' : 'Go to Home'}
                     </button>
                 </motion.div>
 
-                {/* Loading indicator */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}

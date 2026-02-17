@@ -10,10 +10,10 @@ import { saveContactMessage, initDatabase } from '@/lib/db';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, message } = body;
+    const { name, email, phone, message, subject, company, date, time } = body;
 
     // Validate required fields
-    if (!name || !email || !message) {
+    if (!name || !email) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -34,6 +34,10 @@ export async function POST(request: Request) {
       name,
       email,
       phone,
+      service: subject,
+      company,
+      preferredDate: date,
+      preferredTime: time,
       message,
       ipAddress,
       userAgent,

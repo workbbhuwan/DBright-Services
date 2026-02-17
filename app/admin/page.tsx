@@ -29,7 +29,11 @@ interface Message {
   name: string;
   email: string;
   phone?: string;
-  message: string;
+  service?: string;
+  company?: string;
+  preferred_date?: string;
+  preferred_time?: string;
+  message?: string;
   status: 'unread' | 'read' | 'archived';
   created_at: string;
   ip_address?: string;
@@ -229,7 +233,8 @@ function AdminDashboard() {
       return (
         msg.name.toLowerCase().includes(query) ||
         msg.email.toLowerCase().includes(query) ||
-        msg.message.toLowerCase().includes(query)
+        (msg.message || '').toLowerCase().includes(query) ||
+        (msg.service || '').toLowerCase().includes(query)
       );
     }
     return true;
@@ -622,7 +627,10 @@ function AdminDashboard() {
                           )}
                         </div>
                       </div>
-                      <p className="text-xs sm:text-sm text-gray-700 line-clamp-2 mb-1.5 sm:mb-2">{message.message}</p>
+                      {message.service && (
+                        <p className="text-xs font-medium text-teal-700 bg-teal-50 inline-block px-2 py-0.5 rounded-full mb-1.5">{message.service}</p>
+                      )}
+                      <p className="text-xs sm:text-sm text-gray-700 line-clamp-2 mb-1.5 sm:mb-2">{message.message || '—'}</p>
                       <p className="text-xs text-gray-500">{formatDate(message.created_at)}</p>
                     </div>
                   ))
@@ -673,9 +681,30 @@ function AdminDashboard() {
                         </div>
                       )}
 
+                      {selectedMessage.service && (
+                        <div>
+                          <label className="text-xs font-medium text-gray-600 uppercase tracking-wider">Service</label>
+                          <p className="font-semibold text-sm mt-1 text-teal-700">{selectedMessage.service}</p>
+                        </div>
+                      )}
+
+                      {selectedMessage.company && (
+                        <div>
+                          <label className="text-xs font-medium text-gray-600 uppercase tracking-wider">Company</label>
+                          <p className="font-semibold text-sm mt-1">{selectedMessage.company}</p>
+                        </div>
+                      )}
+
+                      {(selectedMessage.preferred_date || selectedMessage.preferred_time) && (
+                        <div>
+                          <label className="text-xs font-medium text-gray-600 uppercase tracking-wider">Preferred Schedule</label>
+                          <p className="font-semibold text-sm mt-1">{[selectedMessage.preferred_date, selectedMessage.preferred_time].filter(Boolean).join(' · ')}</p>
+                        </div>
+                      )}
+
                       <div>
                         <label className="text-xs font-medium text-gray-600 uppercase tracking-wider">Message</label>
-                        <p className="mt-1 text-sm text-gray-800 whitespace-pre-wrap">{selectedMessage.message}</p>
+                        <p className="mt-1 text-sm text-gray-800 whitespace-pre-wrap">{selectedMessage.message || '—'}</p>
                       </div>
 
                       <div>
@@ -759,9 +788,30 @@ function AdminDashboard() {
                       </div>
                     )}
 
+                    {selectedMessage.service && (
+                      <div>
+                        <label className="text-sm font-medium text-gray-600">Service</label>
+                        <p className="font-semibold text-teal-700">{selectedMessage.service}</p>
+                      </div>
+                    )}
+
+                    {selectedMessage.company && (
+                      <div>
+                        <label className="text-sm font-medium text-gray-600">Company</label>
+                        <p className="font-semibold">{selectedMessage.company}</p>
+                      </div>
+                    )}
+
+                    {(selectedMessage.preferred_date || selectedMessage.preferred_time) && (
+                      <div>
+                        <label className="text-sm font-medium text-gray-600">Preferred Schedule</label>
+                        <p className="font-semibold">{[selectedMessage.preferred_date, selectedMessage.preferred_time].filter(Boolean).join(' · ')}</p>
+                      </div>
+                    )}
+
                     <div>
                       <label className="text-sm font-medium text-gray-600">Message</label>
-                      <p className="mt-1 text-gray-800 whitespace-pre-wrap">{selectedMessage.message}</p>
+                      <p className="mt-1 text-gray-800 whitespace-pre-wrap">{selectedMessage.message || '—'}</p>
                     </div>
 
                     <div>

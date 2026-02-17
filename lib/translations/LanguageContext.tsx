@@ -2,10 +2,11 @@
 
 /**
  * LanguageContext - Provides bilingual support (Japanese/English) throughout the app
- * This context manages the current language state and provides translation data
+ * Accepts an initialLocale prop from URL-based routing so SSR
+ * renders the correct language on first paint.
  */
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import type { Language, Translations } from './types';
 import jaTranslations from './ja.json';
 import enTranslations from './en.json';
@@ -18,27 +19,14 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-    // Always default to Japanese for SSR consistency
-    // Language will be hydrated from localStorage after mount
-    const [language, setLanguage] = useState<Language>('ja');
-    const [isHydrated, setIsHydrated] = useState(false);
-
-    // Hydrate language from localStorage after mount to avoid hydration mismatch
-    useEffect(() => {
-        const savedLanguage = localStorage.getItem('language') as Language;
-        if (savedLanguage && (savedLanguage === 'ja' || savedLanguage === 'en')) {
-            setLanguage(savedLanguage);
-        }
-        setIsHydrated(true);
-    }, []);
-
-    // Save language preference to localStorage when it changes (after hydration)
-    useEffect(() => {
-        if (isHydrated) {
-            localStorage.setItem('language', language);
-        }
-    }, [language, isHydrated]);
+export function LanguageProvider({
+    children,
+    initialLocale = 'ja',
+}: {
+    children: React.ReactNode;
+    initialLocale?: Language;
+}) {
+    const [language, setLanguage] = useState<Language>(initialLocale);
 
     // Get translations based on current language
     const translations = language === 'ja' ? jaTranslations : enTranslations;

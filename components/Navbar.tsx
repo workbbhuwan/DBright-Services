@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/translations/LanguageContext';
+import { useLocalePath, useLocale } from '@/lib/navigation';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { Menu, X, ChevronsRight, Sparkles } from 'lucide-react';
 import { useState, useEffect } from 'react';
@@ -13,6 +14,7 @@ import { cn } from '@/lib/utils';
 export function Navbar() {
     const { t, language } = useLanguage();
     const pathname = usePathname();
+    const locale = useLocale();
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
 
@@ -27,14 +29,24 @@ export function Navbar() {
         return () => { document.body.style.overflow = 'unset'; };
     }, [mobileMenuOpen]);
 
+    const homePath = useLocalePath('/');
+    const servicesPath = useLocalePath('/services');
+    const companyProfilePath = useLocalePath('/company-profile');
+    const contactPath = useLocalePath('/contact');
+
     const navItems = [
-        { href: '/', label: t.nav.home },
-        { href: '/services', label: t.nav.services },
-        { href: '/company-profile', label: t.nav.companyProfile },
-        { href: '/contact', label: t.nav.contact },
+        { href: homePath, label: t.nav.home },
+        { href: servicesPath, label: t.nav.services },
+        { href: companyProfilePath, label: t.nav.companyProfile },
+        { href: contactPath, label: t.nav.contact },
     ];
 
-    const isActive = (href: string) => pathname === href;
+    const isActive = (href: string) => {
+        // Strip trailing slash for comparison
+        const cleanHref = href.replace(/\/$/, '');
+        const cleanPathname = pathname.replace(/\/$/, '');
+        return cleanPathname === cleanHref;
+    };
 
     return (
         <>
@@ -47,7 +59,7 @@ export function Navbar() {
                 <div className="site-container">
                     <div className="flex items-center justify-between h-16 sm:h-18 lg:h-20">
                         {/* Logo */}
-                        <Link href="/" aria-label="D.BRIGHT Home" className="flex items-center shrink-0">
+                        <Link href={homePath} aria-label="D.BRIGHT Home" className="flex items-center shrink-0">
                             <Image
                                 src="/logo.png"
                                 alt="D.BRIGHT Logo"
@@ -85,7 +97,7 @@ export function Navbar() {
                             <LanguageSwitcher />
                             <div className="rounded-full border-2 border-[#b8e6d0] p-0.5">
                                 <Link
-                                    href="/contact"
+                                    href={contactPath}
                                     className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#135b3e] text-white text-sm font-semibold hover:bg-[#1a7a54] transition-all duration-300 hover:shadow-md"
                                 >
                                     {language === 'ja' ? 'お問い合わせ' : 'Book Now'}
@@ -188,7 +200,7 @@ export function Navbar() {
                                 <LanguageSwitcher />
                                 <div className="rounded-full border-2 border-[#b8e6d0] p-0.5">
                                     <Link
-                                        href="/contact"
+                                        href={contactPath}
                                         onClick={() => setMobileMenuOpen(false)}
                                         className="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-full bg-[#135b3e] text-white font-semibold hover:bg-[#1a7a54] transition-colors"
                                     >

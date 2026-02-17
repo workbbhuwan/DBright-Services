@@ -1,6 +1,7 @@
 'use client';
 
 import { useLanguage } from '@/lib/translations/LanguageContext';
+import { useLocalePath } from '@/lib/navigation';
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,11 +9,16 @@ import Link from 'next/link';
 export function Footer() {
     const { t, language } = useLanguage();
 
+    const homePath = useLocalePath('/');
+    const servicesPath = useLocalePath('/services');
+    const companyProfilePath = useLocalePath('/company-profile');
+    const contactPath = useLocalePath('/contact');
+
     const quickLinks = [
-        { href: '/', label: t.nav.home },
-        { href: '/services', label: t.nav.services },
-        { href: '/company-profile', label: t.nav.companyProfile },
-        { href: '/contact', label: t.nav.contact },
+        { href: homePath, label: t.nav.home },
+        { href: servicesPath, label: t.nav.services },
+        { href: companyProfilePath, label: t.nav.companyProfile },
+        { href: contactPath, label: t.nav.contact },
     ];
 
     return (

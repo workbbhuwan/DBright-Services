@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ChevronsRight, Building2, User, Briefcase, MapPin, Phone, Mail, Landmark, Target, Shield, Sparkles, Award } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useLocalePath } from '@/lib/navigation';
 
 const fadeInUp = {
     initial: { opacity: 0, y: 30 },
@@ -23,6 +24,8 @@ const staggerContainer = {
 
 export default function CompanyProfilePage() {
     const { t, language } = useLanguage();
+    const contactPath = useLocalePath('/contact');
+    const servicesPath = useLocalePath('/services');
 
     const values = [
         {
@@ -178,7 +181,7 @@ export default function CompanyProfilePage() {
                                 </span>
                             </div>
                             <Link
-                                href="/contact"
+                                href={contactPath}
                                 className="inline-flex items-center gap-2 bg-[#d4f57a] text-gray-900 font-medium text-sm rounded-full pl-5 pr-1.5 py-1.5 hover:bg-[#c8eb6a] transition-colors"
                             >
                                 {language === 'ja' ? 'お問い合わせ' : 'Contact Us'}
@@ -439,7 +442,7 @@ export default function CompanyProfilePage() {
                             </div>
                             <div className="flex flex-col sm:flex-row items-center gap-4">
                                 <Link
-                                    href="/contact"
+                                    href={contactPath}
                                     className="inline-flex items-center gap-3 bg-[#d4f57a] text-gray-900 font-semibold text-base rounded-full pl-7 pr-2 py-2 hover:bg-[#c8eb6a] transition-colors"
                                 >
                                     {language === 'ja' ? 'お問い合わせ' : 'Contact Us'}
@@ -448,7 +451,7 @@ export default function CompanyProfilePage() {
                                     </span>
                                 </Link>
                                 <Link
-                                    href="/services"
+                                    href={servicesPath}
                                     className="inline-flex items-center gap-3 bg-white/10 text-white font-semibold text-base rounded-full pl-7 pr-2 py-2 border border-white/30 hover:bg-white/20 transition-colors"
                                 >
                                     {language === 'ja' ? 'サービス一覧' : 'Our Services'}
