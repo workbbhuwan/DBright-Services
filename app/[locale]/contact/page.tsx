@@ -158,7 +158,7 @@ function ContactPageContent() {
 
             {/* ━━━ BOOKING FORM ━━━ */}
             <section className="py-16 sm:py-20 md:py-24 bg-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-[#116f76]/[0.015] to-transparent pointer-events-none" />
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-[#116f76]/1.5 to-transparent pointer-events-none" />
 
                 <div className="site-container relative z-10">
                     {/* Step Indicator */}
