@@ -459,7 +459,7 @@ function ContactPageContent() {
                         {contactCards.map(({ icon: Icon, title, value, href, sub }, i) => (
                             <motion.div key={i} variants={fadeInUp}>
                                 <div className="group relative bg-white rounded-2xl p-6 sm:p-7 h-full border border-gray-100 hover:border-[#116f76]/20 transition-all duration-300 hover:shadow-lg hover:shadow-[#116f76]/5">
-                                    <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[#116f76]/20 to-transparent" />
+                                    <div className="absolute top-0 left-6 right-6 h-px bg-linear-to-r from-transparent via-[#116f76]/20 to-transparent" />
                                     <div className="w-11 h-11 bg-[#116f76]/5 group-hover:bg-[#116f76]/10 rounded-xl flex items-center justify-center mb-5 transition-colors">
                                         <Icon className="w-5 h-5 text-[#116f76]" />
                                     </div>
