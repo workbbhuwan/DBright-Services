@@ -389,7 +389,7 @@ function ContactPageContent() {
 
                                             {/* Review Summary */}
                                             <div className="space-y-4 mb-8">
-                                                <div className="bg-[#116f76]/[0.03] border border-[#116f76]/10 rounded-2xl p-5">
+                                                <div className="bg-[#116f76]/3 border border-[#116f76]/10 rounded-2xl p-5">
                                                     <p className="text-xs font-semibold text-[#116f76] uppercase tracking-wider mb-1">{isJa ? 'ご選択サービス' : 'Service'}</p>
                                                     <p className="font-bold text-gray-900">{selectedService}</p>
                                                 </div>
