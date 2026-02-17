@@ -1,15 +1,15 @@
 export const frontPage = {
   hero: {
-    headline: 'D.Bright Corporation\nTrusted Expertise For Cleaning',
+    headline: '株式会社D.Bright\nTrusted Expertise For Cleaning',
     subtitle:
-      'D.Bright Corporation delivers professional cleaning services\nwith rigorous quality standards you can count on.',
+      '株式会社D.Bright delivers professional cleaning services\nwith rigorous quality standards you can count on.',
     ctaPrimary: 'Book Your Cleaning',
     ctaSecondary: 'View All Services',
   },
   intro: {
     badge: 'About Us',
     headlineSegments: [
-      'D.Bright Corporation is a trusted team delivering spotless results through experience',
+      '株式会社D.Bright is a trusted team delivering spotless results through experience',
       ', reliability, consistency, and customer-focused',
       ' service every time.',
     ],
@@ -35,7 +35,7 @@ export const frontPage = {
   },
   whyChooseUs: {
     badge: 'Why Choose Us',
-    title: 'Why Customers Trust\nD.Bright Corporation',
+    title: 'Why Customers Trust\n株式会社D.Bright',
     reasons: [
       {
         title: 'Professional & Trained Cleaners',

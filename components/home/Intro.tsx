@@ -92,9 +92,9 @@ export default function Intro() {
                         </>
                     ) : (
                         <>
-                            D.Bright Corporation is a trusted team delivering spotless results through experience{' '}
+                            株式会社D.Bright is a trusted team delivering spotless results through experience{' '}
                             <span className="inline-block align-middle mx-1 relative w-28 sm:w-36 h-8 sm:h-10 rounded-full overflow-hidden">
-                                <Image src="/staffing.png" alt="D.Bright Corporation team" fill className="object-cover" />
+                                <Image src="/staffing.png" alt="株式会社D.Bright team" fill className="object-cover" />
                             </span>
                             , reliability, consistency, and customer-focused{' '}
                             <span className="inline-block align-middle mx-1 relative w-28 sm:w-36 h-8 sm:h-10 rounded-full overflow-hidden">

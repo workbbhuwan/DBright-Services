@@ -38,9 +38,7 @@ export function Footer() {
                             className="rounded-xl mb-4"
                         />
                         <p className="text-white/80 text-sm leading-relaxed mb-6 max-w-xs">
-                            {language === 'ja'
-                                ? '株式会社D.Brightは、経験、信頼性、一貫した品質、そしてお客様第一のサービスをお届けする信頼のチームです。'
-                                : 'D.Bright Corporation (株式会社D.Bright) is a trusted team delivering spotless results through experience, consistency, and customer-focused service.'}
+                            {t.footer.brand}
                         </p>
 
                         {/* Akaru Cleaning Partner */}

@@ -7,17 +7,17 @@
     },
     "home": {
         "hero": {
-            "title": "D.Bright Corporation",
-            "tagline": "D.Bright Corporation (株式会社D.Bright) — Professional Cleaning Services That Make Your Space Shine",
+            "title": "株式会社D.Bright",
+            "tagline": "株式会社D.Bright — Professional Cleaning Services That Make Your Space Shine",
             "ctaServices": "View Services",
             "ctaContact": "Contact Us"
         },
         "intro": {
-            "title": "About D.Bright Corporation",
-            "description": "D.Bright Corporation (株式会社D.Bright) provides professional cleaning services throughout Japan. We are committed to transforming homes, offices, hotels, Airbnb properties, and all types of spaces into clean and comfortable environments. With experienced staff and the latest cleaning technology, we deliver the highest quality services tailored to your needs."
+            "title": "About 株式会社D.Bright",
+            "description": "株式会社D.Bright provides professional cleaning services throughout Japan. We are committed to transforming homes, offices, hotels, Airbnb properties, and all types of spaces into clean and comfortable environments. With experienced staff and the latest cleaning technology, we deliver the highest quality services tailored to your needs."
         },
         "whyChooseUs": {
-            "title": "Why Choose D.Bright Corporation",
+            "title": "Why Choose 株式会社D.Bright",
             "reasons": {
                 "quality": {
                     "title": "High Quality",
@@ -71,10 +71,10 @@
     "companyProfile": {
         "title": "Company Profile",
         "subtitle": "Our Mission and Vision",
-        "description": "D.Bright Corporation (株式会社D.Bright) was founded to provide innovative cleaning services in the Japanese cleaning industry. Our mission is to provide clean and comfortable spaces to all our customers. We use professional staff, the latest cleaning technology, and environmentally friendly cleaning products to consistently pursue the highest quality service. We prioritize customer satisfaction and trust, and strive daily to improve our services.",
+        "description": "株式会社D.Bright was founded to provide innovative cleaning services in the Japanese cleaning industry. Our mission is to provide clean and comfortable spaces to all our customers. We use professional staff, the latest cleaning technology, and environmentally friendly cleaning products to consistently pursue the highest quality service. We prioritize customer satisfaction and trust, and strive daily to improve our services.",
         "mission": {
             "title": "Our Mission",
-            "description": "D.Bright Corporation (株式会社D.Bright) is committed to improving the quality of people's lives and work through clean and comfortable spaces. We provide value that exceeds customer expectations through professional techniques and heartfelt service."
+            "description": "株式会社D.Bright is committed to improving the quality of people's lives and work through clean and comfortable spaces. We provide value that exceeds customer expectations through professional techniques and heartfelt service."
         },
         "values": {
             "title": "Our Values",
@@ -111,10 +111,15 @@
         "error": "Failed to send message. Please try again."
     },
     "footer": {
-        "company": "D.Bright Corporation (株式会社D.Bright)",
+        "brand": "株式会社D.Bright is a trusted team delivering spotless results through experience, consistency, and customer-focused service.",
+        "quickLinks": "Quick Links",
+        "contactUs": "Contact Us",
+        "businessHours": "Business Hours: Mon - Fri / 10AM - 7PM",
+        "company": "株式会社D.Bright",
         "address": "4-18-22 Shinden, Ichikawa-shi, Chiba, Japan",
         "phone": "047-711-2099",
         "email": "info@dbrightservices.com",
-        "copyright": "© 2026 D.Bright Corporation (株式会社D.Bright). All rights reserved."
+        "copyright": "© 2026 株式会社D.Bright. All rights reserved.",
+        "akaruName": "Akaru Cleaning"
     }
 }

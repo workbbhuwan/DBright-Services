@@ -1,6 +1,6 @@
 export const common = {
   siteName: '株式会社D.Bright',
-  siteNameFull: '株式会社D.BRIGHT',
+  siteNameFull: '株式会社D.Bright',
   nav: {
     home: 'ホーム',
     services: 'サービス',
@@ -26,7 +26,7 @@ export const common = {
     quickLinks: 'クイックリンク',
     contactUs: 'お問い合わせ',
     businessHours: '営業時間: 月〜金 / 10:00 - 19:00',
-    copyright: '株式会社D.BRIGHT. All rights reserved.',
+    copyright: '株式会社D.Bright. All rights reserved.',
     akaruName: 'AKARU クリーニング',
   },
   badges: {

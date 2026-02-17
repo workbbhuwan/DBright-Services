@@ -54,7 +54,7 @@ export default function CompanyProfilePage() {
         {
             icon: Building2,
             label: language === 'ja' ? '会社名' : 'Company Name',
-            value: language === 'ja' ? '株式会社 D.BRIGHT' : 'D.BRIGHT Corporation',
+            value: '株式会社D.Bright',
         },
         {
             icon: User,

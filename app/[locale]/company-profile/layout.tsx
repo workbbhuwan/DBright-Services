@@ -15,10 +15,10 @@ export async function generateMetadata({
   return {
     title: isJa
       ? '株式会社D.Bright 会社概要 | 千葉県市川市'
-      : 'Company Profile | D.BRIGHT Corporation',
+      : 'Company Profile | 株式会社D.Bright',
     description: isJa
-      ? '株式会社D.Bright（D.BRIGHT Corporation）の会社概要。代表取締役：オザ・ケサブ・ラズ。千葉県市川市を拠点に清掃業、人材派遣業、留学サポート、ハラール事業支援を展開。'
-      : 'Company profile of D.BRIGHT Corporation (株式会社D.Bright). Representative Director: OJHA KESHAV RAJ. Based in Ichikawa, Chiba, Japan.',
+      ? '株式会社D.Brightの会社概要。代表取締役：オザ・ケサブ・ラズ。千葉県市川市を拠点に清掃業、人材派遣業、留学サポート、ハラール事業支援を展開。'
+      : 'Company profile of 株式会社D.Bright. Representative Director: OJHA KESHAV RAJ. Based in Ichikawa, Chiba, Japan.',
     alternates: {
       canonical: isJa ? `${SITE_URL}/company-profile` : `${SITE_URL}/en/company-profile`,
       languages: {
@@ -30,10 +30,10 @@ export async function generateMetadata({
     openGraph: {
       title: isJa
         ? '株式会社D.Bright 会社概要'
-        : 'D.BRIGHT Corporation Company Profile',
+        : '株式会社D.Bright Company Profile',
       description: isJa
-        ? '株式会社D.Bright（D.BRIGHT Corporation）の会社概要・事業内容・企業情報。'
-        : 'About D.BRIGHT Corporation - Company overview, services, and business information.',
+        ? '株式会社D.Brightの会社概要・事業内容・企業情報。'
+        : 'About 株式会社D.Bright - Company overview, services, and business information.',
       url: isJa ? `${SITE_URL}/company-profile` : `${SITE_URL}/en/company-profile`,
       images: [{ url: `${SITE_URL}/logo.png`, alt: 'D.Bright Company Profile' }],
     },
@@ -86,10 +86,10 @@ export default async function CompanyProfileLayout({
     url: pageUrl,
     name: isJa
       ? '株式会社D.Bright 会社概要'
-      : 'D.BRIGHT Corporation Company Profile',
+      : '株式会社D.Bright Company Profile',
     description: isJa
-      ? '株式会社D.Bright（D.BRIGHT Corporation）の会社概要・事業内容・企業情報。'
-      : 'About D.BRIGHT Corporation - Company overview, services, and business information.',
+      ? '株式会社D.Brightの会社概要・事業内容・企業情報。'
+      : 'About 株式会社D.Bright - Company overview, services, and business information.',
     isPartOf: { '@id': `${SITE_URL}/#website` },
     about: { '@id': `${SITE_URL}/#corporation` },
     inLanguage: isJa ? 'ja' : 'en',

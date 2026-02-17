@@ -54,11 +54,11 @@ export default async function Home({
     '@id': isJa ? `${SITE_URL}/#webpage` : `${SITE_URL}/en/#webpage`,
     url: isJa ? SITE_URL : `${SITE_URL}/en`,
     name: isJa
-      ? '株式会社D.Bright | D.BRIGHT Corporation | ホテル清掃・人材派遣・留学サポート・ハラール事業'
-      : 'D.BRIGHT Corporation | Hotel Cleaning, Staffing, Study Abroad, Halal Business',
+      ? '株式会社D.Bright | ホテル清掃・人材派遣・留学サポート・ハラール事業'
+      : '株式会社D.Bright | Hotel Cleaning, Staffing, Study Abroad, Halal Business',
     description: isJa
-      ? '株式会社D.Bright（D.BRIGHT Corporation）は千葉県市川市を拠点に、ホテル清掃、人材派遣、留学サポート、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
-      : 'D.BRIGHT Corporation provides professional hotel cleaning, worker dispatch, study abroad support, and halal business services from Ichikawa City, Chiba, Japan.',
+      ? '株式会社D.Brightは千葉県市川市を拠点に、ホテル清掃、人材派遣、留学サポート、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
+      : '株式会社D.Bright provides professional hotel cleaning, worker dispatch, study abroad support, and halal business services from Ichikawa City, Chiba, Japan.',
     isPartOf: { '@id': `${SITE_URL}/#website` },
     about: { '@id': `${SITE_URL}/#corporation` },
     inLanguage: isJa ? 'ja' : 'en',

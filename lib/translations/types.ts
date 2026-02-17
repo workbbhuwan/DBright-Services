@@ -118,10 +118,15 @@ export interface Translations {
         error: string;
     };
     footer: {
+        brand: string;
+        quickLinks: string;
+        contactUs: string;
+        businessHours: string;
         company: string;
         address: string;
         phone: string;
         email: string;
         copyright: string;
+        akaruName: string;
     };
 }

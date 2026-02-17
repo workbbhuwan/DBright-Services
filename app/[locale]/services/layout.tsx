@@ -18,8 +18,8 @@ export async function generateMetadata({
       ? '株式会社D.Bright サービス一覧 | ホテル清掃・人材派遣・留学サポート・ハラール事業'
       : 'Our Services | Hotel Cleaning, Staffing, Study Abroad, Halal Business',
     description: isJa
-      ? '株式会社D.Bright（D.BRIGHT Corporation）のサービス一覧。ホテル清掃、人材派遣、ハラール事業支援、留学サポートなど幅広いサービスを千葉県市川市より提供。'
-      : 'Services by D.BRIGHT Corporation: hotel cleaning, worker dispatch, halal business, study abroad support from Ichikawa, Chiba, Japan.',
+      ? '株式会社D.Brightのサービス一覧。ホテル清掃、人材派遣、ハラール事業支援、留学サポートなど幅広いサービスを千葉県市川市より提供。'
+      : 'Services by 株式会社D.Bright: hotel cleaning, worker dispatch, halal business, study abroad support from Ichikawa, Chiba, Japan.',
     alternates: {
       canonical: isJa ? `${SITE_URL}/services` : `${SITE_URL}/en/services`,
       languages: {
@@ -31,7 +31,7 @@ export async function generateMetadata({
     openGraph: {
       title: isJa
         ? '株式会社D.Bright サービス一覧'
-        : 'D.BRIGHT Corporation Services',
+        : '株式会社D.Bright Services',
       description: isJa
         ? '株式会社D.Brightのホテル清掃、人材派遣、留学サポート、ハラール事業支援のサービス一覧。'
         : 'Professional hotel cleaning, staffing, study abroad, and halal business services.',
@@ -86,7 +86,7 @@ export default async function ServicesLayout({
     url: pageUrl,
     name: isJa
       ? '株式会社D.Bright サービス一覧'
-      : 'D.BRIGHT Corporation Services',
+      : '株式会社D.Bright Services',
     description: isJa
       ? '株式会社D.Brightのホテル清掃、人材派遣、留学サポート、ハラール事業支援のサービス一覧。'
       : 'Professional hotel cleaning, staffing, study abroad, and halal business services.',

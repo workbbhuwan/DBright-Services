@@ -24,32 +24,30 @@ export async function generateMetadata({
   const isJa = locale === 'ja';
 
   const title = isJa
-    ? '株式会社D.Bright | D.BRIGHT Corporation | ホテル清掃・人材派遣・留学サポート・ハラール事業 | 千葉県市川市'
-    : 'D.BRIGHT Corporation | Hotel Cleaning, Staffing, Study Abroad, Halal Business | Ichikawa, Chiba';
+    ? '株式会社D.Bright | ホテル清掃・人材派遣・留学サポート・ハラール事業 | 千葉県市川市'
+    : '株式会社D.Bright | Hotel Cleaning, Staffing, Study Abroad, Halal Business | Ichikawa, Chiba';
 
   const description = isJa
-    ? '株式会社D.Bright（D.BRIGHT Corporation / ディーブライト）は千葉県市川市を拠点に、ホテル清掃、人材派遣、留学サポート、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
-    : 'D.BRIGHT Corporation (株式会社D.Bright) provides professional hotel cleaning, worker dispatch, study abroad support, and halal business services from Ichikawa City, Chiba, Japan.';
+    ? '株式会社D.Bright（ディーブライト）は千葉県市川市を拠点に、ホテル清掃、人材派遣、留学サポート、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
+    : '株式会社D.Bright provides professional hotel cleaning, worker dispatch, study abroad support, and halal business services from Ichikawa City, Chiba, Japan.';
 
   return {
     title: {
       default: title,
-      template: isJa
-        ? '%s | 株式会社D.Bright（D.BRIGHT Corporation）'
-        : '%s | D.BRIGHT Corporation',
+      template: '%s | 株式会社D.Bright',
     },
     description,
     keywords: isJa
       ? [
-          '株式会社D.Bright', 'D.BRIGHT Corporation', 'ディーブライト',
+          '株式会社D.Bright', 'ディーブライト', 'D.Bright',
           'ホテル清掃 千葉', '人材派遣 市川市', '留学サポート 日本',
           'ハラール事業支援', '清掃サービス 市川市', '千葉県市川市 清掃会社',
         ]
       : [
-          'D.BRIGHT Corporation', 'D.Bright', 'cleaning service Japan',
+          '株式会社D.Bright', 'D.Bright', 'cleaning service Japan',
           'hotel cleaning Chiba', 'staffing agency Japan',
           'study abroad support Japan', 'halal business Japan',
-          'worker dispatch Japan', 'D.BRIGHT Ichikawa',
+          'worker dispatch Japan', 'Ichikawa Chiba',
         ],
     metadataBase: new URL(SITE_URL),
     alternates: {
@@ -65,32 +63,28 @@ export async function generateMetadata({
       locale: isJa ? 'ja_JP' : 'en_US',
       alternateLocale: isJa ? 'en_US' : 'ja_JP',
       url: isJa ? SITE_URL : `${SITE_URL}/en`,
-      siteName: isJa
-        ? '株式会社D.Bright（D.BRIGHT Corporation）'
-        : 'D.BRIGHT Corporation',
+      siteName: '株式会社D.Bright',
       title: isJa
-        ? '株式会社D.Bright | D.BRIGHT Corporation | ホテル清掃・人材派遣・留学サポート'
-        : 'D.BRIGHT Corporation | Professional Services in Japan',
+        ? '株式会社D.Bright | ホテル清掃・人材派遣・留学サポート'
+        : '株式会社D.Bright | Professional Services in Japan',
       description,
       images: [
         {
           url: `${SITE_URL}/logo.png`,
           width: 1200,
           height: 630,
-          alt: isJa
-            ? '株式会社D.Bright ロゴ - D.BRIGHT Corporation'
-            : 'D.BRIGHT Corporation Logo',
+          alt: '株式会社D.Bright ロゴ',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
       title: isJa
-        ? '株式会社D.Bright | D.BRIGHT Corporation'
-        : 'D.BRIGHT Corporation | Professional Services',
+        ? '株式会社D.Bright'
+        : '株式会社D.Bright | Professional Services',
       description: isJa
         ? '株式会社D.Bright（ディーブライト）- 千葉県市川市のホテル清掃・人材派遣・留学サポート・ハラール事業支援'
-        : 'D.BRIGHT Corporation - Hotel cleaning, staffing, study abroad, and halal business services in Ichikawa, Chiba.',
+        : '株式会社D.Bright - Hotel cleaning, staffing, study abroad, and halal business services in Ichikawa, Chiba.',
       images: [`${SITE_URL}/logo.png`],
     },
     robots: {
@@ -144,9 +138,8 @@ export default async function LocaleLayout({
     '@id': `${SITE_URL}/#corporation`,
     name: '株式会社D.Bright',
     alternateName: [
-      'D.BRIGHT Corporation', 'D.Bright', 'D.BRIGHT', 'ディーブライト',
-      '株式会社ディーブライト', '株式会社D.BRIGHT', 'DBright Services',
-      'DBright', 'D Bright', 'D.Bright Corporation',
+      'D.Bright', 'ディーブライト', '株式会社ディーブライト',
+      'DBright', 'D Bright',
     ],
     url: SITE_URL,
     logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png`, width: 512, height: 512 },
@@ -191,7 +184,7 @@ export default async function LocaleLayout({
     '@type': 'LocalBusiness',
     '@id': `${SITE_URL}/#localbusiness`,
     name: '株式会社D.Bright',
-    alternateName: ['D.BRIGHT Corporation', 'ディーブライト', 'DBright'],
+    alternateName: ['D.Bright', 'ディーブライト', 'DBright'],
     description: content.common.footer.brand,
     url: isJa ? SITE_URL : `${SITE_URL}/en`,
     telephone: content.location.phone.intl,
@@ -229,7 +222,7 @@ export default async function LocaleLayout({
     '@type': 'WebSite',
     '@id': `${SITE_URL}/#website`,
     name: '株式会社D.Bright',
-    alternateName: ['D.BRIGHT Corporation', 'ディーブライト'],
+    alternateName: ['D.Bright', 'ディーブライト', 'DBright'],
     url: SITE_URL,
     publisher: { '@id': `${SITE_URL}/#corporation` },
     inLanguage: ['ja', 'en'],

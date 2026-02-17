@@ -1,6 +1,6 @@
 export const common = {
-  siteName: 'D.Bright Corporation',
-  siteNameFull: 'D.BRIGHT Corporation',
+  siteName: '株式会社D.Bright',
+  siteNameFull: '株式会社D.Bright',
   nav: {
     home: 'Home',
     services: 'Services',
@@ -22,11 +22,11 @@ export const common = {
   },
   footer: {
     brand:
-      'D.Bright Corporation (株式会社D.Bright) is a trusted team delivering spotless results through experience, consistency, and customer-focused service.',
+      '株式会社D.Bright is a trusted team delivering spotless results through experience, consistency, and customer-focused service.',
     quickLinks: 'Quick Links',
     contactUs: 'Contact Us',
     businessHours: 'Business Hours: Mon - Fri / 10AM - 7PM',
-    copyright: 'D.BRIGHT Co., Ltd. All rights reserved.',
+    copyright: '株式会社D.Bright. All rights reserved.',
     akaruName: 'Akaru Cleaning',
   },
   badges: {
