@@ -44,10 +44,64 @@ export function generateStaticParams() {
   return i18n.locales.map((locale) => ({ locale }));
 }
 
-export default function ContactLayout({
+export default async function ContactLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
-  return children;
+  const { locale } = await params;
+  const isJa = locale === 'ja';
+
+  const pageUrl = isJa ? `${SITE_URL}/contact` : `${SITE_URL}/en/contact`;
+
+  // BreadcrumbList for contact page
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: isJa ? 'ホーム' : 'Home',
+        item: isJa ? SITE_URL : `${SITE_URL}/en`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: isJa ? 'お問い合わせ' : 'Contact',
+        item: pageUrl,
+      },
+    ],
+  };
+
+  // ContactPage schema
+  const contactPageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    '@id': `${pageUrl}/#webpage`,
+    url: pageUrl,
+    name: isJa
+      ? '株式会社D.Bright お問い合わせ'
+      : 'Contact D.BRIGHT Corporation',
+    description: isJa
+      ? '株式会社D.Brightへのお問い合わせはこちら。電話：047-711-2099。'
+      : 'Contact D.BRIGHT Corporation. Phone: 047-711-2099, Email: info@dbrightservices.com.',
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    about: { '@id': `${SITE_URL}/#corporation` },
+    inLanguage: isJa ? 'ja' : 'en',
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([breadcrumbJsonLd, contactPageJsonLd]),
+        }}
+      />
+      {children}
+    </>
+  );
 }

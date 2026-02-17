@@ -222,36 +222,7 @@ export default async function LocaleLayout({
     currenciesAccepted: 'JPY',
   };
 
-  const breadcrumbJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: isJa ? 'ホーム' : 'Home',
-        item: isJa ? SITE_URL : `${SITE_URL}/en`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: isJa ? 'サービス一覧' : 'Services',
-        item: isJa ? `${SITE_URL}/services` : `${SITE_URL}/en/services`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: isJa ? '会社概要' : 'Company Profile',
-        item: isJa ? `${SITE_URL}/company-profile` : `${SITE_URL}/en/company-profile`,
-      },
-      {
-        '@type': 'ListItem',
-        position: 4,
-        name: isJa ? 'お問い合わせ' : 'Contact',
-        item: isJa ? `${SITE_URL}/contact` : `${SITE_URL}/en/contact`,
-      },
-    ],
-  };
+  // Breadcrumbs are now page-specific (in each sub-page layout)
 
   const websiteJsonLd = {
     '@context': 'https://schema.org',
@@ -262,6 +233,43 @@ export default async function LocaleLayout({
     url: SITE_URL,
     publisher: { '@id': `${SITE_URL}/#corporation` },
     inLanguage: ['ja', 'en'],
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+
+  const siteNavigationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SiteNavigationElement',
+    '@id': `${SITE_URL}/#navigation`,
+    name: isJa ? 'メインナビゲーション' : 'Main Navigation',
+    hasPart: [
+      {
+        '@type': 'WebPage',
+        name: isJa ? 'ホーム' : 'Home',
+        url: isJa ? SITE_URL : `${SITE_URL}/en`,
+      },
+      {
+        '@type': 'WebPage',
+        name: isJa ? 'サービス一覧' : 'Services',
+        url: isJa ? `${SITE_URL}/services` : `${SITE_URL}/en/services`,
+      },
+      {
+        '@type': 'WebPage',
+        name: isJa ? '会社概要' : 'Company Profile',
+        url: isJa ? `${SITE_URL}/company-profile` : `${SITE_URL}/en/company-profile`,
+      },
+      {
+        '@type': 'WebPage',
+        name: isJa ? 'お問い合わせ' : 'Contact',
+        url: isJa ? `${SITE_URL}/contact` : `${SITE_URL}/en/contact`,
+      },
+    ],
   };
 
   return (
@@ -274,8 +282,8 @@ export default async function LocaleLayout({
           __html: JSON.stringify([
             corporationJsonLd,
             localBusinessJsonLd,
-            breadcrumbJsonLd,
             websiteJsonLd,
+            siteNavigationJsonLd,
           ]),
         }}
       />

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { i18n } from '@/config/i18n';
+import { i18n, type Locale } from '@/config/i18n';
+import { getContent } from '@/content';
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || 'https://dbrightservices.com';
@@ -44,10 +45,83 @@ export function generateStaticParams() {
   return i18n.locales.map((locale) => ({ locale }));
 }
 
-export default function ServicesLayout({
+export default async function ServicesLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
-  return children;
+  const { locale } = await params;
+  const isJa = locale === 'ja';
+  const content = getContent(locale as Locale);
+
+  const pageUrl = isJa ? `${SITE_URL}/services` : `${SITE_URL}/en/services`;
+
+  // BreadcrumbList for services page
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: isJa ? 'ホーム' : 'Home',
+        item: isJa ? SITE_URL : `${SITE_URL}/en`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: isJa ? 'サービス一覧' : 'Services',
+        item: pageUrl,
+      },
+    ],
+  };
+
+  // WebPage schema
+  const webPageJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${pageUrl}/#webpage`,
+    url: pageUrl,
+    name: isJa
+      ? '株式会社D.Bright サービス一覧'
+      : 'D.BRIGHT Corporation Services',
+    description: isJa
+      ? '株式会社D.Brightのホテル清掃、人材派遣、留学サポート、ハラール事業支援のサービス一覧。'
+      : 'Professional hotel cleaning, staffing, study abroad, and halal business services.',
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    about: { '@id': `${SITE_URL}/#corporation` },
+    inLanguage: isJa ? 'ja' : 'en',
+  };
+
+  // Service schema for each service offered
+  const serviceSchemas = content.services.items.map((service) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.title,
+    description: service.description,
+    provider: {
+      '@type': 'Corporation',
+      '@id': `${SITE_URL}/#corporation`,
+      name: '株式会社D.Bright',
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Japan',
+    },
+    url: pageUrl,
+  }));
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([breadcrumbJsonLd, webPageJsonLd, ...serviceSchemas]),
+        }}
+      />
+      {children}
+    </>
+  );
 }
