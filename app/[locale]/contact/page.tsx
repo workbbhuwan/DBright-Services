@@ -252,7 +252,7 @@ function ContactPageContent() {
                                                         className={cn(
                                                             "group relative text-left rounded-2xl p-6 border-2 transition-all duration-200",
                                                             isSelected
-                                                                ? "border-[#116f76] bg-[#116f76]/[0.03] shadow-md shadow-[#116f76]/10"
+                                                                ? "border-[#116f76] bg-[#116f76]/3 shadow-md shadow-[#116f76]/10"
                                                                 : "border-gray-100 hover:border-[#116f76]/30 bg-white hover:shadow-lg hover:shadow-gray-100"
                                                         )}
                                                     >
