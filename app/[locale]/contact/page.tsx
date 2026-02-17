@@ -256,7 +256,7 @@ function ContactPageContent() {
                                                                 : "border-gray-100 hover:border-[#116f76]/30 bg-white hover:shadow-lg hover:shadow-gray-100"
                                                         )}
                                                     >
-                                                        <div className={cn("absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity", svc.color)} />
+                                                        <div className={cn("absolute inset-0 rounded-2xl bg-linear-to-br opacity-0 group-hover:opacity-100 transition-opacity", svc.color)} />
                                                         <div className="relative z-10">
                                                             <div className={cn(
                                                                 "w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-colors",
