@@ -106,12 +106,21 @@ export function Navbar() {
                             </div>
                         </div>
 
-                        {/* Mobile Menu Button */}
-                        <button
-                            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-                        >
+                        {/* Mobile: Book Now + Language Switcher + Menu Button */}
+                        <div className="md:hidden flex items-center gap-1">
+                            <Link
+                                href={contactPath}
+                                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#135b3e] text-white text-xs font-semibold hover:bg-[#1a7a54] transition-colors"
+                            >
+                                {language === 'ja' ? '予約' : 'Book'}
+                                <ChevronsRight className="w-3 h-3" />
+                            </Link>
+                            <LanguageSwitcher />
+                            <button
+                                className="p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+                            >
                             <AnimatePresence mode="wait">
                                 {mobileMenuOpen ? (
                                     <motion.div
@@ -136,6 +145,7 @@ export function Navbar() {
                                 )}
                             </AnimatePresence>
                         </button>
+                        </div>
                     </div>
                 </div>
             </nav>
