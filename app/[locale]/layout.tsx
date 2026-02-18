@@ -226,14 +226,9 @@ export default async function LocaleLayout({
     url: SITE_URL,
     publisher: { '@id': `${SITE_URL}/#corporation` },
     inLanguage: ['ja', 'en'],
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
+    // Note: SearchAction omitted — site has no search page.
+    // Adding a fake SearchAction is invalid structured data
+    // that Google may flag in Search Console.
   };
 
   const siteNavigationJsonLd = {

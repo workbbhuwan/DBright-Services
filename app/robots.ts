@@ -1,84 +1,40 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://dbrightservices.com";
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://dbrightservices.com";
 
-/**
- * Robots.txt Configuration
- * Optimized for global search engines (Google, Bing, Yandex)
- * and Japanese search engines (Yahoo Japan, Baidu)
- */
+/* ─────────────────────────────────────────────────────────
+ * robots.txt
+ *
+ * Design decisions (senior-level rationale):
+ *
+ * 1. ONE wildcard rule, not per-bot overrides.
+ *    Google's own docs say Googlebot ignores crawl-delay,
+ *    and per-bot rules create maintenance debt with no
+ *    measurable ranking benefit for a site this size.
+ *
+ * 2. Disallow /api/ and /admin/ only.
+ *    Regex-style patterns (*.json$, ?sort=) are not part
+ *    of the robots.txt standard — most crawlers ignore them
+ *    or misinterpret them. Block at route level instead.
+ *
+ * 3. No bot-blocking rules (SemrushBot, AhrefsBot, etc.)
+ *    Blocking SEO tool bots hurts YOUR ability to audit
+ *    the site. These tools don't affect rankings.
+ *
+ * 4. Single sitemap reference — the one sitemap already
+ *    contains both locales with full hreflang annotations.
+ *
+ * 5. No `host` directive — it's a Yandex-only legacy field.
+ *    Canonical host is declared via <link rel="canonical">.
+ * ───────────────────────────────────────────────────────── */
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      // Default rule - allow all public pages
-      {
-        userAgent: "*",
-        allow: ["/", "/en/"],
-        disallow: [
-          "/api/",
-          "/admin/",
-          "/*.json$", // API responses as JSON
-          "/api/", // API routes
-          "/*\\?*sort=", // Avoid duplicate sorted pages if any
-        ],
-        crawlDelay: 1, // Be friendly - 1 second between requests
-      },
-
-      // Google-specific optimizations
-      {
-        userAgent: "Googlebot",
-        allow: ["/", "/en/"],
-        disallow: ["/api/", "/admin/"],
-        crawlDelay: 0.5, // More aggressive crawl for Google
-      },
-
-      // Google Image bot - unrestricted
-      {
-        userAgent: "Googlebot-Image",
-        allow: "/",
-        disallow: [],
-      },
-
-      // Bing optimizations
-      {
-        userAgent: "Bingbot",
-        allow: ["/", "/en/"],
-        disallow: ["/api/", "/admin/"],
-        crawlDelay: 1,
-      },
-
-      // Yandex (Russian/European search engine)
-      {
-        userAgent: "Yandexbot",
-        allow: ["/", "/en/"],
-        disallow: ["/api/", "/admin/"],
-        crawlDelay: 1,
-      },
-
-      // Baidu (Chinese market reach)
-      {
-        userAgent: "Baiduspider",
-        allow: ["/", "/en/"],
-        disallow: ["/api/", "/admin/"],
-        crawlDelay: 1,
-      },
-
-      // Block low-quality crawlers and scrapers
-      {
-        userAgent: [
-          "MJ12bot", // Majestic bot - often aggressive
-          "SemrushBot", // SEO tools
-          "AhrefsBot", // SEO tools
-          "DotBot", // Moz crawler
-        ],
-        disallow: "/",
-      },
-    ],
-
-    // Single sitemap containing both locale entries with hreflang
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/admin/"],
+    },
     sitemap: `${SITE_URL}/sitemap.xml`,
-
-    // Canonical host (primary domain)
-    host: SITE_URL,
   };
 }
