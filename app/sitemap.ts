@@ -50,8 +50,11 @@ const pages: Array<{
  * en = /en prefix
  */
 function buildLocaleUrl(locale: "ja" | "en", path: string) {
-  const urlPath = path === "" ? "/" : path;
-  return locale === "ja" ? `${SITE_URL}${urlPath}` : `${SITE_URL}/en${urlPath}`;
+  // No trailing slash — must match <link rel="canonical"> exactly
+  if (locale === "ja") {
+    return path === "" ? SITE_URL : `${SITE_URL}${path}`;
+  }
+  return path === "" ? `${SITE_URL}/en` : `${SITE_URL}/en${path}`;
 }
 
 /**

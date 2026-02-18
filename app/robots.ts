@@ -75,11 +75,8 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
 
-    // Sitemaps for all locales
-    sitemap: [
-      `${SITE_URL}/sitemap.xml`,
-      `${SITE_URL}/en/sitemap.xml`, // If you generate locale-specific sitemaps
-    ],
+    // Single sitemap containing both locale entries with hreflang
+    sitemap: `${SITE_URL}/sitemap.xml`,
 
     // Canonical host (primary domain)
     host: SITE_URL,
