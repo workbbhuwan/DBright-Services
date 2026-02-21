@@ -86,7 +86,7 @@ export default function Intro() {
                             </span>
                             プロチーム。一貫した品質とお客様第一の
                             <span className="inline-block align-middle mx-2 relative w-28 sm:w-36 h-8 sm:h-10 rounded-full overflow-hidden">
-                                <Image src="/hotel.png" alt="株式会社D.Bright ホテル清掃" fill className="object-cover" />
+                                <Image src="/hotel.png" alt="株式会社D.Bright プロ清掃サービス" fill className="object-cover" />
                             </span>
                             サービスをお届けします。
                         </>

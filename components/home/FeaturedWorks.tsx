@@ -16,7 +16,7 @@ export default function FeaturedWorks() {
     const works = language === 'ja'
         ? [
             {
-                title: 'ホテル清掃プロジェクト',
+                title: 'プロ清掃プロジェクト',
                 image: '/hotel.png',
                 href: '/services',
             },
@@ -33,7 +33,7 @@ export default function FeaturedWorks() {
         ]
         : [
             {
-                title: 'Hotel Cleaning Project',
+                title: 'Professional Cleaning Project',
                 image: '/hotel.png',
                 href: '/services',
             },

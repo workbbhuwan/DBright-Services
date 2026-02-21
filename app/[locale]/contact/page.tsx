@@ -85,10 +85,10 @@ function ContactPageContent() {
 
     const serviceOptions = [
         {
-            id: isJa ? 'ホテル清掃' : 'Hotel Cleaning',
+            id: isJa ? 'プロ清掃サービス' : 'Professional Cleaning',
             icon: Building2,
-            title: isJa ? 'ホテル清掃' : 'Hotel Cleaning',
-            desc: isJa ? '客室・共用エリアの清掃' : 'Guest rooms & common areas',
+            title: isJa ? 'プロ清掃サービス' : 'Professional Cleaning',
+            desc: isJa ? '住宅・オフィス・施設の清掃' : 'Home, office & facility cleaning',
             color: 'from-teal-500/10 to-emerald-500/10',
         },
         {

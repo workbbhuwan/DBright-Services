@@ -6,9 +6,9 @@ export const services = {
   items: [
     {
       number: '01',
-      title: 'ホテル清掃',
+      title: 'プロ清掃サービス',
       description:
-        '客室、ロビー、共用エリアにおける信頼性の高いホテル清掃を提供し、常に清潔で快適な環境を維持します。',
+        '住宅、オフィス、商業施設における信頼性の高いプロ清掃サービスを提供し、常に清潔で快適な環境を維持します。',
       tags: ['エコフレンドリー', '安全・安心', '定期清掃', '専門スタッフ'],
       image: '/service-page/home-cleaning.png',
     },
@@ -27,14 +27,6 @@ export const services = {
         'ハラール食品店、レストラン、商品店の管理・運営・企画を行い、文化的・法的基準に完全準拠します。',
       tags: ['ハラール認証', '店舗運営', '企画支援', '法令遵守'],
       image: '/service-page/deep-cleaning.png',
-    },
-    {
-      number: '04',
-      title: '留学サポート',
-      description:
-        '日本人および外国人学生に向けて、国内外の留学先を紹介し、手続き全般を包括的にサポートします。',
-      tags: ['留学相談', '手続き支援', '国内外対応', '学生サポート'],
-      image: '/service-page/window-cleaning.png',
     },
   ],
   faqs: [

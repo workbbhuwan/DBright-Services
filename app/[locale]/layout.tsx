@@ -24,12 +24,12 @@ export async function generateMetadata({
   const isJa = locale === 'ja';
 
   const title = isJa
-    ? '株式会社D.Bright | ホテル清掃・人材派遣・留学サポート・ハラール事業 | 千葉県市川市'
-    : '株式会社D.Bright | Hotel Cleaning, Staffing, Study Abroad, Halal Business | Ichikawa, Chiba';
+    ? '株式会社D.Bright | プロ清掃サービス・人材派遣・ハラール事業 | 千葉県市川市'
+    : '株式会社D.Bright | Professional Cleaning Service, Staffing, Halal Business | Ichikawa, Chiba';
 
   const description = isJa
-    ? '株式会社D.Bright（ディーブライト）は千葉県市川市を拠点に、ホテル清掃、人材派遣、留学サポート、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
-    : '株式会社D.Bright provides professional hotel cleaning, worker dispatch, study abroad support, and halal business services from Ichikawa City, Chiba, Japan.';
+    ? '株式会社D.Bright（ディーブライト）は千葉県市川市を拠点に、プロ清掃サービス、人材派遣、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
+    : '株式会社D.Bright provides professional cleaning services, worker dispatch, and halal business services from Ichikawa City, Chiba, Japan.';
 
   return {
     title: {
@@ -40,13 +40,13 @@ export async function generateMetadata({
     keywords: isJa
       ? [
           '株式会社D.Bright', 'ディーブライト', 'D.Bright',
-          'ホテル清掃 千葉', '人材派遣 市川市', '留学サポート 日本',
+          'プロ清掃サービス 千葉', '人材派遣 市川市',
           'ハラール事業支援', '清掃サービス 市川市', '千葉県市川市 清掃会社',
         ]
       : [
           '株式会社D.Bright', 'D.Bright', 'cleaning service Japan',
-          'hotel cleaning Chiba', 'staffing agency Japan',
-          'study abroad support Japan', 'halal business Japan',
+          'professional cleaning Chiba', 'staffing agency Japan',
+          'halal business Japan',
           'worker dispatch Japan', 'Ichikawa Chiba',
         ],
     metadataBase: new URL(SITE_URL),
@@ -65,7 +65,7 @@ export async function generateMetadata({
       url: isJa ? SITE_URL : `${SITE_URL}/en`,
       siteName: '株式会社D.Bright',
       title: isJa
-        ? '株式会社D.Bright | ホテル清掃・人材派遣・留学サポート'
+        ? '株式会社D.Bright | プロ清掃サービス・人材派遣・ハラール事業'
         : '株式会社D.Bright | Professional Services in Japan',
       description,
       images: [
@@ -83,8 +83,8 @@ export async function generateMetadata({
         ? '株式会社D.Bright'
         : '株式会社D.Bright | Professional Services',
       description: isJa
-        ? '株式会社D.Bright（ディーブライト）- 千葉県市川市のホテル清掃・人材派遣・留学サポート・ハラール事業支援'
-        : '株式会社D.Bright - Hotel cleaning, staffing, study abroad, and halal business services in Ichikawa, Chiba.',
+        ? '株式会社D.Bright（ディーブライト）- 千葉県市川市のプロ清掃サービス・人材派遣・ハラール事業支援'
+        : '株式会社D.Bright - Professional cleaning, staffing, and halal business services in Ichikawa, Chiba.',
       images: [`${SITE_URL}/logo.png`],
     },
     robots: {
@@ -175,8 +175,8 @@ export default async function LocaleLayout({
     areaServed: { '@type': 'Country', name: 'Japan' },
     numberOfEmployees: { '@type': 'QuantitativeValue', minValue: 10, maxValue: 50 },
     knowsAbout: isJa
-      ? ['ホテル清掃', '人材派遣', '留学サポート', 'ハラール事業支援', '清掃業', '労働者派遣業']
-      : ['Hotel Cleaning', 'Worker Dispatch', 'Study Abroad Support', 'Halal Business Support', 'Cleaning Services'],
+      ? ['プロ清掃サービス', '人材派遣', 'ハラール事業支援', '清掃業', '労働者派遣業']
+      : ['Professional Cleaning Service', 'Worker Dispatch', 'Halal Business Support', 'Cleaning Services'],
   };
 
   const localBusinessJsonLd = {
