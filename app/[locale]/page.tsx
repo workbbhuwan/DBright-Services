@@ -37,6 +37,7 @@ export default async function Home({
   const homeBreadcrumbJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
+    '@id': `${isJa ? SITE_URL : `${SITE_URL}/en`}/#breadcrumb`,
     itemListElement: [
       {
         '@type': 'ListItem',
