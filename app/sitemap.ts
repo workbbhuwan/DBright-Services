@@ -12,10 +12,10 @@ const SITE_URL =
  *
  * lastModified  → update when content actually changes.
  *                  Google uses this to decide re-crawl timing.
+ *                  This is the ONLY sitemap field Google actually reads.
  *
  * priority / changeFrequency → intentionally omitted.
- *   Google confirmed in 2023 they ignore both fields.
- *   Including them adds XML bloat with zero ranking benefit.
+ *   Google confirmed they ignore both fields.
  * ───────────────────────────────────────────────────────── */
 const routes: Array<{
   /** Path segment after locale, e.g. "/services". Empty string = homepage. */
@@ -23,10 +23,10 @@ const routes: Array<{
   /** ISO date of last meaningful content change */
   lastModified: string;
 }> = [
-  { path: "",                 lastModified: "2026-02-17" },
-  { path: "/services",        lastModified: "2026-02-01" },
-  { path: "/company-profile", lastModified: "2026-02-01" },
-  { path: "/contact",         lastModified: "2026-02-01" },
+  { path: "",                 lastModified: "2026-02-21" },
+  { path: "/services",        lastModified: "2026-02-21" },
+  { path: "/company-profile", lastModified: "2026-02-21" },
+  { path: "/contact",         lastModified: "2026-02-21" },
 ];
 
 /* ─────────────────────────────────────────────────────────
