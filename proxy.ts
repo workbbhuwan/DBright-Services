@@ -1,7 +1,19 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dbrightservices.com';
 const VALID_SUB_PATHS = ['', '/services', '/company-profile', '/contact'];
+
+/**
+ * Attach HTTP `Link: <…>; rel="canonical"` header.
+ * This gives Google a canonical signal at the HTTP level,
+ * reinforcing the <link rel="canonical"> already in HTML.
+ */
+function withCanonical(response: NextResponse, pathname: string): NextResponse {
+    const clean = pathname === '/' ? '' : pathname.replace(/\/$/, '');
+    response.headers.set('Link', `<${SITE_URL}${clean}>; rel="canonical"`);
+    return response;
+}
 
 export function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
@@ -48,7 +60,7 @@ export function proxy(request: NextRequest) {
         // Let Next.js handle the /en/* route via [locale]
         const response = NextResponse.next();
         response.headers.set('x-locale', 'en');
-        return response;
+        return withCanonical(response, pathname);
     }
 
     // ── Root paths (no locale prefix) → rewrite to /ja/* internally ──
@@ -66,7 +78,7 @@ export function proxy(request: NextRequest) {
     url.pathname = `/ja${pathname === '/' ? '' : pathname}`;
     const response = NextResponse.rewrite(url);
     response.headers.set('x-locale', 'ja');
-    return response;
+    return withCanonical(response, pathname);
 }
 
 export const config = {
