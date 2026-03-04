@@ -83,7 +83,7 @@ export default function ChairmanMessage() {
             {/* Photo */}
             <div className="lg:col-span-2 relative aspect-[3/4] sm:aspect-[4/3] lg:aspect-auto lg:min-h-0">
               <Image
-                src="/about-us/chairman.png"
+                src="/about-us/president6.png"
                 alt={t.name}
                 fill
                 className="object-cover object-top"
@@ -127,7 +127,7 @@ export default function ChairmanMessage() {
               {/* Signature row */}
               <motion.div variants={fadeUp} className="flex items-center gap-4 pt-8 border-t border-gray-100">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden shrink-0 ring-2 ring-emerald-200">
-                  <Image src="/about-us/chairman.png" alt={t.name} fill className="object-cover object-top" sizes="48px" />
+                  <Image src="/about-us/president6.png" alt={t.name} fill className="object-cover object-top" sizes="48px" />
                 </div>
                 <div>
                   <p className="font-bold text-gray-900 text-sm">{t.name}</p>
