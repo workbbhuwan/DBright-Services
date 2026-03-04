@@ -8,13 +8,14 @@ const content = {
   en: {
     badge: "President's Message",
     title: 'President & CEO',
-    name: 'Keshav Ojha',
-    role: 'Chairman, 株式会社D.Bright',
+    name: 'Ojha Keshav',
+    role: 'President & CEO, 株式会社D.Bright',
     message: [
-      'When I founded 株式会社D.Bright, I had a simple but powerful vision: to deliver cleaning and facility services that people could truly rely on — services built on honesty, discipline, and an unwavering commitment to quality.',
-      'Over the years, we have grown from a small team into a trusted partner for homes, offices, and businesses across Japan. That growth has been possible only because of the trust our customers place in us, and the dedication of every single member of our team.',
-      'We do not just clean spaces — we create environments where people feel comfortable, safe, and proud. That is the standard I hold for every project we undertake, and it is the promise we make to every client we serve.',
-      'Thank you for trusting 株式会社D.Bright. We will continue to earn that trust, every day.',
+      'When I founded 株式会社D.Bright, I had a simple but strong conviction: to value honesty, discipline, and quality, and to provide cleaning and facility services that customers can truly trust.',
+      'We started as a small team, but today, supported by many customers, we have grown to provide services throughout Japan. This growth is the result of the trust our customers place in us, and the dedication of every single staff member who continues to work hard every day.',
+      'Our mission is not simply to clean — it is to create spaces where people feel safe and comfortable. We promise to uphold the highest standards of quality and responsibility, delivering the best service at every site.',
+      '株式会社D.Bright will continue to grow and take on new challenges as a company that keeps earning the trust of our customers.',
+      'We sincerely ask for your continued support and patronage going forward.',
     ],
   },
   ja: {
