@@ -141,9 +141,21 @@ export function Footer() {
 
             {/* Bottom Bar */}
             <div className="border-t border-white/10">
-                <div className="site-container py-5 flex flex-col sm:flex-row items-center justify-center text-center">
+                <div className="site-container py-5 flex items-center justify-center text-center gap-4">
                     <p className="text-white/70 text-xs sm:text-sm">
                         © {new Date().getFullYear()} {language === 'ja' ? '株式会社D.BRIGHT. All rights reserved.' : 'D.BRIGHT Co., Ltd. All rights reserved.'}
+                    </p>
+                    <span className="text-white/30 text-xs">|</span>
+                    <p className="text-white/50 text-xs">
+                        {language === 'ja' ? 'ウェブサイト制作：' : 'Website developed by '}
+                        <Link
+                            href="https://bridgesstech.com"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-white/70 hover:text-white transition-colors"
+                        >
+                            Bridgess Tech
+                        </Link>
                     </p>
                 </div>
             </div>
