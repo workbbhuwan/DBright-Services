@@ -154,7 +154,7 @@ export function Footer() {
                             rel="noopener noreferrer"
                             className="text-white/70 hover:text-white transition-colors"
                         >
-                            Bridgess Tech
+                            {language === 'ja' ? 'ブリッジソフトウェアソリューションズ' : 'Bridge Software Solutions'}
                         </Link>
                     </p>
                 </div>
