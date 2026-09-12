@@ -117,7 +117,7 @@ function ContactPageContent() {
     const contactCards = [
         { icon: Phone, title: isJa ? '電話番号' : 'Phone', value: '047-711-2099', href: 'tel:047-711-2099', sub: isJa ? '平日対応' : 'Weekdays' },
         { icon: Mail, title: isJa ? 'メール' : 'Email', value: 'info@dbrightservices.com', href: 'mailto:info@dbrightservices.com', sub: isJa ? '24時間受付' : '24/7 Inbox' },
-        { icon: MapPin, title: isJa ? '所在地' : 'Address', value: isJa ? '〒272-0035\n千葉県市川市新田4-18-22\nハイホーム田中201号室' : '4-18-22 Nitta, Ichikawa City,\nChiba 272-0035, Japan', sub: isJa ? '千葉県市川市' : 'Ichikawa, Chiba' },
+        { icon: MapPin, title: isJa ? '所在地' : 'Address', value: isJa ? '〒132-0035\n東京都江戸川区平井6丁目31-5\n1F' : '1F, 6-31-5 Hirai, Edogawa-ku,\nTokyo 132-0035, Japan', sub: isJa ? '東京都江戸川区' : 'Edogawa-ku, Tokyo' },
         { icon: Clock, title: isJa ? '営業時間' : 'Hours', value: isJa ? '月〜金 9:00〜18:00' : 'Mon – Fri 9:00 – 18:00', sub: isJa ? '土日祝休み' : 'Closed weekends' },
     ];
 

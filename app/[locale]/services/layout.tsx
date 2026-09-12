@@ -18,8 +18,8 @@ export async function generateMetadata({
       ? '株式会社D.Bright サービス一覧 | プロ清掃サービス・人材派遣・ハラール事業'
       : 'Our Services | Professional Cleaning Service, Staffing, Halal Business',
     description: isJa
-      ? '株式会社D.Brightのサービス一覧。プロ清掃サービス、人材派遣、ハラール事業支援など幅広いサービスを千葉県市川市より提供。'
-      : 'Services by 株式会社D.Bright: professional cleaning, worker dispatch, and halal business from Ichikawa, Chiba, Japan.',
+      ? '株式会社D.Brightのサービス一覧。プロ清掃サービス、人材派遣、ハラール事業支援など幅広いサービスを東京都江戸川区より提供。'
+      : 'Services by 株式会社D.Bright: professional cleaning, worker dispatch, and halal business from Edogawa-ku, Tokyo, Japan.',
     alternates: {
       canonical: isJa ? `${SITE_URL}/services` : `${SITE_URL}/en/services`,
       languages: {

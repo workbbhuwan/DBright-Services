@@ -1,13 +1,13 @@
 export const location = {
   address: {
     label: '所在地',
-    postalCode: '〒272-0035',
-    line1: '千葉県市川市新田4-18-22',
-    line2: 'ハイホーム田中201号室',
-    full: '〒272-0035 千葉県市川市新田4-18-22 ハイホーム田中201号室',
-    streetAddress: '新田4-18-22 ハイホーム田中201号室',
-    locality: '市川市',
-    region: '千葉県',
+    postalCode: '〒132-0035',
+    line1: '東京都江戸川区平井6丁目31-5',
+    line2: '1F',
+    full: '〒132-0035 東京都江戸川区平井6丁目31-5 1F',
+    streetAddress: '平井6丁目31-5 1F',
+    locality: '江戸川区',
+    region: '東京都',
   },
   phone: {
     label: '電話番号',
@@ -29,9 +29,9 @@ export const location = {
   },
   contactLabel: '連絡先',
   geo: {
-    latitude: 35.7219,
-    longitude: 139.9312,
+    latitude: 35.70982,
+    longitude: 139.841548,
     region: 'JP-12',
-    placename: 'Ichikawa, Chiba',
+    placename: 'Edogawa, Tokyo',
   },
 };

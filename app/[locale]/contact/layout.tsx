@@ -17,8 +17,8 @@ export async function generateMetadata({
       ? '株式会社D.Bright お問い合わせ | 電話・メール'
       : 'Contact Us | 株式会社D.Bright',
     description: isJa
-      ? '株式会社D.Brightへのお問い合わせ。電話：047-711-2099、メール：info@dbrightservices.com。千葉県市川市。'
-      : 'Contact 株式会社D.Bright. Phone: 047-711-2099, Email: info@dbrightservices.com. Ichikawa City, Chiba, Japan.',
+      ? '株式会社D.Brightへのお問い合わせ。電話：047-711-2099、メール：info@dbrightservices.com。東京都江戸川区。'
+      : 'Contact 株式会社D.Bright. Phone: 047-711-2099, Email: info@dbrightservices.com. Edogawa-ku, Tokyo, Japan.',
     alternates: {
       canonical: isJa ? `${SITE_URL}/contact` : `${SITE_URL}/en/contact`,
       languages: {

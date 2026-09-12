@@ -58,8 +58,8 @@ export default async function Home({
       ? '株式会社D.Bright | プロ清掃サービス・人材派遣・ハラール事業'
       : '株式会社D.Bright | Professional Cleaning Service, Staffing, Halal Business',
     description: isJa
-      ? '株式会社D.Brightは千葉県市川市を拠点に、プロ清掃サービス、人材派遣、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
-      : '株式会社D.Bright provides professional cleaning services, worker dispatch, and halal business services from Ichikawa City, Chiba, Japan.',
+      ? '株式会社D.Brightは東京都江戸川区を拠点に、プロ清掃サービス、人材派遣、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
+      : '株式会社D.Bright provides professional cleaning services, worker dispatch, and halal business services from Edogawa-ku, Tokyo, Japan.',
     isPartOf: { '@id': `${SITE_URL}/#website` },
     about: { '@id': `${SITE_URL}/#corporation` },
     inLanguage: isJa ? 'ja' : 'en',

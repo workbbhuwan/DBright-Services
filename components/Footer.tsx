@@ -95,8 +95,7 @@ export function Footer() {
                             <div className="flex items-start gap-3">
                                 <MapPin className="w-4 h-4 text-[#22c55e] mt-0.5 shrink-0" />
                                 <p className="text-white/80 text-sm leading-relaxed">
-                                    〒272-0034 千葉県市川市市川4-18-22<br />
-                                    ハイホームタナカ201号室
+                                    〒132-0035 東京都江戸川区平井6丁目31-5 1F
                                 </p>
                             </div>
                             <div className="flex items-center gap-3">

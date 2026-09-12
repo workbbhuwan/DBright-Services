@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/lib/translations/LanguageContext';
-import { ChevronsRight, Star, Leaf, ShieldCheck } from 'lucide-react';
+import { ChevronsRight, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Hero() {
@@ -17,8 +17,6 @@ export default function Hero() {
         : '株式会社D.Bright delivers professional cleaning services\nwith rigorous quality standards you can count on.';
     const ctaPrimary = language === 'ja' ? 'お問い合わせ' : 'Book Your Cleaning';
     const ctaSecondary = language === 'ja' ? 'サービスを見る' : 'View All Services';
-    const badgeLeft = language === 'ja' ? 'エコ素材使用' : 'Eco-Friendly\nMaterials';
-    const badgeRight = language === 'ja' ? '研修済みスタッフ' : 'Verified & Trained\nCleaners';
 
     return (
         <section className="relative w-full bg-white overflow-hidden">
@@ -51,43 +49,17 @@ export default function Hero() {
                         </div>
                     </motion.div>
 
-                    {/* Headline with side badges */}
-                    <div className="relative w-full flex justify-center">
-                        {/* Left Floating Badge */}
+                    {/* Headline */}
+                    <div className="w-full flex justify-center">
                         <motion.div
-                            initial={{ opacity: 0, x: -40 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-                            className="hidden lg:flex absolute left-0 xl:left-4 top-1/2 -translate-y-1/2 z-10 flex-col items-center text-center bg-white rounded-2xl shadow-lg border border-gray-100 px-5 py-4 w-35"
-                        >
-                            <div className="w-12 h-12 rounded-xl bg-[#f0fdf4] flex items-center justify-center mb-2">
-                                <Leaf className="w-6 h-6 text-[#135b3e]" />
-                            </div>
-                            <p className="text-xs font-semibold text-gray-800 leading-tight whitespace-pre-line">{badgeLeft}</p>
-                        </motion.div>
-
-                        {/* Right Floating Badge */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 40 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
-                            className="hidden lg:flex absolute right-0 xl:right-4 top-1/2 -translate-y-1/2 z-10 flex-col items-center text-center bg-white rounded-2xl shadow-lg border border-gray-100 px-5 py-4 w-35"
-                        >
-                            <div className="w-12 h-12 rounded-xl bg-[#f0fdf4] flex items-center justify-center mb-2">
-                                <ShieldCheck className="w-6 h-6 text-[#135b3e]" />
-                            </div>
-                            <p className="text-xs font-semibold text-gray-800 leading-tight whitespace-pre-line">{badgeRight}</p>
-                        </motion.div>
-
-                        <motion.h1
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
                             className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] xl:text-[4.5rem] font-bold text-gray-900 leading-[1.08] tracking-tight mb-5 text-center whitespace-pre-line"
                             style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
                         >
                             {headline}
-                        </motion.h1>
+                        </motion.div>
                     </div>
 
                     {/* Subtitle */}
@@ -122,6 +94,7 @@ export default function Hero() {
                             <ChevronsRight className="w-5 h-5" />
                         </Link>
                     </motion.div>
+
                 </div>
 
                 {/* Images Layout - Left & Right on top row, Center below */}

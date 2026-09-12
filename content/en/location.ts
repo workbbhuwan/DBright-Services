@@ -1,13 +1,13 @@
 export const location = {
   address: {
     label: 'Address',
-    postalCode: '〒272-0035',
-    line1: 'Chiba Prefecture, Ichikawa City, Shinden 4-18-22',
-    line2: 'High Home Tanaka Room 201',
-    full: '4-18-22 Nitta, Ichikawa City, Chiba 272-0035, High Home Tanaka Room 201',
-    streetAddress: '新田4-18-22 ハイホーム田中201号室',
-    locality: 'Ichikawa',
-    region: 'Chiba',
+    postalCode: '〒132-0035',
+    line1: '6-31-5 Hirai, Edogawa-ku, Tokyo',
+    line2: '1F',
+    full: '1F, 6-31-5 Hirai, Edogawa-ku, Tokyo 132-0035, Japan',
+    streetAddress: '6-31-5 Hirai 1F',
+    locality: 'Edogawa-ku',
+    region: 'Tokyo',
   },
   phone: {
     label: 'Phone',
@@ -29,9 +29,9 @@ export const location = {
   },
   contactLabel: 'Contact',
   geo: {
-    latitude: 35.7219,
-    longitude: 139.9312,
+    latitude: 35.70982,
+    longitude: 139.841548,
     region: 'JP-12',
-    placename: 'Ichikawa, Chiba',
+    placename: 'Edogawa, Tokyo',
   },
 };

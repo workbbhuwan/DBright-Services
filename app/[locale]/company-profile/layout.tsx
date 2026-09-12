@@ -14,11 +14,11 @@ export async function generateMetadata({
 
   return {
     title: isJa
-      ? '株式会社D.Bright 会社概要 | 千葉県市川市'
+      ? '株式会社D.Bright 会社概要 | 東京都江戸川区'
       : 'Company Profile | 株式会社D.Bright',
     description: isJa
-      ? '株式会社D.Brightの会社概要。代表取締役：オザ・ケサブ・ラズ。千葉県市川市を拠点にプロ清掃サービス、人材派遣業、ハラール事業支援を展開。'
-      : 'Company profile of 株式会社D.Bright. Representative Director: OJHA KESHAV RAJ. Based in Ichikawa, Chiba, Japan.',
+      ? '株式会社D.Brightの会社概要。代表取締役：オザ・ケサブ・ラズ。東京都江戸川区を拠点にプロ清掃サービス、人材派遣業、ハラール事業支援を展開。'
+      : 'Company profile of 株式会社D.Bright. Representative Director: OJHA KESHAV RAJ. Based in Edogawa-ku, Tokyo, Japan.',
     alternates: {
       canonical: isJa ? `${SITE_URL}/company-profile` : `${SITE_URL}/en/company-profile`,
       languages: {

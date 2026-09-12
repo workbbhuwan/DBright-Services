@@ -97,7 +97,7 @@ export default function CompanyProfilePage() {
     const companyInfo = [
         { icon: Building2, label: language === 'ja' ? '会社名' : 'Company Name',              value: '株式会社D.Bright' },
         { icon: User,      label: language === 'ja' ? '代表取締役' : 'Representative Director', value: language === 'ja' ? 'オザ・ケサブ・ラズ' : 'OJHA KESHAV RAJ' },
-        { icon: Landmark,  label: language === 'ja' ? '資本金' : 'Capital',                    value: language === 'ja' ? '500万円' : '¥5,000,000' },
+        { icon: Landmark,  label: language === 'ja' ? '資本金' : 'Capital',                    value: language === 'ja' ? '3000万円' : '¥30,000,000' },
         { icon: Landmark,  label: language === 'ja' ? '取引先銀行' : 'Bank',                   value: language === 'ja' ? '千葉銀行、京葉銀行' : 'Chiba Bank, Keiyo Bank' },
     ];
 
@@ -172,8 +172,8 @@ export default function CompanyProfilePage() {
                         className="mt-7 max-w-2xl text-base sm:text-lg text-white/55 leading-relaxed"
                     >
                         {language === 'ja'
-                            ? '株式会社D.Brightは千葉県市川市を拠点に、プロ清掃・人材派遣・ハラール事業支援を提供する総合サービス企業です。'
-                            : 'D.Bright is a full-service company based in Ichikawa, Chiba — delivering professional cleaning, worker dispatch, and halal business support across Japan.'}
+                            ? '株式会社D.Brightは東京都江戸川区を拠点に、プロ清掃・人材派遣・ハラール事業支援を提供する総合サービス企業です。'
+                            : 'D.Bright is a full-service company based in Edogawa-ku, Tokyo, delivering professional cleaning, worker dispatch, and halal business support across Japan.'}
                     </motion.p>
 
                     {/* Stats row */}
@@ -427,9 +427,9 @@ export default function CompanyProfilePage() {
                                     label: language === 'ja' ? '所在地' : 'Address',
                                     content: (
                                         <p className="text-gray-600 text-sm leading-relaxed">
-                                            〒272-0035<br />
-                                            {language === 'ja' ? '千葉県市川市新田4-18-22' : 'Shinden 4-18-22, Ichikawa, Chiba'}<br />
-                                            {language === 'ja' ? 'ハイホーム田中201号室' : 'High Home Tanaka, Room 201'}
+                                            〒132-0035<br />
+                                            {language === 'ja' ? '東京都江戸川区平井6丁目31-5' : '6-31-5 Hirai, Edogawa-ku, Tokyo'}<br />
+                                            {language === 'ja' ? '1F' : '1F'}
                                         </p>
                                     ),
                                 },

@@ -24,12 +24,12 @@ export async function generateMetadata({
   const isJa = locale === 'ja';
 
   const title = isJa
-    ? '株式会社D.Bright | プロ清掃サービス・人材派遣・ハラール事業 | 千葉県市川市'
-    : '株式会社D.Bright | Professional Cleaning Service, Staffing, Halal Business | Ichikawa, Chiba';
+    ? '株式会社D.Bright | プロ清掃サービス・人材派遣・ハラール事業 | 東京都江戸川区'
+    : '株式会社D.Bright | Professional Cleaning Service, Staffing, Halal Business | Edogawa, Tokyo';
 
   const description = isJa
-    ? '株式会社D.Bright（ディーブライト）は千葉県市川市を拠点に、プロ清掃サービス、人材派遣、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
-    : '株式会社D.Bright provides professional cleaning services, worker dispatch, and halal business services from Ichikawa City, Chiba, Japan.';
+    ? '株式会社D.Bright（ディーブライト）は東京都江戸川区を拠点に、プロ清掃サービス、人材派遣、ハラール事業支援など幅広いサービスを提供する総合サービス企業です。'
+    : '株式会社D.Bright provides professional cleaning services, worker dispatch, and halal business services from Edogawa-ku, Tokyo, Japan.';
 
   return {
     title: {
@@ -40,14 +40,14 @@ export async function generateMetadata({
     keywords: isJa
       ? [
           '株式会社D.Bright', 'ディーブライト', 'D.Bright',
-          'プロ清掃サービス 千葉', '人材派遣 市川市',
-          'ハラール事業支援', '清掃サービス 市川市', '千葉県市川市 清掃会社',
+          'プロ清掃サービス 東京', '人材派遣 江戸川区',
+          'ハラール事業支援', '清掃サービス 江戸川区', '東京都江戸川区 清掃会社',
         ]
       : [
           '株式会社D.Bright', 'D.Bright', 'cleaning service Japan',
-          'professional cleaning Chiba', 'staffing agency Japan',
+          'professional cleaning Tokyo', 'staffing agency Japan',
           'halal business Japan',
-          'worker dispatch Japan', 'Ichikawa Chiba',
+          'worker dispatch Japan', 'Edogawa Tokyo',
         ],
     metadataBase: new URL(SITE_URL),
     alternates: {
@@ -83,8 +83,8 @@ export async function generateMetadata({
         ? '株式会社D.Bright'
         : '株式会社D.Bright | Professional Services',
       description: isJa
-        ? '株式会社D.Bright（ディーブライト）- 千葉県市川市のプロ清掃サービス・人材派遣・ハラール事業支援'
-        : '株式会社D.Bright - Professional cleaning, staffing, and halal business services in Ichikawa, Chiba.',
+        ? '株式会社D.Bright（ディーブライト）- 東京都江戸川区のプロ清掃サービス・人材派遣・ハラール事業支援'
+        : '株式会社D.Bright - Professional cleaning, staffing, and halal business services in Edogawa, Tokyo.',
       images: [`${SITE_URL}/logo.png`],
     },
     robots: {
@@ -107,10 +107,10 @@ export async function generateMetadata({
     },
     other: {
       'format-detection': 'telephone=no',
-      'geo.region': 'JP-12',
-      'geo.placename': 'Ichikawa, Chiba',
-      'geo.position': '35.7219;139.9312',
-      ICBM: '35.7219, 139.9312',
+      'geo.region': 'JP-13',
+      'geo.placename': 'Edogawa, Tokyo',
+      'geo.position': '35.70982;139.841548',
+      ICBM: '35.70982, 139.841548',
     },
   };
 }
@@ -157,7 +157,7 @@ export default async function LocaleLayout({
       streetAddress: content.location.address.streetAddress,
       addressLocality: content.location.address.locality,
       addressRegion: content.location.address.region,
-      postalCode: '272-0035',
+      postalCode: content.location.address.postalCode.replace('〒', ''),
       addressCountry: 'JP',
     },
     telephone: content.location.phone.intl,
@@ -196,7 +196,7 @@ export default async function LocaleLayout({
       streetAddress: content.location.address.streetAddress,
       addressLocality: content.location.address.locality,
       addressRegion: content.location.address.region,
-      postalCode: '272-0035',
+      postalCode: content.location.address.postalCode.replace('〒', ''),
       addressCountry: 'JP',
     },
     geo: {
