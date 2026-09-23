@@ -274,7 +274,7 @@ vercel
 ### Images not displaying
 - Ensure images are in `public/` folder
 - Use proper paths: `/image.jpg` (not `./image.jpg`)
-- Check that required images exist: `heroine.png`, `logo.png`, `akaru_logo.png`, service images
+- Check that required images exist: `heroine.png`, `logo.jpeg`, `akaru_logo.png`, service images
 
 ### Carousel not working
 - Ensure embla-carousel dependencies are installed
@@ -304,4 +304,3 @@ For support or questions, contact our development team.
 **Built with ❤️ for Dbright Services**
 
 # DBright-Services
-

@@ -61,7 +61,7 @@ export function Navbar() {
                         {/* Logo */}
                         <Link href={homePath} aria-label="D.BRIGHT Home" className="flex items-center shrink-0">
                             <Image
-                                src="/logo.png"
+                                src="/logo.jpeg"
                                 alt="D.BRIGHT Logo"
                                 width={130}
                                 height={40}
@@ -173,7 +173,7 @@ export function Navbar() {
                             className="fixed right-0 top-0 bottom-0 w-full max-w-xs bg-white shadow-2xl z-50 md:hidden flex flex-col"
                         >
                             <div className="flex items-center justify-between h-16 px-5 border-b border-gray-100">
-                                <Image src="/logo.png" alt="Logo" width={100} height={28} />
+                                <Image src="/logo.jpeg" alt="Logo" width={100} height={28} />
                                 <button
                                     onClick={() => setMobileMenuOpen(false)}
                                     className="p-2 rounded-lg hover:bg-gray-100"

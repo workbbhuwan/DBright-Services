@@ -35,7 +35,7 @@ export async function generateMetadata({
         ? '株式会社D.Brightへのお問い合わせはこちら。'
         : 'Get in touch with 株式会社D.Bright.',
       url: isJa ? `${SITE_URL}/contact` : `${SITE_URL}/en/contact`,
-      images: [{ url: `${SITE_URL}/logo.png`, alt: 'D.Bright Contact' }],
+      images: [{ url: `${SITE_URL}/logo.jpeg`, alt: 'D.Bright Contact' }],
     },
   };
 }

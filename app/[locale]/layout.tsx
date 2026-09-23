@@ -70,7 +70,7 @@ export async function generateMetadata({
       description,
       images: [
         {
-          url: `${SITE_URL}/logo.png`,
+          url: `${SITE_URL}/logo.jpeg`,
           width: 1200,
           height: 630,
           alt: '株式会社D.Bright ロゴ',
@@ -85,7 +85,7 @@ export async function generateMetadata({
       description: isJa
         ? '株式会社D.Bright（ディーブライト）- 東京都江戸川区のプロ清掃サービス・人材派遣・ハラール事業支援'
         : '株式会社D.Bright - Professional cleaning, staffing, and halal business services in Edogawa, Tokyo.',
-      images: [`${SITE_URL}/logo.png`],
+      images: [`${SITE_URL}/logo.jpeg`],
     },
     robots: {
       index: true,
@@ -102,8 +102,8 @@ export async function generateMetadata({
       google: '6ThUQMa9oJIQdwucJPejDBreBzABpvHtEMZ0m9j19mk',
     },
     icons: {
-      icon: '/logo.png',
-      apple: '/logo.png',
+      icon: '/logo.jpeg',
+      apple: '/logo.jpeg',
     },
     other: {
       'format-detection': 'telephone=no',
@@ -142,8 +142,8 @@ export default async function LocaleLayout({
       'DBright', 'D Bright',
     ],
     url: SITE_URL,
-    logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.png`, width: 512, height: 512 },
-    image: `${SITE_URL}/logo.png`,
+    logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.jpeg`, width: 512, height: 512 },
+    image: `${SITE_URL}/logo.jpeg`,
     description: content.common.footer.brand,
     foundingDate: '2020',
     founder: {
@@ -189,8 +189,8 @@ export default async function LocaleLayout({
     url: isJa ? SITE_URL : `${SITE_URL}/en`,
     telephone: content.location.phone.intl,
     email: content.location.email.value,
-    image: `${SITE_URL}/logo.png`,
-    logo: `${SITE_URL}/logo.png`,
+    image: `${SITE_URL}/logo.jpeg`,
+    logo: `${SITE_URL}/logo.jpeg`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: content.location.address.streetAddress,

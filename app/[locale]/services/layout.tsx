@@ -36,7 +36,7 @@ export async function generateMetadata({
         ? '株式会社D.Brightのプロ清掃サービス、人材派遣、ハラール事業支援のサービス一覧。'
         : 'Professional cleaning, staffing, and halal business services.',
       url: isJa ? `${SITE_URL}/services` : `${SITE_URL}/en/services`,
-      images: [{ url: `${SITE_URL}/logo.png`, alt: 'D.Bright Services' }],
+      images: [{ url: `${SITE_URL}/logo.jpeg`, alt: 'D.Bright Services' }],
     },
   };
 }

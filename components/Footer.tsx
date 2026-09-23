@@ -31,7 +31,7 @@ export function Footer() {
                     {/* Brand Column */}
                     <div className="sm:col-span-2 lg:col-span-1">
                         <Image
-                            src="/logo.png"
+                            src="/logo.jpeg"
                             alt="D.BRIGHT Logo"
                             width={140}
                             height={40}

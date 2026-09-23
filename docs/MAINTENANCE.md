@@ -92,11 +92,11 @@ theme: {
 
 ### Add Your Logo
 
-1. Place logo in `public/logo.png`
+1. Place logo in `public/logo.jpeg`
 2. Update `components/Navbar.tsx`:
 ```tsx
 <Link href="/" className="flex items-center gap-2">
-  <Image src="/logo.png" alt="Logo" width={40} height={40} />
+  <Image src="/logo.jpeg" alt="Logo" width={40} height={40} />
   <span className="text-xl font-bold">Dbright Services</span>
 </Link>
 ```

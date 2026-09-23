@@ -35,7 +35,7 @@ export async function generateMetadata({
         ? '株式会社D.Brightの会社概要・事業内容・企業情報。'
         : 'About 株式会社D.Bright - Company overview, services, and business information.',
       url: isJa ? `${SITE_URL}/company-profile` : `${SITE_URL}/en/company-profile`,
-      images: [{ url: `${SITE_URL}/logo.png`, alt: 'D.Bright Company Profile' }],
+      images: [{ url: `${SITE_URL}/logo.jpeg`, alt: 'D.Bright Company Profile' }],
     },
   };
 }
