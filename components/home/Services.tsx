@@ -52,10 +52,10 @@ export default function Services() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="text-2xl sm:text-3xl font-bold text-white text-center mb-12 sm:mb-16"
+                    className="text-3xl sm:text-4xl font-bold text-white text-center mb-12 sm:mb-16"
                     style={{ fontFamily: "'Georgia', 'Times New Roman', serif" }}
                 >
-                    {language === 'ja' ? '提供サービス' : 'Our Services'}
+                    {language === 'ja' ? '提供サービス' : 'OUR SERVICES'}
                 </motion.h2>
 
                 {/* Services List */}

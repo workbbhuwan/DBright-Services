@@ -21,7 +21,7 @@ export default function FAQ() {
         ? 'よくあるご質問'
         : 'Quick Answers to\nCommon Questions';
 
-    const badgeText = language === 'ja' ? 'よくある質問' : 'FAQ Question';
+    const badgeText = language === 'ja' ? 'よくある質問' : 'FAQ QUESTION';
     const ctaText = language === 'ja' ? 'サービスを見る' : 'Get A Service';
 
     const faqs: FaqItem[] = language === 'ja'
@@ -51,10 +51,9 @@ export default function FAQ() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="flex items-center justify-between mb-10 sm:mb-14"
+                    className="flex flex-wrap items-center justify-between gap-4 mb-10 sm:mb-14"
                 >
-                    <div className="section-badge">
-                        <span className="dot" />
+                    <div className="text-3xl sm:text-4xl font-bold text-[#135b3e]">
                         {badgeText}
                     </div>
                     <Link href="/services" className="btn-primary text-sm">

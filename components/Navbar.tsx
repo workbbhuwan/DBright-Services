@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/lib/translations/LanguageContext';
 import { useLocalePath, useLocale } from '@/lib/navigation';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { Menu, X, ChevronsRight, Sparkles } from 'lucide-react';
+import { Menu, X, ChevronsRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -72,11 +72,8 @@ export function Navbar() {
 
                         {/* Desktop Nav - pill container */}
                         <div className="hidden md:flex items-center gap-0 border border-gray-200 rounded-full px-2 py-1.5 bg-white shadow-sm">
-                            {navItems.map((item, index) => (
+                            {navItems.map((item) => (
                                 <div key={item.href} className="flex items-center">
-                                    {index > 0 && (
-                                        <Sparkles className="w-3 h-3 text-gray-300 mx-1 shrink-0" />
-                                    )}
                                     <Link
                                         href={item.href}
                                         className={cn(

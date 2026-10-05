@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useEffect, useState } from 'react';
-import { Sparkles, ChevronsRight } from 'lucide-react';
+import { ChevronsRight } from 'lucide-react';
 
 function AnimatedCounter({ target, suffix = '' }: { target: number; suffix?: string }) {
     const ref = useRef<HTMLSpanElement>(null);
@@ -51,9 +51,8 @@ export default function Intro() {
                     transition={{ duration: 0.5 }}
                     className="flex items-center justify-between mb-6"
                 >
-                    <div className="section-badge">
-                        <Sparkles className="w-3.5 h-3.5 text-[#135b3e]" />
-                        {language === 'ja' ? '私たちについて' : 'About Us'}
+                    <div className="text-3xl sm:text-4xl font-bold text-[#135b3e]">
+                        {language === 'ja' ? '私たちについて' : 'ABOUT US'}
                     </div>
                     <div className="rounded-full border-2 border-[#b8e6d0] p-0.5">
                         <Link

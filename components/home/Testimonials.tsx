@@ -2,7 +2,7 @@
 
 import { useLanguage } from '@/lib/translations/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronsLeft, ChevronsRight, Star, Sparkles } from 'lucide-react';
+import { ChevronsLeft, ChevronsRight, Star } from 'lucide-react';
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -82,11 +82,10 @@ export default function Testimonials() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="flex items-center justify-between mb-6"
+                    className="flex flex-wrap items-center justify-between gap-4 mb-6"
                 >
-                    <div className="section-badge">
-                        <Sparkles className="w-3.5 h-3.5 text-[#135b3e]" />
-                        {language === 'ja' ? 'お客様の声' : 'Our Testimonial'}
+                    <div className="text-3xl sm:text-4xl font-bold text-[#135b3e]">
+                        {language === 'ja' ? 'お客様の声' : 'OUR TESTIMONIALS'}
                     </div>
                     <div className="rounded-full border-2 border-[#b8e6d0] p-0.5">
                         <Link

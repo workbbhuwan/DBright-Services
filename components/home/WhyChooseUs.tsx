@@ -37,7 +37,7 @@ export default function WhyChooseUs() {
         ? '株式会社D.Brightが\n選ばれる理由'
         : 'Why Customers Trust\n株式会社D.Bright';
 
-    const badgeText = language === 'ja' ? '選ばれる理由' : 'Why Choose Us';
+    const badgeText = language === 'ja' ? '選ばれる理由' : 'WHY CHOOSE US';
     const ctaText = language === 'ja' ? 'サービスを見る' : 'Get A Service';
 
     const reasons: Reason[] = language === 'ja'
@@ -95,10 +95,9 @@ export default function WhyChooseUs() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="flex items-center justify-between mb-10 sm:mb-14"
+                    className="flex flex-wrap items-center justify-between gap-4 mb-10 sm:mb-14"
                 >
-                    <div className="section-badge">
-                        <span className="dot" />
+                    <div className="text-3xl sm:text-4xl font-bold text-[#135b3e]">
                         {badgeText}
                     </div>
                     <Link href="/services" className="btn-primary text-sm">
